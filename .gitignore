@@ -23,7 +23,7 @@ env/
 .env
 .venv/
 
-# Environment files (NEVER commit secrets)
+# Environment files (NEVER commit real secrets)
 .env
 .env.local
 .env.development.local
@@ -32,6 +32,11 @@ env/
 backend/.env
 frontend/.env
 frontend/.env.local
+frontend/.env.production
+# Allow example templates (no real secrets)
+!.env.example
+!frontend/.env.example
+!backend/.env.example
 
 # Logs
 *.log
