@@ -48,9 +48,9 @@ class UnifiedAIProvider:
 
         # Direct integration with Google Gemini API
         # Map requested model to Gemini model
-        gemini_model = "gemini-2.5-flash"
+        gemini_model = "gemini-1.5-flash"
         if "pro" in model.lower():
-            gemini_model = "gemini-2.5-pro"
+            gemini_model = "gemini-1.5-pro"
 
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{gemini_model}:streamGenerateContent?alt=sse&key={settings.GEMINI_API_KEY}"
         

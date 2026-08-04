@@ -38,6 +38,7 @@ import { ChatMessage } from '@/lib/types';
 import { getMockPageHtml } from '@/lib/templates';
 import { ChatInput } from './ChatInput';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 const ReactMarkdown = dynamic(() => import('react-markdown'), { ssr: false });
@@ -713,13 +714,15 @@ function MessageBubble({
   }
 
   /* ── ASSISTANT message ── */
+  const isError = message.content.startsWith('Error communicating with') || message.content.startsWith('Exception during') || message.content.startsWith('Error: Gemini API');
+
   return (
     <div className="w-full">
       {/* Header row */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-[22px] h-[22px] rounded-md bg-[#16a34a]/20 flex items-center justify-center">
-            <Sparkles className="w-3 h-3 text-emerald-400 fill-emerald-400" />
+          <div className="w-[22px] h-[22px] rounded-md overflow-hidden bg-primary flex items-center justify-center shadow-soft">
+            <Image src="/logo.png" alt="AuromindAI" width={22} height={22} unoptimized className="rounded-md" />
           </div>
           <span className="text-[13px] font-bold text-white tracking-tight">auromind</span>
           <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-zinc-800 text-zinc-400 leading-none">
@@ -731,13 +734,24 @@ function MessageBubble({
 
       {/* Content — rendered directly on the dark background */}
       <div className="pl-[30px] space-y-4">
-        <div className="text-[14px] text-zinc-300 leading-relaxed">
-          <ReactMarkdown
-            components={{
-              h1: ({ children }) => <h1 className="text-xl font-bold text-white mt-6 mb-3 leading-tight">{children}</h1>,
-              h2: ({ children }) => <h2 className="text-[17px] font-bold text-white mt-6 mb-2.5 leading-tight">{children}</h2>,
-              h3: ({ children }) => <h3 className="text-[15px] font-bold text-white mt-5 mb-2 leading-tight">{children}</h3>,
-              p: ({ children }) => <p className="text-[14px] text-zinc-300 leading-relaxed mb-4">{children}</p>,
+        {isError ? (
+          <div className="p-4 rounded-2xl bg-rose-500/5 border border-rose-500/20 max-w-xl text-left space-y-2">
+            <div className="flex items-center gap-2 text-xs font-bold text-rose-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+              SYSTEM EXCEPTION
+            </div>
+            <p className="text-xs text-rose-350 text-rose-300/80 leading-relaxed font-mono">
+              {message.content}
+            </p>
+          </div>
+        ) : (
+          <div className="text-[14px] text-zinc-300 leading-relaxed">
+            <ReactMarkdown
+              components={{
+                h1: ({ children }) => <h1 className="text-xl font-bold text-white mt-6 mb-3 leading-tight">{children}</h1>,
+                h2: ({ children }) => <h2 className="text-[17px] font-bold text-white mt-6 mb-2.5 leading-tight">{children}</h2>,
+                h3: ({ children }) => <h3 className="text-[15px] font-bold text-white mt-5 mb-2 leading-tight">{children}</h3>,
+                p: ({ children }) => <p className="text-[14px] text-zinc-300 leading-relaxed mb-4">{children}</p>,
               ul: ({ children }) => <ul className="list-disc pl-5 mb-4 space-y-2 text-[14px] text-zinc-300">{children}</ul>,
               ol: ({ children }) => <ol className="list-decimal pl-5 mb-4 space-y-2 text-[14px] text-zinc-300">{children}</ol>,
               li: ({ children }) => <li className="leading-relaxed mb-1">{children}</li>,
@@ -779,6 +793,7 @@ function MessageBubble({
             {message.content}
           </ReactMarkdown>
         </div>
+        )}
 
         {/* Dynamic Website Build Artifact Widget */}
         {(message.content.toLowerCase().includes('website') || 
