@@ -10,6 +10,7 @@ interface ChatStore {
   activeChatId: string | null;
   searchQuery: string;
   isStreaming: boolean;
+  sidebarOpen: boolean;
   
   setSelectedModel: (model: AIModel) => void;
   setSelectedMode: (mode: AIMode) => void;
@@ -21,6 +22,8 @@ interface ChatStore {
   sendMessage: (content: string, attachments?: string[]) => Promise<void>;
   togglePinChat: (id: string) => void;
   deleteChat: (id: string) => void;
+  setSidebarOpen: (open: boolean) => void;
+  toggleSidebar: () => void;
 }
 
 const mockInitialConversations: Conversation[] = [
@@ -70,6 +73,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   activeChatId: null,
   searchQuery: '',
   isStreaming: false,
+  sidebarOpen: false,
 
   setSelectedModel: (model) => set({ selectedModel: model }),
   setSelectedMode: (mode) => set({ selectedMode: mode }),
@@ -77,6 +81,8 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   toggleDeepThink: () => set((state) => ({ deepThinkEnabled: !state.deepThinkEnabled })),
   setSearchQuery: (query) => set({ searchQuery: query }),
   setActiveChatId: (id) => set({ activeChatId: id }),
+  setSidebarOpen: (open) => set({ sidebarOpen: open }),
+  toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
 
   createNewChat: () => {
     const newId = `chat-${Date.now()}`;
