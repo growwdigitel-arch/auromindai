@@ -99,7 +99,7 @@ export function LandingHero() {
             <div className="rounded-3xl bg-white border border-border/80 shadow-floating p-4 text-left space-y-3 focus-within:border-emerald-300 focus-within:shadow-[0_0_20px_rgba(16,185,129,0.12)] transition-all duration-300">
               <div className="flex items-center gap-2 px-2 pb-1 border-b border-border/40">
                 <div className="w-5 h-5 rounded-md bg-primary flex items-center justify-center">
-                  <Image src="/logo.png" alt="Logo" width={16} height={16} className="rounded-sm" />
+                  <Image src="/logo.png" alt="Logo" width={16} height={16} unoptimized className="rounded-sm" />
                 </div>
                 <span className="text-xs font-semibold text-muted-foreground">AuromindAI</span>
                 <span className="ml-auto text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">● LIVE</span>
@@ -137,7 +137,7 @@ export function LandingHero() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center overflow-hidden">
-                  <Image src="/logo.png" alt="Agent" width={28} height={28} className="rounded-lg" />
+                  <Image src="/logo.png" alt="Agent" width={28} height={28} unoptimized className="rounded-lg" />
                 </div>
                 <div>
                   <div className="text-sm font-bold text-primary">Auromind Sales Agent</div>

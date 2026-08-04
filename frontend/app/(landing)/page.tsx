@@ -14,7 +14,7 @@ export default function LandingPage() {
       {/* Landing Navbar */}
       <header className="sticky top-0 z-40 h-16 w-full glass-nav flex items-center justify-between px-8">
         <Link href="/" className="flex items-center gap-2.5 font-black text-xl text-primary">
-          <Image src="/logo.png" alt="AuromindAI" width={32} height={32} className="rounded-xl shadow-soft" />
+          <Image src="/logo.png" alt="AuromindAI" width={32} height={32} unoptimized className="rounded-xl shadow-soft" />
           <span>Auromind<span className="text-secondary">AI</span></span>
         </Link>
 

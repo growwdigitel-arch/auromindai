@@ -37,7 +37,7 @@ export function LandingFooter() {
           {/* Brand col */}
           <div className="col-span-2 md:col-span-1 space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
-              <Image src="/logo.png" alt="AuromindAI Logo" width={32} height={32} className="rounded-xl" />
+              <Image src="/logo.png" alt="AuromindAI Logo" width={32} height={32} unoptimized className="rounded-xl" />
               <span className="text-base font-black text-primary">Auromind<span className="text-secondary">AI</span></span>
             </Link>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
