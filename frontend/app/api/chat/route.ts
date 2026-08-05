@@ -35,9 +35,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Direct Google Gemini API Streaming Integration
-    let geminiModel = 'gemini-1.5-flash';
+    let geminiModel = 'gemini-2.0-flash';
     if (model && model.toLowerCase().includes('pro')) {
-      geminiModel = 'gemini-1.5-pro';
+      geminiModel = 'gemini-2.0-flash';
     }
 
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:streamGenerateContent?alt=sse&key=${apiKey}`;
