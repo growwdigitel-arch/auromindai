@@ -45,7 +45,7 @@ const ReactMarkdown = dynamic(() => import('react-markdown'), { ssr: false });
 
 
 export function ChatContainer() {
-  const { conversations, activeChatId, setActiveChatId, isStreaming, sendMessage } = useChatStore();
+  const { conversations, activeChatId, setActiveChatId, isStreaming, sendMessage, createNewChat } = useChatStore();
   const currentChat = conversations.find((c) => c.id === activeChatId);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +67,10 @@ export function ChatContainer() {
       const pending = localStorage.getItem('pending_prompt');
       if (pending) {
         localStorage.removeItem('pending_prompt');
+        // Create chat first so activeChatId is set before sendMessage renders
+        const newId = createNewChat();
         sendMessage(pending);
+        router.replace(`/dashboard?id=${newId}`);
       }
     }
   }, []);
@@ -155,7 +158,7 @@ export function ChatContainer() {
         {/* Messages Scroll Area */}
         <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col">
           {activeChatId === null ? (
-            <DatabaseConnectDashboard />
+            <EnterpriseEmptyState />
           ) : messages.length === 0 ? (
             <EnterpriseEmptyState />
           ) : (
@@ -181,7 +184,7 @@ export function ChatContainer() {
           )}
         </div>
 
-        {activeChatId !== null && messages.length > 0 && <ChatInput />}
+        {activeChatId !== null && <ChatInput />}
       </div>
 
       {/* Right Preview Panel (Manus Artifacts style) */}
