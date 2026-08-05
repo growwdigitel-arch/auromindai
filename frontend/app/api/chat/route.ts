@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
+// Try models in order until one works
+const GEMINI_MODELS = [
+  'gemini-2.0-flash',
+  'gemini-1.5-flash',
+  'gemini-1.5-flash-latest',
+  'gemini-1.5-pro',
+  'gemini-pro',
+];
+
 export async function POST(req: NextRequest) {
   try {
     const { content, model, mode } = await req.json();
@@ -9,21 +18,20 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
     if (!apiKey || apiKey === 'your_gemini_api_key_here') {
-      return streamText(`I'm **AuroVex**, your AI assistant by AuromindAI.\n\nI received: *"${content}"*\n\nTo enable real AI responses, please set your **GEMINI_API_KEY** in Vercel Environment Variables.`);
+      return streamText(`I'm **AuroVex**, your AI assistant by AuromindAI.\n\nYou asked: *"${content}"*\n\nTo enable real AI responses, set your **GEMINI_API_KEY** in Vercel Environment Variables.`);
     }
 
-    // Use generateContent (REST) — simple, reliable, no SSE parsing needed
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const systemPrompt = `You are AuroVex, an expert AI assistant built by AuromindAI. Mode: ${mode || 'General AI'}. Be professional, helpful, concise. Format with clean Markdown.`;
 
-    const systemPrompt = `You are AuroVex, an expert AI assistant built by AuromindAI. You are in ${mode || 'General AI'} mode. Be professional, helpful, and concise. Format responses with clean Markdown.`;
-
-    const body = {
-      system_instruction: {
-        parts: [{ text: systemPrompt }],
-      },
+    // Build a simple request body — embed system prompt in user message for compatibility
+    const requestBody = {
       contents: [
         {
-          parts: [{ text: content }],
+          parts: [
+            {
+              text: `${systemPrompt}\n\nUser request: ${content}`,
+            },
+          ],
         },
       ],
       generationConfig: {
@@ -32,40 +40,61 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    const geminiRes = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
+    // Try each model until one succeeds
+    let responseText: string | null = null;
+    let lastError = '';
 
-    if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
-      console.error('Gemini error:', geminiRes.status, errText);
-      return streamText(`Sorry, I encountered an error (${geminiRes.status}). Please try again.`);
+    for (const geminiModel of GEMINI_MODELS) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${apiKey}`;
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          responseText =
+            data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
+          if (responseText) break; // success — stop trying
+        } else {
+          const errText = await res.text();
+          lastError = `${geminiModel}: ${res.status} ${errText}`;
+          console.error('Gemini model attempt failed:', lastError);
+        }
+      } catch (e: any) {
+        lastError = `${geminiModel}: ${e.message}`;
+        console.error('Gemini fetch error:', lastError);
+      }
     }
 
-    const data = await geminiRes.json();
-    const responseText =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      'Sorry, I could not generate a response. Please try again.';
+    if (!responseText) {
+      console.error('All Gemini models failed. Last error:', lastError);
+      return streamText(
+        `I'm having trouble connecting to the AI engine right now. Please try again in a moment.\n\n*Error: ${lastError}*`
+      );
+    }
 
-    // Stream the response word-by-word for a live typing effect
     return streamText(responseText);
   } catch (error: any) {
-    console.error('Chat route error:', error);
-    return streamText(`An error occurred: ${error?.message || 'Unknown error'}. Please try again.`);
+    console.error('Chat route exception:', error);
+    return streamText(`An unexpected error occurred: ${error?.message || 'Unknown error'}. Please try again.`);
   }
 }
 
-// Helper: stream text word-by-word as SSE
+// Stream text word-by-word as SSE for live typing effect
 function streamText(text: string) {
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
-      const words = text.split(/(\s+)/); // split preserving whitespace
-      for (const word of words) {
-        controller.enqueue(encoder.encode(`data: ${word}\n\n`));
-        await new Promise((r) => setTimeout(r, 18));
+      const tokens = text.split(/(\s+)/);
+      for (const token of tokens) {
+        if (token) {
+          controller.enqueue(encoder.encode(`data: ${token}\n\n`));
+          await new Promise((r) => setTimeout(r, 15));
+        }
       }
       controller.close();
     },
