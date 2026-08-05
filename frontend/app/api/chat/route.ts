@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
-// Try models in order until one works
+// Models available on this API key (from Google AI Studio Rate Limits)
 const GEMINI_MODELS = [
+  'gemini-2.5-flash',
+  'gemini-2.5-flash-preview-05-20',
   'gemini-2.0-flash',
+  'gemini-2.0-flash-lite',
+  'gemini-2.0-flash-001',
   'gemini-1.5-flash',
-  'gemini-1.5-flash-latest',
-  'gemini-1.5-pro',
-  'gemini-pro',
 ];
 
 export async function POST(req: NextRequest) {
@@ -40,33 +41,38 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    // Try each model until one succeeds
+    // Try each model + both API versions until one succeeds
     let responseText: string | null = null;
     let lastError = '';
 
+    const apiVersions = ['v1beta', 'v1'];
+
+    outer:
     for (const geminiModel of GEMINI_MODELS) {
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${apiKey}`;
+      for (const apiVersion of apiVersions) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/${apiVersion}/models/${geminiModel}:generateContent?key=${apiKey}`;
 
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody),
-        });
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody),
+          });
 
-        if (res.ok) {
-          const data = await res.json();
-          responseText =
-            data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
-          if (responseText) break; // success — stop trying
-        } else {
-          const errText = await res.text();
-          lastError = `${geminiModel}: ${res.status} ${errText}`;
-          console.error('Gemini model attempt failed:', lastError);
+          if (res.ok) {
+            const data = await res.json();
+            responseText =
+              data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
+            if (responseText) break outer; // success — stop all loops
+          } else {
+            const errText = await res.text();
+            lastError = `${geminiModel}(${apiVersion}): ${res.status}`;
+            console.error('Gemini attempt failed:', lastError, errText.slice(0, 200));
+          }
+        } catch (e: any) {
+          lastError = `${geminiModel}(${apiVersion}): ${e.message}`;
+          console.error('Gemini fetch error:', lastError);
         }
-      } catch (e: any) {
-        lastError = `${geminiModel}: ${e.message}`;
-        console.error('Gemini fetch error:', lastError);
       }
     }
 
