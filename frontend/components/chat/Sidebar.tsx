@@ -31,7 +31,7 @@ export function Sidebar() {
     router.push('/login');
   };
 
-  const [projects, setProjects] = useState<string[]>(['Internal Analytics', 'Sales Bot V2']);
+  const [projects, setProjects] = useState<string[]>([]);
 
   const mainNav = [
     { label: 'Agent', icon: Bot, href: '/agents' },
@@ -139,25 +139,34 @@ export function Sidebar() {
             <Filter className="w-3 h-3 text-zinc-500 cursor-pointer hover:text-zinc-300" />
           </div>
 
-          {conversations.map((chat) => (
-            <div
-              key={chat.id}
-              onClick={() => {
-                setActiveChatId(chat.id);
-                router.push(`/dashboard?id=${chat.id}`);
-              }}
-              className={`group flex items-center justify-between px-3 py-2 rounded-xl text-xs cursor-pointer transition-all ${
-                activeChatId === chat.id
-                  ? 'bg-zinc-800/80 text-white font-medium'
-                  : 'text-zinc-400 hover:bg-zinc-800/40 hover:text-zinc-200'
-              }`}
-            >
-              <div className="flex items-center gap-2.5 truncate">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                <span className="truncate">{chat.title}</span>
-              </div>
+          {conversations.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-8 px-3 text-center gap-2">
+              <MessageSquare className="w-5 h-5 text-zinc-700" />
+              <p className="text-[11px] text-zinc-600 leading-relaxed">
+                No chats yet.<br />Click <span className="text-zinc-400 font-semibold">New task</span> to start.
+              </p>
             </div>
-          ))}
+          ) : (
+            conversations.map((chat) => (
+              <div
+                key={chat.id}
+                onClick={() => {
+                  setActiveChatId(chat.id);
+                  router.push(`/dashboard?id=${chat.id}`);
+                }}
+                className={`group flex items-center justify-between px-3 py-2 rounded-xl text-xs cursor-pointer transition-all ${
+                  activeChatId === chat.id
+                    ? 'bg-zinc-800/80 text-white font-medium'
+                    : 'text-zinc-400 hover:bg-zinc-800/40 hover:text-zinc-200'
+                }`}
+              >
+                <div className="flex items-center gap-2.5 truncate">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                  <span className="truncate">{chat.title}</span>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 

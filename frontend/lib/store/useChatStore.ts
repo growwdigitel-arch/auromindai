@@ -26,50 +26,14 @@ interface ChatStore {
   toggleSidebar: () => void;
 }
 
-const mockInitialConversations: Conversation[] = [
-  {
-    id: 'chat-1',
-    title: 'Q3 Sales Strategy & Automated Outreach',
-    pinned: true,
-    model: 'AuroVex 1.5',
-    createdAt: 'Today',
-    updatedAt: '10:42 AM',
-    messages: [
-      {
-        id: 'm1',
-        role: 'user',
-        content: 'Draft an automated sales outreach funnel for enterprise clients targeting lead generation.',
-        timestamp: '10:40 AM',
-      },
-      {
-        id: 'm2',
-        role: 'assistant',
-        content: `Here is a high-converting 4-step B2B Enterprise Outreach Sequence built with AuromindAI Sales Agent:\n\n### Step 1: Initial Value Signal\n**Subject**: Scaling lead conversion for {Company_Name}\n**Body**: Hi {First_Name},\nWe observed your recent expansion into high-growth sales pipelines. AuromindAI Sales Agents automate initial contact qualification 24/7 with zero latency.\n\n### Step 2: Interactive Demo Invitation\n**Subject**: Quick demo on automated sales agents?\n**Body**: Would you be open to a 5-minute interactive walkthrough showing how our agents deliver a 3.4x ROI?\n\n\`\`\`json\n{\n  "agent": "Auromind Sales Bot",\n  "status": "ready",\n  "channels": ["Email", "LinkedIn", "WebChat"]\n}\n\`\`\``,
-        timestamp: '10:41 AM',
-        model: 'AuroVex 1.5',
-        mode: 'Sales AI',
-        reasoning: 'Analyzed enterprise sales benchmarks and multi-channel email templates.',
-        toolsUsed: ['Web Search', 'Sales Benchmark Engine'],
-      },
-    ],
-  },
-  {
-    id: 'chat-2',
-    title: 'Customer Support SLA Automation',
-    pinned: false,
-    model: 'AuroVex 1',
-    createdAt: 'Yesterday',
-    updatedAt: '3:15 PM',
-    messages: [],
-  },
-];
+// No demo data — start fresh every session
 
 export const useChatStore = create<ChatStore>((set, get) => ({
   selectedModel: 'AuroVex 1 Fast',
   selectedMode: 'General AI',
   webSearchEnabled: true,
   deepThinkEnabled: false,
-  conversations: mockInitialConversations,
+  conversations: [],
   activeChatId: null,
   searchQuery: '',
   isStreaming: false,
