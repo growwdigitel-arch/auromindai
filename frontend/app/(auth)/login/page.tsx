@@ -5,24 +5,49 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter as useAppRouter } from 'next/navigation';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { useGoogleLogin } from '@react-oauth/google';
+
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
 export default function LoginPage() {
   const router = useAppRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('pending_prompt');
       if (stored) {
-        // Keep pending prompt ready for dashboard
+        // Pending prompt ready for dashboard
       }
     }
   }, []);
 
+  const handleGoogleAuth = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      setIsLoading(true);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('google_token', tokenResponse.access_token);
+      }
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 300);
+    },
+    onError: () => {
+      // Fallback redirect if popup is blocked
+      const redirectUri = typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : 'http://localhost:3000/dashboard';
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=openid%20email%20profile`;
+      window.location.href = authUrl;
+    }
+  });
+
   const handleAuth = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    router.push('/dashboard');
+    setIsLoading(true);
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 300);
   };
 
   return (
@@ -51,15 +76,16 @@ export default function LoginPage() {
           <p className="text-xs text-zinc-400">Start creating with AuromindAI</p>
         </div>
 
-        {/* Google Authentication Only */}
+        {/* Google Authentication */}
         <div className="pt-2">
           <button
             type="button"
-            onClick={() => handleAuth()}
-            className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-800/80 hover:bg-zinc-800 text-xs font-semibold text-zinc-200 transition-all group"
+            onClick={() => handleGoogleAuth()}
+            disabled={isLoading}
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-800/80 hover:bg-zinc-800 text-xs font-semibold text-zinc-200 transition-all group cursor-pointer active:scale-98"
           >
             <div className="flex items-center gap-3">
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z" />
                 <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.11 0-5.74-2.1-6.68-4.93H1.26v3.15C3.24 21.3 7.31 24 12 24z" />
                 <path fill="#FBBC05" d="M5.32 14.27c-.24-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.26C.46 8.17 0 9.98 0 12s.46 3.83 1.26 5.42l4.06-3.15z" />
@@ -68,7 +94,7 @@ export default function LoginPage() {
               <span>Continue with Google</span>
             </div>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-800/50 text-emerald-400 font-medium">
-              Last used
+              OAuth 2.0
             </span>
           </button>
         </div>
@@ -107,7 +133,8 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-zinc-100 hover:bg-white text-black text-xs font-semibold shadow-soft transition-all"
+            disabled={isLoading}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-zinc-100 hover:bg-white text-black text-xs font-semibold shadow-soft transition-all cursor-pointer"
           >
             <span>Continue</span>
             <ArrowRight className="w-3.5 h-3.5" />

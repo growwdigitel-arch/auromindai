@@ -9,6 +9,10 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "auromindai_super_secret_jwt_key_2026_change_in_production"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
     
+    # Google OAuth Credentials (Loaded from environment / .env)
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+
     POSTGRES_USER: str = "auromind"
     POSTGRES_PASSWORD: str = "auromind_password"
     POSTGRES_SERVER: str = "localhost"
