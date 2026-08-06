@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-
-const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
+import { AuthProvider } from '@/components/providers/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'AuromindAI - AI Employees that work 24/7',
@@ -33,9 +31,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background text-foreground antialiased selection:bg-accent-light selection:text-secondary" suppressHydrationWarning>
-        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+        <AuthProvider>
           {children}
-        </GoogleOAuthProvider>
+        </AuthProvider>
       </body>
     </html>
   );
