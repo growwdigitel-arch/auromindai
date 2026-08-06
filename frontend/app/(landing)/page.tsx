@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { LandingHero } from '@/components/landing/LandingHero';
 import { LandingPlayground } from '@/components/landing/LandingPlayground';
