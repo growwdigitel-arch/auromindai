@@ -7,6 +7,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-sans',
   weight: ['300', '400', '500', '600', '700', '800'],
   display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -14,6 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
   weight: ['400', '500', '600'],
   display: 'swap',
+  fallback: ['monospace'],
 });
 
 export const metadata: Metadata = {
@@ -27,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-background text-foreground antialiased selection:bg-accent-light selection:text-secondary">
+    <html lang="en" className={`${plusJakartaSans.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <body className="bg-background text-foreground antialiased selection:bg-accent-light selection:text-secondary" suppressHydrationWarning>
         {children}
       </body>
     </html>
