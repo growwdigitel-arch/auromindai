@@ -16,15 +16,17 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-emerald-100 selection:text-emerald-900 font-sans">
       {/* Landing Header / Navbar */}
-      <header className="sticky top-0 z-50 h-16 w-full glass-nav flex items-center justify-between px-6 md:px-12">
+      <header className="sticky top-0 z-50 h-20 w-full glass-nav flex items-center justify-between px-6 md:px-12">
         <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2.5 font-black text-xl text-primary">
-            <Image src="/logo.png" alt="AuromindAI" width={32} height={32} unoptimized className="rounded-xl shadow-soft" />
-            <span>Auromind<span className="text-emerald-600">AI</span></span>
+          <Link href="/" className="flex items-center gap-3 font-black text-2xl text-primary group">
+            <div className="relative overflow-hidden rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-200">
+              <Image src="/logo.png" alt="AuromindAI" width={44} height={44} unoptimized className="object-contain" />
+            </div>
+            <span className="tracking-tight text-2xl font-black">Auromind<span className="text-[#16A34A]">AI</span></span>
           </Link>
 
-          <span className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold">
-            <Zap className="w-3 h-3 text-emerald-600 fill-emerald-600 animate-pulse" />
+          <span className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-extrabold">
+            <Zap className="w-3.5 h-3.5 text-emerald-600 fill-emerald-600 animate-pulse" />
             AuroVex 1 Fast
           </span>
         </div>
@@ -40,13 +42,13 @@ export default function LandingPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/login"
-            className="px-4 py-2 rounded-xl text-xs font-bold text-primary hover:bg-card transition-colors"
+            className="px-4 py-2.5 rounded-xl text-xs font-bold text-primary hover:bg-card transition-colors"
           >
             Sign In
           </Link>
           <Link
             href="/login"
-            className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold shadow-soft hover:bg-gray-900 transition-all flex items-center gap-1.5"
+            className="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold shadow-soft hover:bg-gray-900 transition-all flex items-center gap-1.5 hover:scale-105"
           >
             <span>Try AuroVex</span>
             <Flame className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400" />

@@ -36,9 +36,9 @@ export function LandingFooter() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand col */}
           <div className="col-span-2 md:col-span-1 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5">
-              <Image src="/logo.png" alt="AuromindAI Logo" width={32} height={32} unoptimized className="rounded-xl" />
-              <span className="text-base font-black text-primary">Auromind<span className="text-secondary">AI</span></span>
+            <Link href="/" className="flex items-center gap-3">
+              <Image src="/logo.png" alt="AuromindAI Logo" width={44} height={44} unoptimized className="rounded-2xl shadow-soft" />
+              <span className="text-lg font-black text-primary">Auromind<span className="text-[#16A34A]">AI</span></span>
             </Link>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px]">
               Autonomous AI agents that work 24/7 for your business.

@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { 
-  Sparkles, 
   SquarePen, 
   Bot, 
   Boxes, 
@@ -14,7 +14,6 @@ import {
   Filter, 
   Search, 
   PanelLeftClose, 
-  ChevronRight, 
   MessageSquare, 
   Bell,
   LogOut
@@ -58,11 +57,9 @@ export function Sidebar() {
       <div className="flex flex-col gap-4 overflow-hidden">
         {/* Brand Header */}
         <div className="flex items-center justify-between px-1">
-          <Link href="/dashboard" className="flex items-center gap-2 text-base font-bold text-white tracking-tight">
-            <div className="w-6 h-6 rounded-lg bg-white text-black flex items-center justify-center font-bold shadow-soft">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600 fill-emerald-600" />
-            </div>
-            <span>auromind</span>
+          <Link href="/dashboard" className="flex items-center gap-2.5 text-base font-bold text-white tracking-tight">
+            <Image src="/logo.png" alt="AuromindAI Logo" width={32} height={32} unoptimized className="rounded-xl shadow-soft" />
+            <span className="text-lg font-black tracking-tight">auromind<span className="text-emerald-500">.ai</span></span>
           </Link>
           <div className="flex items-center gap-1 text-zinc-400">
             <button className="p-1 rounded-lg hover:text-white hover:bg-zinc-800/60 transition-colors">
@@ -78,7 +75,7 @@ export function Sidebar() {
         <div className="px-1">
           <button
             onClick={handleNewTask}
-            className="w-full flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#1C1C1F] border border-zinc-800 text-xs font-semibold text-zinc-100 hover:bg-zinc-850 hover:border-zinc-700 transition-all shadow-sm"
+            className="w-full flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#1C1C1F] border border-zinc-800 text-xs font-semibold text-zinc-100 hover:bg-zinc-850 hover:border-zinc-700 transition-all shadow-sm cursor-pointer"
           >
             <SquarePen className="w-4 h-4 text-emerald-400" />
             <span>New task</span>

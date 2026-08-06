@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, Sparkles, Zap } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ChevronDown, Zap } from 'lucide-react';
 import { useChatStore } from '@/lib/store/useChatStore';
 
 export function Navbar() {
@@ -16,47 +18,56 @@ export function Navbar() {
 
   return (
     <header className="h-14 w-full bg-[#121214] text-white flex items-center justify-between px-6 border-b border-zinc-800/80 font-sans select-none">
-      {/* Left: Model Switcher */}
-      <div className="relative">
-        <button
-          onClick={() => setModelOpen(!modelOpen)}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold text-zinc-200 hover:bg-zinc-800/60 transition-colors"
-        >
-          <span>{selectedModel}</span>
-          <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
-        </button>
- 
-        {modelOpen && (
-          <div className="absolute top-10 left-0 w-64 rounded-xl bg-zinc-900 border border-zinc-800 shadow-floating p-1.5 z-50 animate-in fade-in">
-            {models.map((m) => (
-              <button
-                key={m.name}
-                disabled={m.disabled}
-                onClick={() => {
-                  setSelectedModel(m.name as any);
-                  setModelOpen(false);
-                }}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors ${
-                  m.disabled 
-                    ? 'text-zinc-600 cursor-not-allowed' 
-                    : 'text-zinc-300 hover:bg-zinc-800 hover:text-white'
-                } ${selectedModel === m.name ? 'bg-zinc-800/40 text-emerald-400' : ''}`}
-              >
-                <div className="flex items-center gap-2">
-                  {selectedModel === m.name && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+      {/* Left: Brand Logo & Model Switcher */}
+      <div className="flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-2 text-sm font-bold text-white tracking-tight hover:opacity-90 transition-opacity">
+          <Image src="/logo.png" alt="AuromindAI Logo" width={28} height={28} unoptimized className="rounded-lg shadow-soft" />
+          <span className="font-extrabold text-sm hidden sm:inline">auromind<span className="text-emerald-500">.ai</span></span>
+        </Link>
+
+        <div className="h-4 w-px bg-zinc-800 hidden sm:block" />
+
+        <div className="relative">
+          <button
+            onClick={() => setModelOpen(!modelOpen)}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold text-zinc-200 hover:bg-zinc-800/60 transition-colors"
+          >
+            <span>{selectedModel}</span>
+            <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
+          </button>
+
+          {modelOpen && (
+            <div className="absolute top-10 left-0 w-64 rounded-xl bg-zinc-900 border border-zinc-800 shadow-floating p-1.5 z-50 animate-in fade-in">
+              {models.map((m) => (
+                <button
+                  key={m.name}
+                  disabled={m.disabled}
+                  onClick={() => {
+                    setSelectedModel(m.name as any);
+                    setModelOpen(false);
+                  }}
+                  className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors ${
+                    m.disabled 
+                      ? 'text-zinc-600 cursor-not-allowed' 
+                      : 'text-zinc-300 hover:bg-zinc-800 hover:text-white'
+                  } ${selectedModel === m.name ? 'bg-zinc-800/40 text-emerald-400' : ''}`}
+                >
+                  <div className="flex items-center gap-2">
+                    {selectedModel === m.name && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    )}
+                    <span>{m.name}</span>
+                  </div>
+                  {m.status && (
+                    <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider bg-zinc-800/60 px-2 py-0.5 rounded whitespace-nowrap">
+                      {m.status}
+                    </span>
                   )}
-                  <span>{m.name}</span>
-                </div>
-                {m.status && (
-                  <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider bg-zinc-800/60 px-2 py-0.5 rounded whitespace-nowrap">
-                    {m.status}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
-        )}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Right: Credits Counter & Upgrade Plan Pill */}

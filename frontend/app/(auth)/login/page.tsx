@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter as useAppRouter } from 'next/navigation';
-import { Sparkles, Mail, Lock, ArrowRight } from 'lucide-react';
+import { Mail, Lock, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useAppRouter();
@@ -31,19 +32,17 @@ export default function LoginPage() {
 
       {/* Top Bar: Brand Logo */}
       <header className="relative z-10 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight text-white hover:opacity-90 transition-opacity">
-          <div className="w-7 h-7 rounded-xl bg-white text-black flex items-center justify-center font-bold shadow-glow">
-            <Sparkles className="w-4 h-4 text-emerald-600 fill-emerald-600" />
-          </div>
-          <span>auromind<span className="text-emerald-500">.ai</span></span>
+        <Link href="/" className="flex items-center gap-3 text-lg font-bold tracking-tight text-white hover:opacity-90 transition-opacity">
+          <Image src="/logo.png" alt="AuromindAI Logo" width={36} height={36} unoptimized className="rounded-xl shadow-glow" />
+          <span className="text-xl font-black">auromind<span className="text-emerald-500">.ai</span></span>
         </Link>
       </header>
 
       {/* Center Auth Card */}
       <main className="relative z-10 w-full max-w-sm mx-auto my-auto space-y-6 text-center">
         {/* Top Icon Badge */}
-        <div className="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto shadow-glow">
-          <Sparkles className="w-6 h-6 text-emerald-400 fill-emerald-400/30 animate-pulse" />
+        <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto shadow-glow overflow-hidden p-2">
+          <Image src="/logo.png" alt="AuromindAI Logo" width={52} height={52} unoptimized className="object-contain" />
         </div>
 
         {/* Headline */}
