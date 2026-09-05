@@ -36,6 +36,28 @@ function trackEvent(eventName: string, data?: Record<string, any>) {
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
+   GOOGLE ADS CONVERSION TRACKING HELPER
+──────────────────────────────────────────────────────────────────────────── */
+function trackGoogleAdsConversion() {
+  if (typeof window === 'undefined') return;
+  try {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'conversion', {
+        send_to: 'AW-18268816672/ia_kCKjNgcYcEKCKoIdE',
+      });
+    } else {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push('event', 'conversion', {
+        send_to: 'AW-18268816672/ia_kCKjNgcYcEKCKoIdE',
+      });
+    }
+    console.debug('Google Ads conversion sent: AW-18268816672/ia_kCKjNgcYcEKCKoIdE');
+  } catch (err) {
+    console.debug('Google Ads conversion error:', err);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
    UTILITIES
 ──────────────────────────────────────────────────────────────────────────── */
 const go = (id: string, ctaName = 'inline_cta') => {
@@ -174,6 +196,12 @@ function LeadForm({ formId = 'lead-form' }: { formId?: string }) {
     }
   };
 
+  useEffect(() => {
+    if (done) {
+      trackGoogleAdsConversion();
+    }
+  }, [done]);
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched(true);
@@ -187,6 +215,9 @@ function LeadForm({ formId = 'lead-form' }: { formId?: string }) {
       business: f.business,
       budget: f.budget,
     });
+
+    // Fire Google Ads conversion snippet immediately on submit
+    trackGoogleAdsConversion();
 
     try {
       await fetch('/api/ecommerce/lead', {
@@ -213,6 +244,16 @@ function LeadForm({ formId = 'lead-form' }: { formId?: string }) {
   if (done) {
     return (
       <div className="flex flex-col items-center gap-4 py-8 text-center" id={`${formId}-success`}>
+        {/* Event snippet for Submit lead form conversion page */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {'send_to': 'AW-18268816672/ia_kCKjNgcYcEKCKoIdE'});
+              }
+            `,
+          }}
+        />
         <div className="relative">
           <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
             <CheckCircle2 className="w-8 h-8 text-emerald-600" />

@@ -30,9 +30,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) & Google Ads */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-YTXX4NGNLQ"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18268816672"
           strategy="afterInteractive"
         />
         <Script id="google-tag-gtag" strategy="afterInteractive">
@@ -41,6 +41,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-YTXX4NGNLQ');
+            gtag('config', 'AW-18268816672');
           `}
         </Script>
       </head>
