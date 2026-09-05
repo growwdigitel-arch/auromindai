@@ -190,7 +190,7 @@ function LeadForm({ formId = 'lead-form' }: { formId?: string }) {
     });
 
     try {
-      await fetch('/api/ecommerce/lead', {
+      const res = await fetch('/api/ecommerce/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -201,13 +201,23 @@ function LeadForm({ formId = 'lead-form' }: { formId?: string }) {
           source: formId
         })
       });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.lead && typeof window !== 'undefined') {
+          try {
+            const existing = JSON.parse(localStorage.getItem('auromind_submitted_leads') || '[]');
+            existing.unshift(data.lead);
+            localStorage.setItem('auromind_submitted_leads', JSON.stringify(existing));
+          } catch {}
+        }
+      }
     } catch (err) {
       console.warn('API lead submission fallback', err);
     } finally {
       setTimeout(() => {
         setLoading(false);
         setDone(true);
-      }, 1000);
+      }, 800);
     }
   };
 

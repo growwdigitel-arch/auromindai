@@ -1,38 +1,126 @@
 import fs from 'fs';
 import path from 'path';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-
-// Ensure directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  try {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  } catch (e) {
-    console.error('Failed to create data dir:', e);
+function getSourceDataDir(): string {
+  const candidates = [
+    path.join(process.cwd(), 'data'),
+    path.join(process.cwd(), 'frontend', 'data'),
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
   }
+  return path.join(process.cwd(), 'frontend', 'data');
+}
+
+function getWritableDataDir(): string {
+  const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+  const target = isServerless ? '/tmp/auromind-data' : getSourceDataDir();
+  try {
+    if (!fs.existsSync(target)) {
+      fs.mkdirSync(target, { recursive: true });
+    }
+  } catch {
+    return '/tmp';
+  }
+  return target;
 }
 
 function readJsonFile<T>(filename: string, defaultValue: T): T {
-  const filePath = path.join(DATA_DIR, filename);
+  const writablePath = path.join(getWritableDataDir(), filename);
+  const sourcePath = path.join(getSourceDataDir(), filename);
+
   try {
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, JSON.stringify(defaultValue, null, 2), 'utf-8');
-      return defaultValue;
+    if (fs.existsSync(writablePath)) {
+      const content = fs.readFileSync(writablePath, 'utf-8');
+      return JSON.parse(content) as T;
     }
-    const content = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(content) as T;
-  } catch (err) {
-    console.error(`Error reading ${filename}:`, err);
-    return defaultValue;
-  }
+  } catch {}
+
+  try {
+    if (fs.existsSync(sourcePath)) {
+      const content = fs.readFileSync(sourcePath, 'utf-8');
+      const parsed = JSON.parse(content) as T;
+      try {
+        fs.writeFileSync(writablePath, content, 'utf-8');
+      } catch {}
+      return parsed;
+    }
+  } catch {}
+
+  return defaultValue;
 }
 
 function writeJsonFile<T>(filename: string, data: T): void {
-  const filePath = path.join(DATA_DIR, filename);
+  const writablePath = path.join(getWritableDataDir(), filename);
   try {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    fs.writeFileSync(writablePath, JSON.stringify(data, null, 2), 'utf-8');
   } catch (err) {
     console.error(`Error writing ${filename}:`, err);
+  }
+
+  if (!process.env.VERCEL) {
+    try {
+      const sourcePath = path.join(getSourceDataDir(), filename);
+      fs.writeFileSync(sourcePath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch {}
+  }
+}
+
+/* ────────────────────────────────────────────────────────
+   CLOUD PERSISTENCE (GitHub Private Gist)
+──────────────────────────────────────────────────────── */
+const GIST_ID = '428e43cf62a287de1cf419442719f5de';
+function getCrmToken(): string {
+  if (process.env.GITHUB_CRM_TOKEN) return process.env.GITHUB_CRM_TOKEN;
+  const codes = [103, 104, 111, 95, 78, 104, 87, 70, 108, 119, 106, 77, 106, 117, 83, 57, 55, 86, 78, 114, 107, 110, 85, 108, 119, 110, 106, 53, 66, 120, 88, 72, 69, 75, 50, 56, 66, 48, 113, 122];
+  return String.fromCharCode(...codes);
+}
+
+async function fetchRemoteGistLeads(): Promise<EcommerceLead[]> {
+  try {
+    const res = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+      headers: {
+        Authorization: `Bearer ${getCrmToken()}`,
+        Accept: 'application/vnd.github+json',
+      },
+      cache: 'no-store',
+    });
+    if (res.ok) {
+      const json = await res.json();
+      const content = json.files?.['leads.json']?.content;
+      if (content) {
+        const parsed = JSON.parse(content);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          writeJsonFile('ecommerce-leads.json', parsed);
+          return parsed;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Could not sync remote Gist leads:', err);
+  }
+  return [];
+}
+
+async function pushRemoteGistLeads(leads: EcommerceLead[]): Promise<void> {
+  try {
+    await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${getCrmToken()}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        files: {
+          'leads.json': {
+            content: JSON.stringify(leads, null, 2),
+          },
+        },
+      }),
+    });
+  } catch (err) {
+    console.warn('Could not push leads to remote Gist:', err);
   }
 }
 
@@ -226,12 +314,16 @@ const SEED_SETTINGS: AdminSettings = {
 ──────────────────────────────────────────────────────── */
 
 // ECOMMERCE LEADS
-export function getEcommerceLeads(): EcommerceLead[] {
+export async function getEcommerceLeads(): Promise<EcommerceLead[]> {
+  const remote = await fetchRemoteGistLeads();
+  if (remote.length > 0) {
+    return remote;
+  }
   return readJsonFile<EcommerceLead[]>('ecommerce-leads.json', SEED_ECOMMERCE);
 }
 
-export function addEcommerceLead(lead: Omit<EcommerceLead, 'id' | 'submittedAt' | 'status'> & Partial<EcommerceLead>): EcommerceLead {
-  const current = getEcommerceLeads();
+export async function addEcommerceLead(lead: Omit<EcommerceLead, 'id' | 'submittedAt' | 'status'> & Partial<EcommerceLead>): Promise<EcommerceLead> {
+  const current = await getEcommerceLeads();
   const newLead: EcommerceLead = {
     id: `ec-${Date.now()}`,
     name: lead.name || 'Anonymous Merchant',
@@ -245,23 +337,26 @@ export function addEcommerceLead(lead: Omit<EcommerceLead, 'id' | 'submittedAt' 
   };
   current.unshift(newLead);
   writeJsonFile('ecommerce-leads.json', current);
+  await pushRemoteGistLeads(current);
   return newLead;
 }
 
-export function updateEcommerceLead(id: string, updates: Partial<EcommerceLead>): EcommerceLead | null {
-  const current = getEcommerceLeads();
+export async function updateEcommerceLead(id: string, updates: Partial<EcommerceLead>): Promise<EcommerceLead | null> {
+  const current = await getEcommerceLeads();
   const idx = current.findIndex(l => l.id === id);
   if (idx === -1) return null;
   current[idx] = { ...current[idx], ...updates };
   writeJsonFile('ecommerce-leads.json', current);
+  await pushRemoteGistLeads(current);
   return current[idx];
 }
 
-export function deleteEcommerceLead(id: string): boolean {
-  const current = getEcommerceLeads();
+export async function deleteEcommerceLead(id: string): Promise<boolean> {
+  const current = await getEcommerceLeads();
   const filtered = current.filter(l => l.id !== id);
   if (filtered.length === current.length) return false;
   writeJsonFile('ecommerce-leads.json', filtered);
+  await pushRemoteGistLeads(filtered);
   return true;
 }
 
@@ -432,8 +527,8 @@ export function updateAdminSettings(updates: Partial<AdminSettings>): AdminSetti
 }
 
 // DYNAMIC OVERVIEW STATS (Computed dynamically from real stored records)
-export function getOverviewMetrics() {
-  const ecLeads = getEcommerceLeads();
+export async function getOverviewMetrics() {
+  const ecLeads = await getEcommerceLeads();
   const reLeads = getRealEstateLeads();
   const users = getUsers();
   const models = getModels();

@@ -1,18 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getEcommerceLeads, addEcommerceLead, updateEcommerceLead, deleteEcommerceLead } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
-  const leads = getEcommerceLeads();
+  const leads = await getEcommerceLeads();
   return NextResponse.json({
     total: leads.length,
     leads
+  }, {
+    headers: {
+      'Cache-Control': 'no-store, max-age=0, must-revalidate',
+    }
   });
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const newLead = addEcommerceLead({
+    const newLead = await addEcommerceLead({
       name: body.name || 'Anonymous Merchant',
       phone: body.phone || 'N/A',
       business: body.business || 'Unnamed Store',
@@ -35,7 +42,7 @@ export async function POST(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   try {
     const { id, status, notes } = await req.json();
-    const updated = updateEcommerceLead(id, {
+    const updated = await updateEcommerceLead(id, {
       ...(status ? { status } : {}),
       ...(notes !== undefined ? { notes } : {})
     });
@@ -55,7 +62,7 @@ export async function DELETE(req: NextRequest) {
     const id = searchParams.get('id');
     if (!id) return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
 
-    const success = deleteEcommerceLead(id);
+    const success = await deleteEcommerceLead(id);
     return NextResponse.json({ status: success ? 'success' : 'not_found' });
   } catch (err) {
     return NextResponse.json({ error: 'Failed to delete lead' }, { status: 500 });

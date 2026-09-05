@@ -84,7 +84,7 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
   const [userCount, setUserCount] = useState<number>(0);
 
   const refreshCounts = useCallback(() => {
-    fetch('/api/admin/overview')
+    fetch('/api/admin/overview?t=' + Date.now(), { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (data) {
@@ -98,7 +98,7 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
 
   useEffect(() => {
     refreshCounts();
-    const interval = setInterval(refreshCounts, 8000);
+    const interval = setInterval(refreshCounts, 6000);
     return () => clearInterval(interval);
   }, [refreshCounts]);
 
@@ -321,8 +321,8 @@ function OverviewTab({
   const fetchOverview = () => {
     setLoading(true);
     Promise.all([
-      fetch('/api/admin/overview').then(r => r.json()),
-      fetch('/api/admin/users').then(r => r.json())
+      fetch('/api/admin/overview?t=' + Date.now(), { cache: 'no-store' }).then(r => r.json()),
+      fetch('/api/admin/users?t=' + Date.now(), { cache: 'no-store' }).then(r => r.json())
     ])
       .then(([overviewData, usersData]) => {
         setMetrics(overviewData);
@@ -591,10 +591,30 @@ function EcommerceLeadsView({ onRefreshParent }: { onRefreshParent?: () => void 
   const fetchLeads = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/ecommerce/lead');
+      const res = await fetch('/api/ecommerce/lead?t=' + Date.now(), {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
       if (res.ok) {
         const data = await res.json();
-        setLeads(data.leads || []);
+        let apiLeads: EcommerceLead[] = data.leads || [];
+
+        // Check if there are local leads stored in browser
+        try {
+          const stored = localStorage.getItem('auromind_submitted_leads');
+          if (stored) {
+            const localLeads = JSON.parse(stored);
+            if (Array.isArray(localLeads)) {
+              const existingIds = new Set(apiLeads.map(l => l.id));
+              const missing = localLeads.filter(l => !existingIds.has(l.id));
+              if (missing.length > 0) {
+                apiLeads = [...missing, ...apiLeads];
+              }
+            }
+          }
+        } catch {}
+
+        setLeads(apiLeads);
       }
     } catch {}
     setLoading(false);
@@ -602,6 +622,8 @@ function EcommerceLeadsView({ onRefreshParent }: { onRefreshParent?: () => void 
 
   useEffect(() => {
     fetchLeads();
+    const interval = setInterval(fetchLeads, 6000);
+    return () => clearInterval(interval);
   }, [fetchLeads]);
 
   const handleStatusChange = async (leadId: string, newStatus: EcommerceLead['status']) => {
