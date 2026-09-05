@@ -558,44 +558,44 @@ export default function EcommerceAdPage() {
       </header>
 
       {/* ══════════════ HERO SECTION ═════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-[#0a1628] to-emerald-950">
-        {/* Background glow effects */}
+      <section className="relative overflow-hidden bg-white border-b border-zinc-100">
+        {/* Background ambient accents */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-[800px] h-[800px] rounded-full bg-emerald-500/8 blur-[150px]" />
-          <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full bg-blue-500/6 blur-[120px]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.04)_0%,transparent_70%)]" />
-          <div className="absolute inset-0 opacity-[0.03]" style={{backgroundImage:'linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px)',backgroundSize:'60px 60px'}} />
+          <div className="absolute -top-40 -right-40 w-[800px] h-[800px] rounded-full bg-emerald-50/70 blur-[140px]" />
+          <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full bg-teal-50/60 blur-[130px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.05)_0%,transparent_65%)]" />
+          <div className="absolute inset-0 opacity-[0.025]" style={{backgroundImage:'linear-gradient(rgba(0,0,0,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.15) 1px,transparent 1px)',backgroundSize:'60px 60px'}} />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 pt-14 pb-20 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-12 lg:gap-14 items-center">
           
           {/* LEFT: 5-Second Clarity Pitch */}
-          <div className="space-y-7 text-white">
+          <div className="space-y-7 text-slate-900">
             {/* Target Audience Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-black tracking-wider uppercase">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-black tracking-wider uppercase shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               FOR eCOMMERCE BRANDS READY TO SCALE
             </div>
 
             {/* Core H1 */}
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl xl:text-[3.5rem] font-black leading-[1.12] tracking-tight">
+              <h1 className="text-4xl md:text-5xl xl:text-[3.5rem] font-black leading-[1.12] tracking-tight text-slate-900">
                 Your eCommerce store<br />
                 deserves to sell{' '}
                 <span className="relative inline-block">
-                  <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
                     3× more.
                   </span>
                   <svg className="absolute w-full -bottom-2 left-0" viewBox="0 0 280 8" fill="none" preserveAspectRatio="none">
                     <path d="M2 6 Q 140 1 278 6" stroke="url(#ug)" strokeWidth="2.5" strokeLinecap="round"/>
-                    <defs><linearGradient id="ug" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#34d399" /><stop offset="100%" stopColor="#2dd4bf" /></linearGradient></defs>
+                    <defs><linearGradient id="ug" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#059669" /><stop offset="100%" stopColor="#0d9488" /></linearGradient></defs>
                   </svg>
                 </span>
               </h1>
               
               {/* Shorter, Benefit-Focused 5-Second Value Prop */}
-              <p className="text-base md:text-lg text-zinc-300 leading-relaxed max-w-xl font-normal">
-                We engineer <strong className="text-white font-bold">custom high-performance eCommerce storefronts</strong> built for ad traffic. Sub-second speed, zero monthly plugin taxes, and native AI recommendations that turn paid clicks into revenue.
+              <p className="text-base md:text-lg text-zinc-600 leading-relaxed max-w-xl font-normal">
+                We engineer <strong className="text-slate-900 font-bold">custom high-performance eCommerce storefronts</strong> built for ad traffic. Sub-second speed, zero monthly plugin taxes, and native AI recommendations that turn paid clicks into revenue.
               </p>
             </div>
 
@@ -609,28 +609,28 @@ export default function EcommerceAdPage() {
                 'Server-side Meta Pixel & Google Ads tracking',
                 'Production-ready launch in 2–3 weeks',
               ].map((t, i) => (
-                <div key={i} className="flex items-center gap-2.5 text-sm font-medium text-zinc-300">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <div key={i} className="flex items-center gap-2.5 text-sm font-medium text-zinc-700">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>{t}</span>
                 </div>
               ))}
             </div>
 
             {/* Grounded Social Proof */}
-            <div className="flex items-center gap-4 pt-3 border-t border-white/10">
+            <div className="flex items-center gap-4 pt-3 border-t border-zinc-200">
               <div className="flex -space-x-2">
-                {['from-emerald-400 to-teal-500','from-blue-400 to-indigo-500','from-amber-400 to-orange-500','from-pink-400 to-rose-500'].map((g, i) => (
-                  <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${g} border-2 border-slate-900 flex items-center justify-center text-white text-xs font-bold`}>
+                {['from-emerald-500 to-teal-600','from-blue-500 to-indigo-600','from-amber-500 to-orange-600','from-pink-500 to-rose-600'].map((g, i) => (
+                  <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${g} border-2 border-white shadow-sm flex items-center justify-center text-white text-xs font-bold`}>
                     {['R','P','A','S'][i]}
                   </div>
                 ))}
               </div>
               <div>
                 <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />)}
-                  <span className="text-xs font-bold text-white ml-1">4.9/5 Rating</span>
+                  {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />)}
+                  <span className="text-xs font-bold text-slate-900 ml-1">4.9/5 Rating</span>
                 </div>
-                <p className="text-xs text-zinc-400 mt-0.5">Based on client post-launch benchmarks</p>
+                <p className="text-xs text-zinc-500 mt-0.5">Based on client post-launch benchmarks</p>
               </div>
             </div>
           </div>
@@ -638,7 +638,7 @@ export default function EcommerceAdPage() {
           {/* RIGHT: HERO FORM CARD */}
           <div id="hero-form-card" className="relative scroll-mt-20 md:scroll-mt-24">
             <div className="absolute -inset-2 bg-emerald-500/10 rounded-[2rem] blur-2xl pointer-events-none" />
-            <div className="relative bg-white rounded-3xl shadow-[0_32px_80px_-12px_rgba(0,0,0,0.5)] overflow-hidden border border-zinc-100">
+            <div className="relative bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.12)] overflow-hidden border border-zinc-200/80">
               
               {/* Form header strip */}
               <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-7 py-5">
@@ -666,7 +666,7 @@ export default function EcommerceAdPage() {
         <div className="pb-6 flex justify-center relative z-10">
           <button
             onClick={() => go('stats', 'scroll_cue')}
-            className="flex flex-col items-center gap-1 text-zinc-500 hover:text-emerald-400 transition-colors text-xs font-medium"
+            className="flex flex-col items-center gap-1 text-zinc-400 hover:text-emerald-600 transition-colors text-xs font-medium"
           >
             <span>Explore our performance benchmarks</span>
             <ChevronDown className="w-4 h-4 animate-bounce mt-1" />
