@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   devIndicators: false,
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
   webpack: (config, { dev }) => {
     if (dev) {
       // Disable webpack compilation caching in development mode

@@ -16,7 +16,9 @@ import {
   PanelLeftClose, 
   MessageSquare, 
   Bell,
-  LogOut
+  LogOut,
+  Building2,
+  ShieldAlert
 } from 'lucide-react';
 import { useChatStore } from '@/lib/store/useChatStore';
 
@@ -33,7 +35,9 @@ export function Sidebar() {
   const [projects, setProjects] = useState<string[]>([]);
 
   const mainNav = [
-    { label: 'Agent', icon: Bot, href: '/agents' },
+    { label: 'AI Workspace', icon: Bot, href: '/user/dashboard' },
+    { label: 'Real Estate CRM', icon: Building2, href: '/real-estate-crm' },
+    { label: 'Agent Hub', icon: Bot, href: '/agents' },
     { label: 'Plugins', icon: Boxes, href: '/knowledge' },
     { label: 'Scheduled', icon: Clock, href: '/team' },
     { label: 'Library', icon: Library, href: '/settings' },
@@ -41,7 +45,7 @@ export function Sidebar() {
 
   const handleNewTask = () => {
     const newId = createNewChat();
-    router.push(`/dashboard?id=${newId}`);
+    router.push(`/user/dashboard?id=${newId}`);
   };
 
   const handleNewProject = () => {
@@ -57,7 +61,7 @@ export function Sidebar() {
       <div className="flex flex-col gap-4 overflow-hidden">
         {/* Brand Header */}
         <div className="flex items-center justify-between px-1">
-          <Link href="/dashboard" className="flex items-center gap-2.5 text-base font-bold text-white tracking-tight">
+          <Link href="/user/dashboard" className="flex items-center gap-2.5 text-base font-bold text-white tracking-tight">
             <Image src="/logo.png" alt="AuromindAI Logo" width={32} height={32} unoptimized className="rounded-xl shadow-soft" />
             <span className="text-lg font-black tracking-tight">auromind<span className="text-emerald-500">.ai</span></span>
           </Link>
@@ -85,7 +89,7 @@ export function Sidebar() {
         {/* Primary Navigation Menu */}
         <nav className="space-y-1">
           {mainNav.map((item, idx) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || (item.href === '/user/dashboard' && pathname === '/dashboard');
             return (
               <Link
                 key={idx}
@@ -149,7 +153,7 @@ export function Sidebar() {
                 key={chat.id}
                 onClick={() => {
                   setActiveChatId(chat.id);
-                  router.push(`/dashboard?id=${chat.id}`);
+                  router.push(`/user/dashboard?id=${chat.id}`);
                 }}
                 className={`group flex items-center justify-between px-3 py-2 rounded-xl text-xs cursor-pointer transition-all ${
                   activeChatId === chat.id

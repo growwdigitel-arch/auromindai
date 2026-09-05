@@ -1,0 +1,46 @@
+[
+  {
+    "id": "re-1788588765192",
+    "name": "Vikram Singhania",
+    "email": "vikram@singhaniaestates.com",
+    "phone": "+91 99887 76655",
+    "company_type": "Brokerage Owner",
+    "lead_volume": "500+ leads/mo",
+    "submittedAt": "2026-09-05 06:12",
+    "status": "new",
+    "notes": ""
+  },
+  {
+    "id": "re-201",
+    "name": "Marcus Sterling",
+    "email": "m.sterling@capitalgroup.com",
+    "phone": "+1 (555) 382-9012",
+    "company_type": "Brokerage Owner",
+    "lead_volume": "200 – 500 leads/mo",
+    "submittedAt": "2026-09-05 10:45",
+    "status": "new",
+    "notes": "Verified pre-approved mortgage with Chase ($1.5M ceiling)."
+  },
+  {
+    "id": "re-202",
+    "name": "Elena Rostova",
+    "email": "elena.r@luxdesign.co",
+    "phone": "+1 (555) 721-4491",
+    "company_type": "Property Developer",
+    "lead_volume": "500+ leads/mo",
+    "submittedAt": "2026-09-05 08:30",
+    "status": "tour_scheduled",
+    "notes": "Looking for modern minimalist villa with private pool."
+  },
+  {
+    "id": "re-203",
+    "name": "Tariq Al-Mansoor",
+    "email": "tariq@emiratesprime.ae",
+    "phone": "+971 50 882 1903",
+    "company_type": "Developer",
+    "lead_volume": "500+ leads/mo",
+    "submittedAt": "2026-09-04 16:15",
+    "status": "converted",
+    "notes": "Deal closed on Oakwood Estate at $3.1M."
+  }
+]

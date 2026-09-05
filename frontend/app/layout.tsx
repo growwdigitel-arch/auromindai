@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { AuthProvider } from '@/components/providers/AuthProvider';
 
@@ -29,6 +30,19 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-YTXX4NGNLQ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YTXX4NGNLQ');
+          `}
+        </Script>
       </head>
       <body className="bg-background text-foreground antialiased selection:bg-accent-light selection:text-secondary" suppressHydrationWarning>
         <AuthProvider>

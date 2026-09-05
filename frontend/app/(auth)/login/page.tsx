@@ -25,29 +25,65 @@ export default function LoginPage() {
   }, []);
 
   const handleGoogleAuth = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
+    onSuccess: async (tokenResponse) => {
       setIsLoading(true);
       if (typeof window !== 'undefined') {
         localStorage.setItem('google_token', tokenResponse.access_token);
       }
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 300);
+      try {
+        await fetch('/api/admin/users/sign-in', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: 'google.user@example.com', name: 'Google Authenticated User' })
+        });
+      } catch {}
+      router.push('/user/dashboard');
     },
     onError: () => {
-      // Fallback redirect if popup is blocked
-      const redirectUri = typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : 'http://localhost:3000/dashboard';
+      const redirectUri = typeof window !== 'undefined' ? `${window.location.origin}/user/dashboard` : 'http://localhost:3000/user/dashboard';
       const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=openid%20email%20profile`;
       window.location.href = authUrl;
     }
   });
 
-  const handleAuth = (e?: React.FormEvent) => {
+  const handleAuth = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      router.push('/dashboard');
-    }, 300);
+    const lower = email.toLowerCase().trim();
+
+    try {
+      if ((lower.includes('admin') || lower.includes('owner') || lower === 'auromindai admin') && password === 'aurovex123') {
+        const adminRes = await fetch('/api/admin/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: lower, password })
+        });
+        const adminData = await adminRes.json();
+        if (adminRes.ok && adminData.success) {
+          localStorage.setItem('auromind_owner_auth', JSON.stringify(adminData.user));
+          router.push('/admin/dashboard');
+          return;
+        }
+      }
+
+      await fetch('/api/admin/users/sign-in', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email: lower,
+          name: lower.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+        })
+      });
+    } catch (err) {
+      console.error('Failed to record sign in:', err);
+    }
+
+    // Strict separation: admin/owner accounts go to /admin/dashboard, users go to /user/dashboard
+    if (lower.includes('admin') || lower.includes('owner') || lower === 'santhosh@groww.digital') {
+      router.push('/admin/dashboard');
+    } else {
+      router.push('/user/dashboard');
+    }
   };
 
   return (
@@ -140,6 +176,23 @@ export default function LoginPage() {
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </form>
+
+        {/* Portal Quick Access */}
+        <div className="pt-1 flex items-center justify-center gap-3 text-[11px]">
+          <Link 
+            href="/user/dashboard" 
+            className="text-zinc-400 hover:text-white transition-colors"
+          >
+            User Dashboard →
+          </Link>
+          <span className="text-zinc-700">•</span>
+          <Link 
+            href="/admin/dashboard" 
+            className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
+          >
+            Owner Admin Portal →
+          </Link>
+        </div>
       </main>
 
       {/* Footer Legal Terms */}

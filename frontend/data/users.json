@@ -1,0 +1,80 @@
+[
+  {
+    "id": "usr-2",
+    "name": "Jane Doe",
+    "email": "jane.doe@clover.io",
+    "role": "Client",
+    "plan": "Free Plan",
+    "credits": 101,
+    "status": "Active",
+    "joined": "2026-06-01",
+    "lastLogin": "Just now",
+    "chats": 13,
+    "tokens": 18000
+  },
+  {
+    "id": "usr-1788588750610",
+    "name": "Karthik Sharma",
+    "email": "karthik.sharma@startup.in",
+    "role": "Client",
+    "plan": "Free Plan",
+    "credits": 10000,
+    "status": "Active",
+    "joined": "2026-09-05",
+    "lastLogin": "Just now",
+    "chats": 1,
+    "tokens": 0
+  },
+  {
+    "id": "usr-1",
+    "name": "Santhosh Kumar",
+    "email": "santhosh@groww.digital",
+    "role": "Owner",
+    "plan": "Enterprise Pro",
+    "credits": 25000,
+    "status": "Active",
+    "joined": "2026-05-12",
+    "lastLogin": "Just now",
+    "chats": 342,
+    "tokens": 489000
+  },
+  {
+    "id": "usr-3",
+    "name": "Robert Chen",
+    "email": "robert.c@apex.tech",
+    "role": "Admin",
+    "plan": "Pro SaaS",
+    "credits": 5000,
+    "status": "Suspended",
+    "joined": "2026-02-18",
+    "lastLogin": "2 days ago",
+    "chats": 118,
+    "tokens": 210000
+  },
+  {
+    "id": "usr-4",
+    "name": "Alice Watson",
+    "email": "alice@vibe.agency",
+    "role": "Member",
+    "plan": "Enterprise Pro",
+    "credits": 15000,
+    "status": "Active",
+    "joined": "2026-07-14",
+    "lastLogin": "1 hour ago",
+    "chats": 89,
+    "tokens": 145000
+  },
+  {
+    "id": "usr-5",
+    "name": "Rohan Mehta",
+    "email": "rohan@aurelia.in",
+    "role": "Client",
+    "plan": "Commerce Custom",
+    "credits": 8500,
+    "status": "Active",
+    "joined": "2026-09-02",
+    "lastLogin": "3 hours ago",
+    "chats": 45,
+    "tokens": 62000
+  }
+]

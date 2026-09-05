@@ -1,0 +1,75 @@
+[
+  {
+    "id": "ec-1788588855661",
+    "name": "santhosh",
+    "phone": "8610868307",
+    "business": "zix",
+    "budget": "₹25k – ₹50k",
+    "submittedAt": "2026-09-05 06:14",
+    "status": "new",
+    "source": "hero-lead-form",
+    "notes": ""
+  },
+  {
+    "id": "ec-1788588448083",
+    "name": "Sunil Verma",
+    "phone": "+91 98450 11223",
+    "business": "Zenith Electronics",
+    "budget": "₹50k+",
+    "submittedAt": "2026-09-05 06:07",
+    "status": "new",
+    "source": "Strategy Call",
+    "notes": ""
+  },
+  {
+    "id": "ec-1788587649848",
+    "name": "Ananya Roy",
+    "phone": "+91 97345 67890",
+    "business": "Aura Luxury Skincare",
+    "budget": "₹50k+",
+    "submittedAt": "2026-09-05 05:54",
+    "status": "new",
+    "source": "Landing Hero Form",
+    "notes": ""
+  },
+  {
+    "id": "ec-101",
+    "name": "Rohan Mehta",
+    "phone": "+91 98765 43210",
+    "business": "Aurelia Fashion Store",
+    "budget": "₹25k – ₹50k",
+    "submittedAt": "2026-09-05 10:15",
+    "status": "new",
+    "source": "Hero Form"
+  },
+  {
+    "id": "ec-102",
+    "name": "Priya Sharma",
+    "phone": "+91 98123 45678",
+    "business": "Nature Harvest Organics",
+    "budget": "₹50k+",
+    "submittedAt": "2026-09-05 09:40",
+    "status": "contacted",
+    "source": "Strategy Call"
+  },
+  {
+    "id": "ec-103",
+    "name": "Vikram Malhotra",
+    "phone": "+91 99234 56789",
+    "business": "StyleVault India",
+    "budget": "₹10k – ₹25k",
+    "submittedAt": "2026-09-04 18:20",
+    "status": "proposal",
+    "source": "Bottom Form"
+  },
+  {
+    "id": "ec-104",
+    "name": "Ananya Roy",
+    "phone": "+91 97345 67890",
+    "business": "Aura Skin & Beauty",
+    "budget": "₹50k+",
+    "submittedAt": "2026-09-04 14:10",
+    "status": "converted",
+    "source": "Portfolio Section"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "m-1",
+    "name": "AuroVex 1.5 Lite",
+    "provider": "Auromind",
+    "version": "v1.5.2",
+    "maxTokens": 8192,
+    "temperature": 0.7,
+    "topP": 0.95,
+    "priority": 1,
+    "active": true,
+    "price": 0.15
+  },
+  {
+    "id": "m-2",
+    "name": "AuroVex 1.5 Pro",
+    "provider": "Auromind",
+    "version": "v1.5.8",
+    "maxTokens": 16384,
+    "temperature": 0.4,
+    "topP": 0.9,
+    "priority": 2,
+    "active": true,
+    "price": 0.45
+  },
+  {
+    "id": "m-3",
+    "name": "Gemini 2.5 Flash",
+    "provider": "Google",
+    "version": "v2.5",
+    "maxTokens": 32768,
+    "temperature": 1,
+    "topP": 0.95,
+    "priority": 3,
+    "active": true,
+    "price": 0.075
+  },
+  {
+    "id": "m-4",
+    "name": "Gemini 2.5 Pro",
+    "provider": "Google",
+    "version": "v2.5-pro",
+    "maxTokens": 128000,
+    "temperature": 0.7,
+    "topP": 0.9,
+    "priority": 4,
+    "active": true,
+    "price": 1.25
+  }
+]

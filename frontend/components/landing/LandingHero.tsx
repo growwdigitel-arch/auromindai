@@ -30,11 +30,14 @@ export function LandingHero() {
       {/* Background subtle glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Centered Top Badge */}
+      {/* Centered Top Badge - AuromindAI Platform Focus */}
       <div className="flex justify-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-300/80 bg-emerald-50/90 text-emerald-600 text-xs font-semibold shadow-sm transition-all hover:scale-105">
-          <Zap className="w-3.5 h-3.5 fill-emerald-600 text-emerald-600" />
-          <span>AuroVex 1 Fast Engine Live</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-300 bg-emerald-50 text-emerald-800 text-xs font-bold shadow-sm">
+          <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-extrabold text-[10px] tracking-wide">
+            ENTERPRISE AI
+          </span>
+          <span className="font-extrabold text-slate-900">AuromindAI</span>
+          <span className="text-emerald-700 font-semibold hidden sm:inline">· Custom AI Systems &amp; Autonomous Swarms</span>
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse ml-0.5" />
         </div>
       </div>
