@@ -9,7 +9,7 @@ export function LandingFAQ() {
   const faqs = [
     {
       q: 'What is AuromindAI and what products/solutions do you offer?',
-      a: 'AuromindAI is an enterprise AI systems studio and engineering platform. We architect custom autonomous AI swarms, AI software, and mobile applications across 6 core industries: eCommerce, Healthcare, Giving AI, Real Estate, AI Software, and Mobile Applications. As of now, our single live, ready-to-deploy flagship product is OrbionAgents (orbionagents.com).'
+      a: 'AuromindAI is an enterprise AI systems studio and engineering platform. We architect custom autonomous AI swarms, AI software, and mobile applications across 6 core industries: eCommerce, Healthcare, Giving AI, Real Estate, AI Software, and Mobile Applications. Our flagship production platform is AuromindAI Swarms (auromindai.com).'
     },
     {
       q: 'What makes AuromindAI autonomous swarms different from standard chatbots?',

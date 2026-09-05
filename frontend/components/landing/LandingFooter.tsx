@@ -20,7 +20,7 @@ import {
 export function LandingFooter() {
   const links: Record<string, { label: string; href: string; badge?: string }[]> = {
     Product: [
-      { label: 'OrbionAgents (Live)', href: 'https://orbionagents.com', badge: 'Ready' },
+      { label: 'Auromind Swarms', href: '/#swarms', badge: 'Live' },
       { label: 'Industries We Serve', href: '/#industries' },
       { label: 'Autonomous Capabilities', href: '/#agents' },
       { label: 'How It Works', href: '/#how-it-works' },

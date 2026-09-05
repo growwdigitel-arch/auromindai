@@ -8,32 +8,32 @@ export function WorkforceComparison() {
     {
       feature: 'Availability & Response Latency',
       traditional: 'Limited to office hours; 4 to 24-hour delayed replies',
-      orbion: 'Instant 24/7/365 active response within 38 seconds'
+      auromind: 'Instant 24/7/365 active response within 38 seconds'
     },
     {
       feature: 'Task & Workflow Execution',
       traditional: 'Rigid decision trees; fails whenever user goes off-script',
-      orbion: 'Autonomous goal reasoning; executes complex multi-step APIs'
+      auromind: 'Autonomous goal reasoning; executes complex multi-step APIs'
     },
     {
       feature: 'Channel Coverage',
       traditional: 'Fragmented apps; separate tools for email, chat, and CRM',
-      orbion: 'Unified omnichannel swarm: WhatsApp, Web, SMS, CRM & API'
+      auromind: 'Unified omnichannel swarm: WhatsApp, Web, SMS, CRM & API'
     },
     {
       feature: 'Customer Context & Memory',
       traditional: 'Memory resets on session close; repetitive questioning',
-      orbion: 'Persistent semantic vector memory across weeks & months'
+      auromind: 'Persistent semantic vector memory across weeks & months'
     },
     {
       feature: 'Scalability Under Traffic Spikes',
       traditional: 'Requires hiring & training new staff; high overhead',
-      orbion: 'Instantly scales to thousands of concurrent conversations'
+      auromind: 'Instantly scales to thousands of concurrent conversations'
     },
     {
       feature: 'Operational Cost Efficiency',
       traditional: 'High recurring salaries, benefits, and software seat licenses',
-      orbion: 'Up to 80% reduction in customer acquisition & support costs'
+      auromind: 'Up to 80% reduction in customer acquisition & support costs'
     }
   ];
 
@@ -83,7 +83,7 @@ export function WorkforceComparison() {
                   <td className="py-4 px-6 bg-emerald-50/40 border-l border-r border-emerald-100 font-bold text-slate-900">
                     <div className="flex items-start gap-2">
                       <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 stroke-[3]" />
-                      <span>{row.orbion}</span>
+                      <span>{row.auromind}</span>
                     </div>
                   </td>
                 </tr>

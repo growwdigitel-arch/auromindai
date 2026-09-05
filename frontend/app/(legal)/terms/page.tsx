@@ -37,7 +37,7 @@ export default function TermsOfServicePage() {
             <span className="text-emerald-600 font-mono">1.</span> Autonomous AI Services &amp; Swarms
           </h2>
           <p>
-            AuromindAI provides software platforms, autonomous agent orchestration systems, and custom engineering across diverse industries including eCommerce, Healthcare, Philanthropy (Giving AI), Real Estate, and Mobile Applications. Our flagship production platform OrbionAgents (orbionagents.com) enables multi-agent task execution.
+            AuromindAI provides software platforms, autonomous agent orchestration systems, and custom engineering across diverse industries including eCommerce, Healthcare, Philanthropy (Giving AI), Real Estate, and Mobile Applications. Our proprietary autonomous agent engine enables multi-agent task execution.
           </p>
           <p>
             You acknowledge that autonomous AI systems operate based on stochastic machine learning models, statistical heuristics, and external API tool calls. While AuromindAI builds deterministic guardrails and verification layers, you are responsible for monitoring agent activities and establishing appropriate Human-in-the-Loop approval workflows for critical transactions.

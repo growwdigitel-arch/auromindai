@@ -21,7 +21,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 
-export function OrbionAgentsShowcase() {
+export function AuromindSwarmShowcase() {
   const [activeTab, setActiveTab] = useState<'architecture' | 'swarms' | 'tools' | 'enterprise'>('architecture');
 
   const agents = [
@@ -56,45 +56,37 @@ export function OrbionAgentsShowcase() {
   ];
 
   return (
-    <section id="orbionagents" className="py-24 px-6 max-w-7xl mx-auto space-y-16">
-      {/* Top Section Header - Highlighting orbionagents.com as our one ready product */}
+    <section id="swarms" className="py-24 px-6 max-w-7xl mx-auto space-y-16">
+      {/* Top Section Header - Highlighting auromindai.com autonomous swarms */}
       <div className="text-center space-y-5 max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-400 bg-emerald-50 text-emerald-800 text-xs font-bold shadow-sm">
           <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-extrabold text-[10px] uppercase tracking-wider">
-            Our 1 Ready Product
+            Autonomous AI Platform
           </span>
-          <span className="font-extrabold text-slate-900 text-sm">orbionagents.com</span>
+          <span className="font-extrabold text-slate-900 text-sm">auromindai.com</span>
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse ml-0.5" />
         </div>
 
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-tight">
           Ready to Deploy Today:<br />
-          <a
-            href="https://orbionagents.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#16A34A] hover:underline inline-flex items-center gap-2.5 transition-all hover:scale-105"
-          >
-            <span>orbionagents.com</span>
-            <ExternalLink className="w-7 h-7 sm:w-9 sm:h-9 text-emerald-600 inline shrink-0" />
-          </a>
+          <span className="text-[#16A34A] inline-flex items-center gap-2.5">
+            <span>auromindai.com Swarms</span>
+          </span>
         </h2>
 
         <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
-          As of now, our ready and fully operational flagship product is <strong className="text-slate-900 font-bold">OrbionAgents</strong> — an autonomous multi-agent AI workforce engineered to independently run sales, support, and business workflows 24/7.
+          Our ready and fully operational flagship platform is <strong className="text-slate-900 font-bold">AuromindAI Swarms</strong> — an autonomous multi-agent AI workforce engineered to independently run sales, support, and business workflows 24/7.
         </p>
 
         {/* Highlighted Direct Action Buttons */}
         <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="https://orbionagents.com"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/login"
             className="px-7 py-3.5 rounded-2xl bg-[#16A34A] hover:bg-emerald-700 text-white font-black text-sm shadow-[0_12px_28px_-6px_rgba(22,163,74,0.45)] flex items-center gap-2.5 transition-all hover:scale-105 active:scale-95"
           >
-            <span>Launch Live Product (orbionagents.com)</span>
+            <span>Launch Live Platform</span>
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
           <div className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-sm">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>100% Production Ready &amp; Live</span>
@@ -163,7 +155,7 @@ export function OrbionAgentsShowcase() {
             </div>
             <h3 className="text-lg font-bold text-slate-900">Autonomous Objective Decomposition</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Give OrbionAgents a high-level business goal (&quot;Qualify today&apos;s inbound real estate inquiries and prepare WhatsApp offers&quot;). The engine automatically synthesizes steps, creates subtasks, and assigns specialized agents.
+              Give AuromindAI a high-level business goal (&quot;Qualify today&apos;s inbound real estate inquiries and prepare WhatsApp offers&quot;). The engine automatically synthesizes steps, creates subtasks, and assigns specialized agents.
             </p>
           </div>
 
@@ -173,7 +165,7 @@ export function OrbionAgentsShowcase() {
             </div>
             <h3 className="text-lg font-bold text-slate-900">Long-Term Enterprise Memory</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Never forgets customer preferences or historical orders. OrbionAgents retains client context across months of conversation with sub-second vector retrieval.
+              Never forgets customer preferences or historical orders. AuromindAI retains client context across months of conversation with sub-second vector retrieval.
             </p>
           </div>
 
@@ -196,7 +188,7 @@ export function OrbionAgentsShowcase() {
               <div className="w-3 h-3 rounded-full bg-rose-500/80" />
               <div className="w-3 h-3 rounded-full bg-amber-500/80" />
               <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-              <span className="text-xs font-mono text-slate-400 ml-2">orbion-swarm-cluster:v2.4</span>
+              <span className="text-xs font-mono text-slate-400 ml-2">auromind-swarm-cluster:v2.4</span>
             </div>
             <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -229,19 +221,19 @@ export function OrbionAgentsShowcase() {
 
           {/* Action CTA */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800/80 text-xs">
-            <span className="text-slate-400 font-mono">Live Cluster: orbionagents.com</span>
-            <a
-              href="https://orbionagents.com"
-              target="_blank"
-              rel="noopener noreferrer"
+            <span className="text-slate-400 font-mono">Live Cluster: auromindai.com</span>
+            <Link
+              href="/login"
               className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs flex items-center gap-2 transition-all shadow-md hover:scale-105"
             >
-              <span>Visit orbionagents.com</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+              <span>Deploy Swarm</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+export const OrbionAgentsShowcase = AuromindSwarmShowcase;

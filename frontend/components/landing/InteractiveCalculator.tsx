@@ -29,7 +29,7 @@ export function InteractiveCalculator() {
         </h2>
 
         <p className="text-base text-slate-600 font-normal leading-relaxed">
-          See how much your organization saves in operational overhead by deploying OrbionAgents autonomous swarms.
+          See how much your organization saves in operational overhead by deploying AuromindAI autonomous swarms.
         </p>
       </div>
 

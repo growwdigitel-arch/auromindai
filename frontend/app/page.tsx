@@ -33,9 +33,9 @@ export default function LandingPage() {
         </div>
 
         <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-muted-foreground">
-          <Link href="#orbionagents" className="text-emerald-600 hover:text-emerald-700 font-extrabold transition-colors flex items-center gap-1.5">
+          <Link href="#swarms" className="text-emerald-600 hover:text-emerald-700 font-extrabold transition-colors flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-            <span>Product (Orbion)</span>
+            <span>AI Swarms</span>
           </Link>
           <Link href="#industries" className="hover:text-emerald-600 transition-colors">Industries</Link>
           <Link href="#agents" className="hover:text-emerald-600 transition-colors">AI Capabilities</Link>
@@ -66,7 +66,7 @@ export default function LandingPage() {
         {/* 1. Hero Section (Kept intact with prompt box & pills) */}
         <LandingHero />
 
-        {/* 2. Flagship Live Ready Product: OrbionAgents (orbionagents.com) */}
+        {/* 2. AuromindAI Autonomous Swarms Platform (auromindai.com) */}
         <OrbionAgentsShowcase />
 
         {/* 3. 6 Core Industry Solutions: eCommerce, Healthcare, Giving AI, Real Estate, AI Software, Mobile Apps */}
@@ -84,7 +84,7 @@ export default function LandingPage() {
         {/* 7. Interactive ROI & Workforce Savings Calculator */}
         <InteractiveCalculator />
 
-        {/* 8. Legacy Chatbots vs. OrbionAgents Comparison Table */}
+        {/* 8. Legacy Chatbots vs. AuromindAI Swarms Comparison Table */}
         <WorkforceComparison />
 
         {/* 9. Bank-Grade Security, HIPAA & SOC-2 Compliance */}
