@@ -572,9 +572,9 @@ export default function EcommerceAdPage() {
           {/* LEFT: 5-Second Clarity Pitch */}
           <div className="space-y-7 text-white">
             {/* Target Audience Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wide">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-black tracking-wider uppercase">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              For High-Growth D2C Brands Running Google &amp; Meta Ads
+              FOR eCOMMERCE BRANDS READY TO SCALE
             </div>
 
             {/* Core H1 */}
