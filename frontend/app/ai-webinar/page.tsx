@@ -92,27 +92,16 @@ export default function AIWebinarPage() {
     return () => clearInterval(timer);
   }, []);
 
-  // Universal CTA Trigger
+  // Universal CTA Trigger - Navigate directly to dedicated payment checkout page
   const triggerRegistration = (sourceTag = 'CTA') => {
-    if (window.innerWidth < 768) {
-      setIsModalOpen(true);
-    } else {
-      const el = document.getElementById('registration-section');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => {
-          const input = document.getElementById('webinar-name-input');
-          input?.focus();
-        }, 450);
-      } else {
-        setIsModalOpen(true);
-      }
-    }
+    const params = new URLSearchParams();
+    if (name.trim()) params.set('name', name.trim());
+    if (email.trim()) params.set('email', email.trim());
+    if (phone.trim()) params.set('phone', phone.trim());
+    const query = params.toString() ? `?${params.toString()}` : '';
+    window.location.href = `/ai-webinar/checkout${query}`;
   };
 
-  /* ────────────────────────────────────────────────────────────────────────────
-     HANDLE RAZORPAY PAYMENT & REGISTRATION
-  ──────────────────────────────────────────────────────────────────────────── */
   const handleRegisterAndPay = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setErrorMessage('');
@@ -502,151 +491,148 @@ export default function AIWebinarPage() {
             </div>
           </div>
 
-          {/* Right Column: High-Impact Gold Registration Card */}
-          <div id="registration-section" className="lg:col-span-5 w-full">
-            <div className="relative rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-b from-amber-400 via-amber-600 to-yellow-600 shadow-2xl shadow-amber-500/20">
-              <div className="bg-[#101015] rounded-[18px] sm:rounded-[22px] p-4 sm:p-8 border border-zinc-800">
-                {/* Card Title */}
-                <div className="text-center pb-4 sm:pb-5 border-b border-zinc-800">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black border border-amber-500/40 mb-2">
-                    <Crown className="w-3.5 h-3.5 text-amber-400" />
-                    CONFIRM YOUR TICKET
+          {/* Right Column: High-Impact Workshop Card (Image 2 Design) + Quick Form */}
+          <div id="registration-section" className="lg:col-span-5 w-full space-y-5">
+            {/* Card Matching User Upload (Image 2) */}
+            <div className="relative rounded-3xl p-6 sm:p-7 bg-[#111218] border-2 border-zinc-700 shadow-2xl shadow-amber-500/15 overflow-hidden">
+              {/* Speaker Header with Gnananand */}
+              <div className="flex items-center gap-3.5 pb-4 mb-5 border-b border-zinc-800">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden relative shrink-0 border-2 border-amber-500 shadow-lg">
+                  <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-top" priority />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base sm:text-lg font-black text-white">Gnananand</span>
+                    <span className="text-[10px] bg-amber-500 text-black px-1.5 py-0.5 rounded font-black tracking-wide">
+                      10+ YRS EXP
+                    </span>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                    Join The Workshop
-                  </h2>
-                  <p className="text-xs text-zinc-400 mt-1">
-                    Saturday, Oct 10th • 10:00 AM – 12:00 PM IST
-                  </p>
+                  <div className="text-xs text-amber-400 font-bold">
+                    Lead AI Architect &amp; Automation Mentor
+                  </div>
+                </div>
+              </div>
 
-                  {/* Pricing Box */}
-                  <div className="mt-3.5 p-3 rounded-xl bg-[#16161D] border-2 border-amber-500/40 flex items-center justify-between">
-                    <div className="text-left">
-                      <div className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-400">All-Inclusive Pass</div>
-                      <div className="text-[11px] sm:text-xs font-bold text-white">Live Workshop + ₹12,000 Vault</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl sm:text-2xl font-black text-amber-400">₹99</div>
-                      <div className="text-[10px] sm:text-[11px] line-through text-zinc-500">Regular ₹1,999</div>
-                    </div>
+              {/* Title & Date/Time Row */}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                <div>
+                  <div className="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight">
+                    AI Business Automation
+                  </div>
+                  <div className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-2 mt-0.5">
+                    <span className="border-l-4 border-red-500 pl-2 text-red-500">WORKSHOP</span>
                   </div>
                 </div>
 
-                {/* Error Banner */}
-                {errorMessage && (
-                  <div className="mt-3 p-3 rounded-xl bg-red-950/80 border-2 border-red-500 text-red-200 text-xs font-bold flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-                    <span>{errorMessage}</span>
+                <div className="text-left sm:text-right">
+                  <div className="text-sm sm:text-base font-black text-white">
+                    Saturday, Oct 10, 2026
                   </div>
-                )}
-
-                {/* Registration Form */}
-                <form onSubmit={handleRegisterAndPay} className="mt-4 sm:mt-5 space-y-3 sm:space-y-4">
-                  <div>
-                    <label className="block text-xs font-black uppercase tracking-wider text-zinc-300 mb-1">
-                      Full Name <span className="text-amber-400">*</span>
-                    </label>
-                    <input
-                      id="webinar-name-input"
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Santhosh Kumar"
-                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-[#181822] border-2 border-zinc-700 text-white placeholder-zinc-500 text-sm font-bold focus:outline-none focus:border-amber-400 transition-colors"
-                    />
+                  <div className="inline-block px-2.5 py-0.5 rounded bg-zinc-800 text-[10px] text-zinc-300 font-semibold border border-zinc-700 mt-1">
+                    Online Webinar
                   </div>
-
-                  <div>
-                    <label className="block text-xs font-black uppercase tracking-wider text-zinc-300 mb-1">
-                      Email Address (For Zoom Link) <span className="text-amber-400">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="name@company.com"
-                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-[#181822] border-2 border-zinc-700 text-white placeholder-zinc-500 text-sm font-bold focus:outline-none focus:border-amber-400 transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-black uppercase tracking-wider text-zinc-300 mb-1">
-                      WhatsApp Mobile Number <span className="text-amber-400">*</span>
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-black text-amber-400">
-                        +91
-                      </span>
-                      <input
-                        type="tel"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="98765 43210"
-                        className="w-full pl-12 pr-4 py-2.5 sm:py-3 rounded-xl bg-[#181822] border-2 border-zinc-700 text-white placeholder-zinc-500 text-sm font-bold focus:outline-none focus:border-amber-400 transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-black uppercase tracking-wider text-zinc-300 mb-1">
-                      Your Professional Role
-                    </label>
-                    <select
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#181822] border-2 border-zinc-700 text-white text-xs font-bold focus:outline-none focus:border-amber-400"
-                    >
-                      <option value="Business Owner / Founder">Business Owner / Founder</option>
-                      <option value="Product / Engineering Lead">Product / Engineering Lead</option>
-                      <option value="Agency Owner / Consultant">Agency Owner / Freelancer</option>
-                      <option value="Marketer / Operations Lead">Marketer / Operations Lead</option>
-                      <option value="AI Enthusiast">Student / AI Enthusiast</option>
-                    </select>
-                  </div>
-
-                  {/* Giant Gold Action Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 sm:py-4 px-4 sm:px-6 rounded-xl gold-btn text-sm sm:text-base uppercase tracking-wider flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-60"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                        <span>Connecting Razorpay...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Pay ₹99 &amp; Confirm Workshop Seat</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </button>
-                </form>
-
-                {/* Razorpay Trust Information */}
-                <div className="mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-zinc-800 text-center space-y-2">
-                  <div className="flex items-center justify-center gap-2 text-zinc-300 text-[11px] sm:text-xs font-bold">
-                    <Lock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span>256-Bit SSL Encrypted Razorpay Checkout</span>
-                  </div>
-
-                  <div className="flex items-center justify-center gap-1.5 sm:gap-2 pt-1 flex-wrap">
-                    <span className="text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-300">
-                      UPI: GPay • PhonePe • Paytm
-                    </span>
-                    <span className="text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-300">
-                      All Cards &amp; NetBanking
-                    </span>
-                  </div>
-
-                  <div className="text-[10px] sm:text-[11px] font-bold text-amber-300/80 pt-1">
-                    🛡️ 100% Satisfaction Guarantee: Full instant refund if not satisfied in 30 mins.
+                  <div className="text-xs text-zinc-400 font-bold mt-1 font-mono">
+                    10:00 AM – 12:00 PM IST
                   </div>
                 </div>
+              </div>
+
+              {/* Green CTA Button Matching Image 2 */}
+              <Link
+                href="/ai-webinar/checkout"
+                className="w-full mt-6 py-4 px-6 rounded-2xl bg-[#00D06C] hover:bg-[#00B960] active:scale-[0.99] text-black font-black text-sm sm:text-base shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
+              >
+                <span>Show me how to fix – Register for ₹99/-</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+
+              {/* Three Bullet Points Matching Image 2 */}
+              <div className="mt-4 text-center space-y-1 text-xs text-zinc-400 font-medium">
+                <div className="flex items-center justify-center gap-4 text-zinc-300">
+                  <span>● No fluff.</span>
+                  <span>● No generic theory.</span>
+                </div>
+                <div className="text-zinc-400 text-[11px]">
+                  ● Just the clearest 2 hours your business has ever had.
+                </div>
+              </div>
+            </div>
+
+            {/* Quick 3-Field Form (Name, Email, Mobile only) matching User Request */}
+            <div className="rounded-2xl p-5 sm:p-6 bg-[#101015] border border-zinc-800 shadow-xl text-left">
+              <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+                <span className="text-xs font-black uppercase tracking-wider text-amber-400">
+                  Quick Seat Pre-Booking
+                </span>
+                <span className="text-xs font-bold text-white bg-zinc-900 px-2 py-0.5 rounded border border-zinc-700">
+                  ₹99 Pass
+                </span>
+              </div>
+
+              <form onSubmit={handleRegisterAndPay} className="mt-3.5 space-y-3">
+                {/* 1. Full Name */}
+                <div>
+                  <label className="block text-[11px] font-bold text-zinc-300 mb-1">
+                    Full Name <span className="text-amber-400">*</span>
+                  </label>
+                  <input
+                    id="webinar-name-input"
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter full name"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#181822] border border-zinc-700 text-white placeholder-zinc-500 text-xs font-bold focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                {/* 2. Email Address */}
+                <div>
+                  <label className="block text-[11px] font-bold text-zinc-300 mb-1">
+                    Email Address <span className="text-amber-400">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email address"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#181822] border border-zinc-700 text-white placeholder-zinc-500 text-xs font-bold focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                {/* 3. Mobile Number */}
+                <div>
+                  <label className="block text-[11px] font-bold text-zinc-300 mb-1">
+                    Mobile Number <span className="text-amber-400">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-black text-amber-400">
+                      +91
+                    </span>
+                    <input
+                      type="tel"
+                      required
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="10-digit mobile number"
+                      className="w-full pl-11 pr-3.5 py-2.5 rounded-xl bg-[#181822] border border-zinc-700 text-white placeholder-zinc-500 text-xs font-bold focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+
+                {/* Pay 99 Button Matching Image 3 */}
+                <button
+                  type="submit"
+                  className="w-full mt-2 py-3 px-4 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-lg shadow-orange-500/20 active:scale-[0.99] transition-all cursor-pointer"
+                >
+                  <span>Continue to Secure Payment (₹99)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </form>
+
+              <div className="mt-3 text-center text-[10px] text-zinc-500 font-medium">
+                🔒 256-Bit SSL Encrypted Razorpay Checkout • Instant Digital Receipt
               </div>
             </div>
           </div>
@@ -1040,38 +1026,38 @@ export default function AIWebinarPage() {
             <div className="lg:col-span-4 text-center">
               <div className="w-28 h-28 sm:w-44 sm:h-44 rounded-2xl sm:rounded-3xl overflow-hidden mx-auto bg-zinc-900 border-2 border-amber-500/60 shadow-xl relative">
                 <Image
-                  src="/ec-team.jpg"
-                  alt="Lead AI Architect"
+                  src="/gnananand.jpg"
+                  alt="Gnananand - Lead AI Architect"
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="mt-3 sm:mt-4">
-                <h3 className="text-xl sm:text-2xl font-black text-white">Santhosh Kumar</h3>
+                <h3 className="text-xl sm:text-2xl font-black text-white">Gnananand</h3>
                 <p className="text-[11px] sm:text-xs text-amber-400 font-black tracking-wide uppercase mt-0.5">
-                  Founder &amp; Chief AI Architect • AuromindAI
+                  Senior AI Architect • 10+ Years Industry Experience
                 </p>
               </div>
             </div>
 
             <div className="lg:col-span-8 space-y-3 sm:space-y-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black border border-amber-500/40">
-                MEET YOUR INSTRUCTOR
+                MEET YOUR MENTOR &amp; INSTRUCTOR
               </div>
               <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-white">
-                Learn from Architects Who Deploy Enterprise AI Every Day
+                Learn from Gnananand: 10+ Years Building High-Impact Enterprise Systems
               </h2>
               <p className="text-xs sm:text-base font-medium text-zinc-300 leading-relaxed">
-                "We don't teach AI from textbook theories. At AuromindAI, our autonomous agent swarms process real customer conversations, schedule luxury tours, and automate order logistics for businesses across India and global markets."
+                With over a decade of hands-on experience designing and scaling mission-critical architectures, Gnananand guides business owners and tech teams through the exact frameworks used to replace repetitive manual operations with intelligent, production-ready AI agents.
               </p>
               <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-1 sm:pt-2">
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
-                  <div className="text-lg sm:text-2xl font-black text-white">1M+</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">AI Runs</div>
+                  <div className="text-lg sm:text-2xl font-black text-amber-400">10+ Yrs</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Industry Exp</div>
                 </div>
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
                   <div className="text-lg sm:text-2xl font-black text-white">1,400+</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Alumni</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Leaders Trained</div>
                 </div>
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
                   <div className="text-lg sm:text-2xl font-black text-amber-400">4.9/5</div>
@@ -1085,7 +1071,7 @@ export default function AIWebinarPage() {
                   onClick={() => triggerRegistration('instructor_cta')}
                   className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl gold-btn text-xs sm:text-sm uppercase tracking-wider cursor-pointer inline-flex items-center justify-center gap-2"
                 >
-                  <span>Learn from the Auromind AI Team for ₹99</span>
+                  <span>Learn from Gnananand for ₹99</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
