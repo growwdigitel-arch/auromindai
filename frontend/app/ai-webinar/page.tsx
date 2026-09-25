@@ -491,23 +491,23 @@ export default function AIWebinarPage() {
             </div>
           </div>
 
-          {/* Right Column: High-Impact Workshop Card (Matching Image 2) */}
-          <div id="registration-section" className="lg:col-span-5 w-full">
+          {/* Right Column: High-Impact Workshop Card + Free Value Stack (No Gap) */}
+          <div id="registration-section" className="lg:col-span-5 w-full space-y-4">
             {/* Card Matching User Upload (Image 2) */}
             <div className="relative rounded-3xl p-6 sm:p-7 bg-[#111218] border-2 border-zinc-700 shadow-2xl shadow-amber-500/15 overflow-hidden">
               {/* Speaker Header with Gnananand */}
               <div className="flex items-center gap-3.5 pb-4 mb-5 border-b border-zinc-800">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden relative shrink-0 border-2 border-amber-500 shadow-lg">
-                  <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-top" priority />
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden relative shrink-0 border-2 border-amber-500 shadow-xl bg-zinc-900">
+                  <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-center" priority />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-base sm:text-lg font-black text-white">Gnananand</span>
-                    <span className="text-[10px] bg-amber-500 text-black px-1.5 py-0.5 rounded font-black tracking-wide">
+                    <span className="text-lg sm:text-xl font-black text-white">Gnananand</span>
+                    <span className="text-[10px] bg-amber-500 text-black px-2 py-0.5 rounded font-black tracking-wide">
                       10+ YRS SALES EXP
                     </span>
                   </div>
-                  <div className="text-xs text-amber-400 font-bold">
+                  <div className="text-xs text-amber-400 font-bold mt-0.5">
                     10+ Years Enterprise Sales Veteran &amp; AI Conversion Mentor
                   </div>
                 </div>
@@ -557,6 +557,62 @@ export default function AIWebinarPage() {
                 <div className="text-zinc-400 text-[11px]">
                   ● Just the clearest 2 hours your business has ever had.
                 </div>
+              </div>
+            </div>
+
+            {/* Fast-Action Bonuses Card (Fills Right Column Gap Seamlessly) */}
+            <div className="rounded-3xl p-5 sm:p-5.5 bg-gradient-to-b from-[#13131A] to-[#0E0E14] border-2 border-zinc-800 shadow-xl space-y-3.5">
+              <div className="flex items-center justify-between border-b border-zinc-800/90 pb-2.5">
+                <div className="flex items-center gap-1.5">
+                  <Gift className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span className="text-xs font-black uppercase tracking-wider text-amber-300">
+                    Included Free With Your ₹99 Pass
+                  </span>
+                </div>
+                <span className="text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                  ₹12,000 VALUE
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-start gap-2.5 p-2 rounded-xl bg-zinc-900/60 border border-zinc-800/80">
+                  <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-black text-[11px] flex items-center justify-center shrink-0 border border-amber-500/30">
+                    01
+                  </div>
+                  <div>
+                    <div className="text-xs font-black text-white">50+ Enterprise AI Sales &amp; Lead Prompts</div>
+                    <div className="text-[11px] text-zinc-400 font-medium">Copy-paste prompts to automate prospect qualification (Worth ₹4,999)</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 p-2 rounded-xl bg-zinc-900/60 border border-zinc-800/80">
+                  <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-black text-[11px] flex items-center justify-center shrink-0 border border-amber-500/30">
+                    02
+                  </div>
+                  <div>
+                    <div className="text-xs font-black text-white">Full HD Workshop Replay + Architecture Slides</div>
+                    <div className="text-[11px] text-zinc-400 font-medium">Lifetime access so your team can re-watch any time (Worth ₹3,999)</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 p-2 rounded-xl bg-zinc-900/60 border border-zinc-800/80">
+                  <div className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-black text-[11px] flex items-center justify-center shrink-0 border border-amber-500/30">
+                    03
+                  </div>
+                  <div>
+                    <div className="text-xs font-black text-white">Live Pipeline Hotseat &amp; Q&amp;A With Gnananand</div>
+                    <div className="text-[11px] text-zinc-400 font-medium">Get actionable critique on your sales automation setup (Worth ₹3,000)</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Proof & Guarantee Pill */}
+              <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
+                <div className="flex items-center gap-1.5 text-zinc-300 font-bold">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <span>100% Satisfaction Guarantee</span>
+                </div>
+                <span className="text-amber-400 font-black">Rated 4.9/5 ★ (1,400+ Alumni)</span>
               </div>
             </div>
           </div>
@@ -953,7 +1009,7 @@ export default function AIWebinarPage() {
                   src="/gnananand.jpg"
                   alt="Gnananand - 10+ Years Enterprise Sales Veteran & AI Mentor"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                 />
               </div>
               <div className="mt-3 sm:mt-4">

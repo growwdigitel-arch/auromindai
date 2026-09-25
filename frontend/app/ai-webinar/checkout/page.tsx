@@ -227,7 +227,7 @@ export default function WebinarCheckoutPage() {
               </div>
             </div>
             <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-amber-500/60 shadow-sm relative shrink-0">
-              <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-top" />
+              <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-center" />
             </div>
           </div>
         </div>
@@ -473,7 +473,7 @@ export default function WebinarCheckoutPage() {
                 {/* Speaker Snippet */}
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-50/70 border border-amber-200/80">
                   <div className="w-12 h-12 rounded-xl overflow-hidden relative shrink-0 border border-amber-300">
-                    <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-top" />
+                    <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-center" />
                   </div>
                   <div className="text-xs">
                     <div className="font-black text-zinc-900">Gnananand</div>
