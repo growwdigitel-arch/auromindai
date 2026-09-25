@@ -171,27 +171,17 @@ export default function WebinarCheckoutPage() {
       });
 
       const verifyData = await verifyRes.json();
-      if (verifyRes.ok && verifyData.ticket) {
-        setConfirmedTicket(verifyData.ticket);
-      } else {
-        setConfirmedTicket({
-          attendeeName: name,
-          attendeeEmail: email,
-          amountPaid: '₹99',
-          webinarDate: 'Saturday, October 10, 2026',
-          webinarTime: '10:00 AM – 12:00 PM IST',
-          whatsappGroup: 'https://chat.whatsapp.com/auromind-ai-vip-webinar'
-        });
-      }
+      const ticket = verifyData?.ticket;
+      const finalName = ticket?.attendeeName || name || 'Attendee';
+      const finalEmail = ticket?.attendeeEmail || email || '';
+      const finalPayId = payload.razorpay_payment_id || `pay_${Date.now()}`;
+
+      // Redirect immediately to the dedicated Thank You page
+      window.location.href = `/ai-webinar/thank-you?name=${encodeURIComponent(finalName)}&email=${encodeURIComponent(finalEmail)}&payment_id=${encodeURIComponent(finalPayId)}`;
     } catch (err) {
       console.error('Verification error:', err);
-      setConfirmedTicket({
-        attendeeName: name,
-        attendeeEmail: email,
-        amountPaid: '₹99',
-        webinarDate: 'Saturday, October 10, 2026',
-        webinarTime: '10:00 AM – 12:00 PM IST',
-      });
+      // Redirect to thank-you with payment_id
+      window.location.href = `/ai-webinar/thank-you?name=${encodeURIComponent(name || 'Attendee')}&email=${encodeURIComponent(email || '')}&payment_id=${encodeURIComponent(payload.razorpay_payment_id || `pay_${Date.now()}`)}`;
     } finally {
       setIsSubmitting(false);
     }
@@ -202,31 +192,32 @@ export default function WebinarCheckoutPage() {
       {/* Razorpay Script */}
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
 
-      {/* Top Header */}
-      <header className="w-full bg-white border-b border-zinc-200 py-3.5 px-4 sm:px-8 sticky top-0 z-30 shadow-sm">
+      {/* Top Header Matching Image 3 with Clearly Visible Logo */}
+      <header className="w-full bg-white border-b border-zinc-200 py-3 px-4 sm:px-8 sticky top-0 z-30 shadow-sm">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/ai-webinar" className="flex items-center gap-2 group">
-            <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:-translate-x-0.5 transition-transform" />
+          <Link href="/ai-webinar" className="flex items-center gap-2 sm:gap-3 group">
+            <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:-translate-x-0.5 transition-transform shrink-0" />
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg overflow-hidden bg-zinc-900 flex items-center justify-center p-1">
-                <Image src="/logo.png" alt="AuromindAI" width={24} height={24} className="object-contain" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-zinc-950 border border-amber-500/40 p-1 flex items-center justify-center shadow-md shrink-0">
+                <Image src="/logo.png" alt="AuromindAI" width={34} height={34} className="object-contain" priority />
               </div>
-              <span className="font-extrabold text-base tracking-tight text-zinc-900">
-                Auromind<span className="text-amber-600">AI</span>
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900">
+                Auromind<span className="text-amber-500 font-black">AI</span>
               </span>
             </div>
           </Link>
 
           <div className="flex items-center gap-3">
-            <div className="text-right hidden sm:block">
-              <div className="text-xs font-black uppercase tracking-wider text-zinc-900">
-                AI Automation Workshop
+            <div className="text-right">
+              <div className="text-xs sm:text-sm font-black text-zinc-900 leading-tight">
+                AI Business Automation
               </div>
-              <div className="text-[11px] text-zinc-500 font-medium">
-                Mentor: Gnananand (10+ Yrs Sales Exp)
+              <div className="text-[10px] sm:text-xs font-black tracking-wider text-red-600 uppercase flex items-center justify-end gap-1">
+                <span className="w-2.5 h-0.5 bg-red-500 inline-block" />
+                <span>WORKSHOP</span>
               </div>
             </div>
-            <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-amber-500/60 shadow-sm relative shrink-0">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-amber-500 shadow-sm relative shrink-0 bg-zinc-900">
               <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-center" />
             </div>
           </div>
@@ -292,12 +283,13 @@ export default function WebinarCheckoutPage() {
               )}
 
               <a
-                href={confirmedTicket.whatsappGroup || 'https://wa.me/919845011223?text=Hi%20Gnananand,%20I%20have%20booked%20my%20seat%20for%20the%20AI%20Automation%20Workshop!'}
+                href="https://whatsapp.com/channel/0029Vb8b0Ct7Noa4e01ZBq0D"
                 target="_blank"
-                className="w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
               >
-                <MessageSquare className="w-4 h-4" />
-                <span>Join VIP WhatsApp Group</span>
+                <MessageSquare className="w-4 h-4 fill-white" />
+                <span>Join Official WhatsApp Channel Now</span>
               </a>
 
               <Link
