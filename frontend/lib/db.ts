@@ -629,6 +629,7 @@ export function updateAdminSettings(updates: Partial<AdminSettings>): AdminSetti
 export async function getOverviewMetrics() {
   const ecLeads = await getEcommerceLeads();
   const reLeads = getRealEstateLeads();
+  const webinarRegs = getWebinarRegistrations();
   const users = getUsers();
   const models = getModels();
 
@@ -636,6 +637,8 @@ export async function getOverviewMetrics() {
   const activeUsersCount = users.filter(u => u.status === 'Active').length;
   const newEcCount = ecLeads.filter(l => l.status === 'new').length;
   const newReCount = reLeads.filter(l => l.status === 'new').length;
+  const paidWebinarCount = webinarRegs.filter(w => w.paymentStatus === 'paid').length;
+  const pendingWebinarCount = webinarRegs.filter(w => w.paymentStatus === 'pending').length;
   const convertedLeads = ecLeads.filter(l => l.status === 'converted').length + reLeads.filter(l => l.status === 'converted').length;
 
   return {
@@ -643,6 +646,9 @@ export async function getOverviewMetrics() {
     newEcommerceLeads: newEcCount,
     totalRealEstateLeads: reLeads.length,
     newRealEstateLeads: newReCount,
+    totalWebinarRegistrations: webinarRegs.length,
+    paidWebinarRegistrations: paidWebinarCount,
+    pendingWebinarRegistrations: pendingWebinarCount,
     totalUsers: users.length,
     activeUsers: activeUsersCount,
     totalConverted: convertedLeads,
@@ -666,6 +672,16 @@ export async function getOverviewMetrics() {
         detail: l.lead_volume,
         time: l.submittedAt,
         status: l.status
+      })),
+      ...webinarRegs.slice(0, 3).map(w => ({
+        id: w.id,
+        type: 'webinar',
+        title: w.name,
+        subtitle: `${w.webinarDate} (₹${w.amount})`,
+        contact: w.phone,
+        detail: w.paymentStatus.toUpperCase(),
+        time: w.registeredAt,
+        status: w.paymentStatus
       }))
     ].sort((a, b) => b.time.localeCompare(a.time))
   };

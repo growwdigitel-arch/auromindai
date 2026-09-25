@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getWebinarRegistrations, addWebinarRegistration } from '@/lib/db';
+import { 
+  getWebinarRegistrations, 
+  addWebinarRegistration,
+  updateWebinarRegistration,
+  deleteWebinarRegistration
+} from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -104,5 +109,42 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error('Error creating webinar registration:', err);
     return NextResponse.json({ error: 'Failed to initiate webinar registration' }, { status: 500 });
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { id, paymentStatus, notes, name, email, phone } = body;
+    if (!id) {
+      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    }
+    const updated = updateWebinarRegistration(id, {
+      ...(paymentStatus ? { paymentStatus } : {}),
+      ...(notes !== undefined ? { notes } : {}),
+      ...(name ? { name } : {}),
+      ...(email ? { email } : {}),
+      ...(phone ? { phone } : {}),
+    });
+    if (!updated) {
+      return NextResponse.json({ error: 'Registration not found' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true, registration: updated });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to update registration' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    }
+    const success = deleteWebinarRegistration(id);
+    return NextResponse.json({ success });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to delete registration' }, { status: 500 });
   }
 }

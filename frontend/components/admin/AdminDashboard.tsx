@@ -28,7 +28,12 @@ import {
   Eye, 
   UserCheck, 
   LogIn,
-  LogOut
+  LogOut,
+  Video,
+  CreditCard,
+  Sparkles,
+  AlertCircle,
+  Copy
 } from 'lucide-react';
 
 /* ────────────────────────────────────────────────────────
@@ -58,6 +63,23 @@ interface RealEstateLead {
   notes?: string;
 }
 
+interface WebinarRegistration {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  amount: number;
+  currency: string;
+  paymentStatus: 'paid' | 'pending' | 'failed';
+  paymentId?: string;
+  orderId?: string;
+  registeredAt: string;
+  webinarDate: string;
+  webinarTime: string;
+  source?: string;
+  notes?: string;
+}
+
 interface PlatformUser {
   id: string;
   name: string;
@@ -76,11 +98,13 @@ interface PlatformUser {
    MAIN OWNER ADMIN DASHBOARD
 ──────────────────────────────────────────────────────── */
 export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
-  const [activeTab, setActiveTab] = useState<'metrics' | 'ecommerce' | 'realestate' | 'users'>('metrics');
+  const [activeTab, setActiveTab] = useState<'metrics' | 'ecommerce' | 'realestate' | 'webinar' | 'users'>('metrics');
   
   // Real dynamic counts from database
   const [ecLeadCount, setEcLeadCount] = useState<number>(0);
   const [reLeadCount, setReLeadCount] = useState<number>(0);
+  const [webinarCount, setWebinarCount] = useState<number>(0);
+  const [webinarPaidCount, setWebinarPaidCount] = useState<number>(0);
   const [userCount, setUserCount] = useState<number>(0);
 
   const refreshCounts = useCallback(() => {
@@ -90,6 +114,8 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
         if (data) {
           setEcLeadCount(data.totalEcommerceLeads || 0);
           setReLeadCount(data.totalRealEstateLeads || 0);
+          setWebinarCount(data.totalWebinarRegistrations || 0);
+          setWebinarPaidCount(data.paidWebinarRegistrations || 0);
           setUserCount(data.totalUsers || 0);
         }
       })
@@ -117,7 +143,7 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
                 PROD DB
               </span>
             </div>
-            <p className="text-[10px] text-zinc-500 font-mono">Inbound Leads &amp; User Sign-In Audit Portal</p>
+            <p className="text-[10px] text-zinc-500 font-mono">Inbound Leads, Webinar Attendees &amp; User Audit Portal</p>
           </div>
         </div>
 
@@ -125,7 +151,11 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
         <div className="hidden md:flex items-center gap-3 text-xs">
           <button
             onClick={() => setActiveTab('ecommerce')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-emerald-500/40 transition-colors"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${
+              activeTab === 'ecommerce' 
+                ? 'bg-emerald-500/15 border-emerald-500/50 text-white' 
+                : 'bg-zinc-900 border-zinc-800 hover:border-emerald-500/40'
+            }`}
           >
             <ShoppingBag className="w-3.5 h-3.5 text-emerald-400" />
             <span className="text-zinc-400">eCommerce:</span>
@@ -133,15 +163,40 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
           </button>
           <button
             onClick={() => setActiveTab('realestate')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-teal-500/40 transition-colors"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${
+              activeTab === 'realestate' 
+                ? 'bg-teal-500/15 border-teal-500/50 text-white' 
+                : 'bg-zinc-900 border-zinc-800 hover:border-teal-500/40'
+            }`}
           >
             <Building2 className="w-3.5 h-3.5 text-teal-400" />
             <span className="text-zinc-400">Real Estate:</span>
             <span className="font-mono font-bold text-white">{reLeadCount}</span>
           </button>
           <button
+            onClick={() => setActiveTab('webinar')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${
+              activeTab === 'webinar' 
+                ? 'bg-amber-500/15 border-amber-500/50 text-white' 
+                : 'bg-zinc-900 border-zinc-800 hover:border-amber-500/40'
+            }`}
+          >
+            <Video className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-zinc-400">AI Webinar:</span>
+            <span className="font-mono font-bold text-amber-300">{webinarCount}</span>
+            {webinarPaidCount > 0 && (
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold ml-1">
+                {webinarPaidCount} Paid
+              </span>
+            )}
+          </button>
+          <button
             onClick={() => setActiveTab('users')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-blue-500/40 transition-colors"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${
+              activeTab === 'users' 
+                ? 'bg-blue-500/15 border-blue-500/50 text-white' 
+                : 'bg-zinc-900 border-zinc-800 hover:border-blue-500/40'
+            }`}
           >
             <Users className="w-3.5 h-3.5 text-blue-400" />
             <span className="text-zinc-400">Signed Users:</span>
@@ -151,6 +206,14 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
 
         {/* Right Action Links */}
         <div className="flex items-center gap-2.5 text-xs">
+          <Link
+            href="/ai-webinar"
+            target="_blank"
+            className="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+          >
+            <span>/ai-webinar</span>
+            <ExternalLink className="w-3 h-3 text-amber-400" />
+          </Link>
           <Link
             href="/ecommerce"
             target="_blank"
@@ -182,7 +245,7 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
 
       {/* Body: Sidebar + Main Tab View */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar: Only Dashboard, Leads & Users */}
+        {/* Sidebar: Dashboard, Leads, Webinar & Users */}
         <aside className="w-64 border-r border-zinc-800 bg-[#141416] p-4 flex flex-col justify-between shrink-0">
           <div className="space-y-6">
             <nav className="space-y-1.5">
@@ -206,8 +269,33 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
               </button>
 
               <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider px-3 pt-4 pb-1">
-                Inbound Form Leads
+                Campaign Leads &amp; Registrations
               </div>
+
+              {/* AI Webinar Registrations Option */}
+              <button
+                onClick={() => setActiveTab('webinar')}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  activeTab === 'webinar'
+                    ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/20'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Video className="w-4 h-4 text-amber-400" />
+                  <span className="font-bold text-white">AI Webinar (₹99)</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
+                    {webinarCount}
+                  </span>
+                  {webinarPaidCount > 0 && (
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold">
+                      {webinarPaidCount}✓
+                    </span>
+                  )}
+                </div>
+              </button>
 
               {/* eCommerce Leads Option */}
               <button
@@ -274,7 +362,7 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
             <div className="p-3 bg-zinc-900/70 rounded-xl border border-zinc-800 text-xs text-zinc-400 flex items-center justify-between">
               <span className="flex items-center gap-1.5 font-medium">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Live Leads Funnel
+                Live Leads &amp; Webinar Funnel
               </span>
               <span className="text-[10px] text-zinc-500 font-mono">DB Synced</span>
             </div>
@@ -290,9 +378,11 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
             <OverviewTab 
               onGoEcommerce={() => setActiveTab('ecommerce')} 
               onGoRealEstate={() => setActiveTab('realestate')}
+              onGoWebinar={() => setActiveTab('webinar')}
               onGoUsers={() => setActiveTab('users')}
             />
           )}
+          {activeTab === 'webinar' && <WebinarRegistrationsView onRefreshParent={refreshCounts} />}
           {activeTab === 'ecommerce' && <EcommerceLeadsView onRefreshParent={refreshCounts} />}
           {activeTab === 'realestate' && <RealEstateLeadsView onRefreshParent={refreshCounts} />}
           {activeTab === 'users' && <UsersSignInView onRefreshParent={refreshCounts} />}
@@ -308,10 +398,12 @@ export function AdminDashboard({ onLogout }: { onLogout?: () => void } = {}) {
 function OverviewTab({ 
   onGoEcommerce, 
   onGoRealEstate, 
+  onGoWebinar,
   onGoUsers 
 }: { 
   onGoEcommerce: () => void; 
   onGoRealEstate: () => void; 
+  onGoWebinar: () => void;
   onGoUsers: () => void; 
 }) {
   const [metrics, setMetrics] = useState<any>(null);
@@ -343,7 +435,7 @@ function OverviewTab({
         <div>
           <h2 className="text-2xl font-black text-white tracking-tight">Owner Dashboard</h2>
           <p className="text-xs text-zinc-400 mt-1">
-            Executive overview of inbound leads captured from marketing pages and user sign-in activity.
+            Executive overview of inbound leads captured from marketing pages, webinar ticket sales, and user sign-in activity.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -356,34 +448,59 @@ function OverviewTab({
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           </button>
           <button
+            onClick={onGoWebinar}
+            className="px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-2 transition-all"
+          >
+            <Video className="w-3.5 h-3.5 text-amber-400" />
+            <span>AI Webinar ({metrics?.totalWebinarRegistrations ?? '...'})</span>
+          </button>
+          <button
             onClick={onGoEcommerce}
-            className="px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-2 transition-all"
+            className="px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-2 transition-all"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
-            <span>eCommerce Form Leads ({metrics?.totalEcommerceLeads ?? '...'})</span>
+            <span>eCommerce Leads ({metrics?.totalEcommerceLeads ?? '...'})</span>
           </button>
           <button
             onClick={onGoUsers}
-            className="px-4 py-2 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold flex items-center gap-2 transition-all"
+            className="px-3.5 py-2 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold flex items-center gap-2 transition-all"
           >
             <Users className="w-3.5 h-3.5" />
-            <span>User Accounts ({metrics?.totalUsers ?? '...'})</span>
+            <span>Users ({metrics?.totalUsers ?? '...'})</span>
           </button>
         </div>
       </div>
 
-      {/* 4 Focused KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Card 1: eCommerce Leads */}
+      {/* 5 Focused KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+        {/* Card 1: AI Webinar */}
+        <div 
+          onClick={onGoWebinar}
+          className="p-4 rounded-2xl bg-[#18191E] border border-amber-500/30 hover:border-amber-400/60 cursor-pointer space-y-2 transition-all group shadow-[0_0_15px_rgba(245,158,11,0.06)]"
+        >
+          <div className="flex items-center justify-between text-[11px] font-bold text-zinc-400">
+            <span className="text-amber-300">AI Webinar</span>
+            <Video className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+          </div>
+          <div className="text-2xl font-black text-white tracking-tight">
+            {metrics ? `${metrics.totalWebinarRegistrations ?? 0}` : '...'}
+          </div>
+          <div className="flex items-center justify-between text-[10px] text-zinc-500 font-mono">
+            <span className="text-emerald-400 font-bold">{metrics?.paidWebinarRegistrations ?? 0} Paid</span>
+            <span className="text-amber-400 font-bold">{metrics?.pendingWebinarRegistrations ?? 0} Pending</span>
+          </div>
+        </div>
+
+        {/* Card 2: eCommerce Leads */}
         <div 
           onClick={onGoEcommerce}
-          className="p-5 rounded-2xl bg-[#18191E] border border-zinc-800 hover:border-emerald-500/40 cursor-pointer space-y-2.5 transition-all group"
+          className="p-4 rounded-2xl bg-[#18191E] border border-zinc-800 hover:border-emerald-500/40 cursor-pointer space-y-2 transition-all group"
         >
           <div className="flex items-center justify-between text-[11px] font-bold text-zinc-400">
             <span>eCommerce Leads</span>
             <ShoppingBag className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-3xl font-black text-white tracking-tight">
+          <div className="text-2xl font-black text-white tracking-tight">
             {metrics ? `${metrics.totalEcommerceLeads}` : '...'}
           </div>
           <div className="flex items-center justify-between text-[10px] text-zinc-500 font-mono">
@@ -392,56 +509,56 @@ function OverviewTab({
           </div>
         </div>
 
-        {/* Card 2: Real Estate Leads */}
+        {/* Card 3: Real Estate Leads */}
         <div 
           onClick={onGoRealEstate}
-          className="p-5 rounded-2xl bg-[#18191E] border border-zinc-800 hover:border-teal-500/40 cursor-pointer space-y-2.5 transition-all group"
+          className="p-4 rounded-2xl bg-[#18191E] border border-zinc-800 hover:border-teal-500/40 cursor-pointer space-y-2 transition-all group"
         >
           <div className="flex items-center justify-between text-[11px] font-bold text-zinc-400">
-            <span>Real Estate Inquiries</span>
+            <span>Real Estate</span>
             <Building2 className="w-4 h-4 text-teal-400 group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-3xl font-black text-white tracking-tight">
+          <div className="text-2xl font-black text-white tracking-tight">
             {metrics ? `${metrics.totalRealEstateLeads}` : '...'}
           </div>
           <div className="flex items-center justify-between text-[10px] text-zinc-500 font-mono">
-            <span>Demo walkthroughs</span>
+            <span>Demo requests</span>
             <span className="text-teal-300 font-bold">{metrics?.newRealEstateLeads ?? 0} New</span>
           </div>
         </div>
 
-        {/* Card 3: Total Users Signed Up */}
+        {/* Card 4: Total Users Signed Up */}
         <div 
           onClick={onGoUsers}
-          className="p-5 rounded-2xl bg-[#18191E] border border-zinc-800 hover:border-blue-500/40 cursor-pointer space-y-2.5 transition-all group"
+          className="p-4 rounded-2xl bg-[#18191E] border border-zinc-800 hover:border-blue-500/40 cursor-pointer space-y-2 transition-all group"
         >
           <div className="flex items-center justify-between text-[11px] font-bold text-zinc-400">
-            <span>Total Registered Users</span>
+            <span>Registered Users</span>
             <Users className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-3xl font-black text-white tracking-tight">
+          <div className="text-2xl font-black text-white tracking-tight">
             {metrics ? `${metrics.totalUsers}` : '...'}
           </div>
           <div className="flex items-center justify-between text-[10px] text-zinc-500 font-mono">
-            <span>Accounts in database</span>
+            <span>Database logins</span>
             <span className="text-blue-400 font-bold">{metrics?.activeUsers ?? 0} Active</span>
           </div>
         </div>
 
-        {/* Card 4: Converted Leads */}
+        {/* Card 5: Converted Leads */}
         <div 
-          className="p-5 rounded-2xl bg-[#18191E] border border-zinc-800 space-y-2.5 transition-all"
+          className="p-4 rounded-2xl bg-[#18191E] border border-zinc-800 space-y-2 transition-all"
         >
           <div className="flex items-center justify-between text-[11px] font-bold text-zinc-400">
-            <span>Converted Clients</span>
+            <span>Converted &amp; Paid</span>
             <TrendingUp className="w-4 h-4 text-green-400" />
           </div>
-          <div className="text-3xl font-black text-green-400 tracking-tight">
-            {metrics ? `${metrics.totalConverted}` : '...'} Won
+          <div className="text-2xl font-black text-green-400 tracking-tight">
+            {metrics ? `${(metrics.totalConverted ?? 0) + (metrics.paidWebinarRegistrations ?? 0)}` : '...'} Won
           </div>
           <div className="flex items-center justify-between text-[10px] text-zinc-500 font-mono">
-            <span>Signed agreements</span>
-            <span className="text-green-400 font-bold">100% Verified</span>
+            <span>eCom + Webinar</span>
+            <span className="text-green-400 font-bold">100% Real</span>
           </div>
         </div>
       </div>
@@ -455,35 +572,48 @@ function OverviewTab({
             <div>
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <ShoppingBag className="w-4 h-4 text-emerald-400" />
-                Latest Inbound Form Fills (eCommerce &amp; Real Estate)
+                Latest Inbound Activity (Webinar, eCommerce &amp; Real Estate)
               </h3>
               <p className="text-[11px] text-zinc-500 mt-0.5">
-                Real-time stream from landing page submissions.
+                Real-time stream from landing page submissions &amp; ticket checkouts.
               </p>
             </div>
-            <button
-              onClick={onGoEcommerce}
-              className="text-xs text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1"
-            >
-              <span>View All</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onGoWebinar}
+                className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1"
+              >
+                <span>Webinar</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+              <button
+                onClick={onGoEcommerce}
+                className="text-xs text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1"
+              >
+                <span>eCommerce</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-zinc-800 text-zinc-500 font-semibold uppercase text-[10px]">
-                  <th className="pb-2.5">Client &amp; Business</th>
-                  <th className="pb-2.5">Source</th>
-                  <th className="pb-2.5">Budget</th>
+                  <th className="pb-2.5">Attendee / Client</th>
+                  <th className="pb-2.5">Channel</th>
+                  <th className="pb-2.5">Status / Fee</th>
                   <th className="pb-2.5">Date</th>
                   <th className="pb-2.5 text-right">WhatsApp</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-850 text-zinc-300">
-                {metrics?.recentActivity?.slice(0, 5).map((item: any) => {
+                {metrics?.recentActivity?.slice(0, 6).map((item: any) => {
                   const cleanPhone = item.contact?.replace(/[^\d]/g, '');
+                  const isWebinar = item.type === 'webinar';
+                  const isEcommerce = item.type === 'ecommerce';
+                  const isPaid = item.status === 'paid';
+
                   return (
                     <tr key={item.id} className="hover:bg-zinc-800/30 transition-colors">
                       <td className="py-3">
@@ -492,18 +622,38 @@ function OverviewTab({
                       </td>
                       <td className="py-3">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          item.type === 'ecommerce' 
+                          isWebinar
+                            ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
+                            : isEcommerce 
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
                             : 'bg-teal-500/10 text-teal-400 border border-teal-500/20'
                         }`}>
-                          {item.type === 'ecommerce' ? 'eCommerce' : 'Real Estate'}
+                          {isWebinar ? 'AI Webinar' : isEcommerce ? 'eCommerce' : 'Real Estate'}
                         </span>
                       </td>
-                      <td className="py-3 font-semibold text-white">{item.detail}</td>
+                      <td className="py-3">
+                        {isWebinar ? (
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                            isPaid
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                          }`}>
+                            {isPaid ? 'PAID (₹99)' : 'PENDING'}
+                          </span>
+                        ) : (
+                          <span className="font-semibold text-white">{item.detail}</span>
+                        )}
+                      </td>
                       <td className="py-3 text-zinc-500 font-mono text-[10px]">{item.time}</td>
                       <td className="py-3 text-right">
                         <a
-                          href={`https://wa.me/${cleanPhone}`}
+                          href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+                            isWebinar
+                              ? isPaid
+                                ? `Hi ${item.title}! Welcome to Auromind's AI Automation Workshop (Oct 10th). Your ₹99 seat is confirmed!`
+                                : `Hi ${item.title}! We noticed you started registering for our AI Automation Workshop (Oct 10th). Would you like help securing your seat?`
+                              : `Hi ${item.title}! This is Auromind regarding your inquiry.`
+                          )}`}
                           target="_blank"
                           className="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-[10px] inline-flex items-center gap-1"
                         >
@@ -574,6 +724,542 @@ function OverviewTab({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────── */
+/* ── TAB: AI WEBINAR REGISTRATIONS (₹99 & FORM FILLS)  ── */
+/* ──────────────────────────────────────────────────────── */
+function WebinarRegistrationsView({ onRefreshParent }: { onRefreshParent?: () => void }) {
+  const [registrations, setRegistrations] = useState<WebinarRegistration[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'paid' | 'pending' | 'failed'>('all');
+  const [selectedReg, setSelectedReg] = useState<WebinarRegistration | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
+
+  const fetchRegistrations = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/webinar/register?t=' + Date.now(), {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRegistrations(data.registrations || []);
+      }
+    } catch (err) {
+      console.error('Failed to load webinar registrations:', err);
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchRegistrations();
+    const interval = setInterval(fetchRegistrations, 6000);
+    return () => clearInterval(interval);
+  }, [fetchRegistrations]);
+
+  const handleStatusChange = async (regId: string, newStatus: 'paid' | 'pending' | 'failed') => {
+    setUpdatingId(regId);
+    setRegistrations(prev => prev.map(r => r.id === regId ? { ...r, paymentStatus: newStatus } : r));
+    if (selectedReg && selectedReg.id === regId) {
+      setSelectedReg(prev => prev ? { ...prev, paymentStatus: newStatus } : null);
+    }
+    try {
+      await fetch('/api/webinar/register', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: regId, paymentStatus: newStatus })
+      });
+      if (onRefreshParent) onRefreshParent();
+    } catch (err) {
+      console.error('Failed to update status:', err);
+    }
+    setUpdatingId(null);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this webinar registration?')) return;
+    setRegistrations(prev => prev.filter(r => r.id !== id));
+    if (selectedReg?.id === id) setSelectedReg(null);
+    try {
+      await fetch(`/api/webinar/register?id=${id}`, { method: 'DELETE' });
+      if (onRefreshParent) onRefreshParent();
+    } catch (err) {
+      console.error('Failed to delete registration:', err);
+    }
+  };
+
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(label);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const exportCSV = () => {
+    const headers = 'ID,Name,Email,Phone,Amount,Currency,PaymentStatus,PaymentID,OrderID,Date,Source,Notes\n';
+    const rows = registrations.map(r => 
+      `"${r.id}","${r.name}","${r.email}","${r.phone}","${r.amount}","${r.currency}","${r.paymentStatus}","${r.paymentId || ''}","${r.orderId || ''}","${r.registeredAt}","${r.source || ''}","${(r.notes || '').replace(/"/g, '""')}"`
+    ).join('\n');
+    const blob = new Blob([headers + rows], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai-webinar-registrations-${new Date().toISOString().substring(0, 10)}.csv`;
+    a.click();
+  };
+
+  const filtered = registrations.filter(r => {
+    const term = search.toLowerCase();
+    const matchSearch = 
+      r.name.toLowerCase().includes(term) ||
+      r.email.toLowerCase().includes(term) ||
+      r.phone.includes(term) ||
+      (r.orderId && r.orderId.toLowerCase().includes(term)) ||
+      (r.paymentId && r.paymentId.toLowerCase().includes(term));
+    const matchStatus = statusFilter === 'all' || r.paymentStatus === statusFilter;
+    return matchSearch && matchStatus;
+  });
+
+  const totalCount = registrations.length;
+  const paidCount = registrations.filter(r => r.paymentStatus === 'paid').length;
+  const pendingCount = registrations.filter(r => r.paymentStatus === 'pending').length;
+  const failedCount = registrations.filter(r => r.paymentStatus === 'failed').length;
+  const totalRevenue = paidCount * 99;
+
+  return (
+    <div className="space-y-6 animate-in fade-in duration-200 text-left">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+              <Video className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-xl font-bold text-white tracking-tight">AI Automation Webinar Registrations</h2>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-mono font-bold border border-amber-500/30">
+                  {totalCount} Registrations
+                </span>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono font-bold border border-emerald-500/30">
+                  {paidCount} Paid (₹{totalRevenue})
+                </span>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs text-zinc-400 mt-1.5">
+            Live attendee list for the <span className="text-amber-300 font-semibold">AI Automation Workshop</span> (Sat, Oct 10th · 10 AM – 12 PM IST · ₹99). Real-time tracking of form fills and Razorpay payment status.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={fetchRegistrations}
+            disabled={loading}
+            className="p-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-750 text-zinc-300 border border-zinc-700 transition-colors"
+            title="Refresh Registrations"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+          <button
+            onClick={exportCSV}
+            className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-750 text-zinc-200 border border-zinc-700 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Export CSV</span>
+          </button>
+          <Link
+            href="/ai-webinar"
+            target="_blank"
+            className="px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1.5 transition-all"
+          >
+            <span>View Landing Page</span>
+            <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+          </Link>
+        </div>
+      </div>
+
+      {/* KPI Stats Bar */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="p-4 rounded-xl bg-[#18191E] border border-zinc-800 space-y-1">
+          <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Total Registrations</span>
+          <div className="text-2xl font-black text-white">{totalCount}</div>
+          <div className="text-[10px] text-zinc-400">Total forms submitted</div>
+        </div>
+        <div className="p-4 rounded-xl bg-[#18191E] border border-emerald-500/25 space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-emerald-400 uppercase font-bold block">Paid &amp; Confirmed</span>
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          </div>
+          <div className="text-2xl font-black text-emerald-400">{paidCount}</div>
+          <div className="text-[10px] text-zinc-400 font-mono">₹{totalRevenue} collected (@ ₹99/seat)</div>
+        </div>
+        <div className="p-4 rounded-xl bg-[#18191E] border border-amber-500/25 space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-amber-400 uppercase font-bold block">Pending Payment</span>
+            <Clock className="w-3.5 h-3.5 text-amber-400" />
+          </div>
+          <div className="text-2xl font-black text-amber-300">{pendingCount}</div>
+          <div className="text-[10px] text-zinc-400">Form filled; checkout in-progress</div>
+        </div>
+        <div className="p-4 rounded-xl bg-[#18191E] border border-zinc-800 space-y-1">
+          <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Payment Conversion</span>
+          <div className="text-2xl font-black text-white">
+            {totalCount > 0 ? `${Math.round((paidCount / totalCount) * 100)}%` : '0%'}
+          </div>
+          <div className="text-[10px] text-zinc-400">Paid / Form completion rate</div>
+        </div>
+      </div>
+
+      {/* Filter and Search Bar */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-xl bg-[#18191E] border border-zinc-800 text-xs">
+        <div className="relative w-full sm:w-80">
+          <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            placeholder="Search by name, email, phone, order ID..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/50 border border-zinc-750 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-amber-500"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <span className="text-zinc-500 text-[11px] font-semibold">Payment Status:</span>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value as any)}
+            className="px-3 py-2 rounded-lg bg-black/50 border border-zinc-750 text-xs text-zinc-200 focus:outline-none focus:border-amber-500 cursor-pointer"
+          >
+            <option value="all">All Registrations ({totalCount})</option>
+            <option value="paid">✓ Paid (₹99 Confirmed) ({paidCount})</option>
+            <option value="pending">⏳ Pending Payment ({pendingCount})</option>
+            <option value="failed">✕ Failed / Incomplete ({failedCount})</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Registrations Table */}
+      <div className="rounded-2xl border border-zinc-800 bg-[#18191E] overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead>
+              <tr className="border-b border-zinc-800 bg-black/30 text-zinc-400 font-semibold uppercase text-[10px]">
+                <th className="py-3 px-4">Attendee Info</th>
+                <th className="py-3 px-4">Phone / WhatsApp</th>
+                <th className="py-3 px-4">Fee</th>
+                <th className="py-3 px-4">Payment Status</th>
+                <th className="py-3 px-4">Payment &amp; Order ID</th>
+                <th className="py-3 px-4">Registered At</th>
+                <th className="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-850 text-zinc-300">
+              {filtered.map(reg => {
+                const cleanPhone = reg.phone.replace(/[^\d]/g, '');
+                const isPaid = reg.paymentStatus === 'paid';
+                const isPending = reg.paymentStatus === 'pending';
+
+                return (
+                  <tr key={reg.id} className="hover:bg-zinc-800/30 transition-colors">
+                    {/* Attendee */}
+                    <td className="py-3 px-4">
+                      <div className="font-bold text-white text-sm flex items-center gap-1.5">
+                        <span>{reg.name}</span>
+                        {isPaid && (
+                          <span className="text-[10px] text-emerald-400 font-bold" title="Seat confirmed">✓</span>
+                        )}
+                      </div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">{reg.email}</div>
+                      {reg.notes && (
+                        <div className="text-[10px] text-zinc-500 italic mt-0.5 max-w-[200px] truncate">
+                          {reg.notes}
+                        </div>
+                      )}
+                    </td>
+
+                    {/* Phone / WhatsApp */}
+                    <td className="py-3 px-4">
+                      <div className="font-mono text-white text-xs">{reg.phone}</div>
+                      <a
+                        href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+                          isPaid 
+                            ? `Hi ${reg.name}! Welcome to Auromind's AI Automation Workshop (Oct 10, 10 AM - 12 PM IST). We have confirmed your ₹99 seat registration. Your Zoom link will be shared 24h prior. Any questions?` 
+                            : `Hi ${reg.name}! We noticed you started registering for our AI Automation Workshop (Oct 10, 10 AM). Would you like help completing your ₹99 registration?`
+                        )}`}
+                        target="_blank"
+                        className="text-[10px] text-emerald-400 hover:underline flex items-center gap-1 mt-0.5 font-semibold"
+                      >
+                        <MessageSquare className="w-3 h-3" />
+                        <span>1-Click WhatsApp</span>
+                      </a>
+                    </td>
+
+                    {/* Fee */}
+                    <td className="py-3 px-4">
+                      <span className="font-bold text-white bg-zinc-900 px-2.5 py-1 rounded-md border border-zinc-800">
+                        ₹{reg.amount}
+                      </span>
+                    </td>
+
+                    {/* Payment Status Dropdown with Live Patch */}
+                    <td className="py-3 px-4">
+                      <div className="flex items-center gap-1.5">
+                        <select
+                          value={reg.paymentStatus}
+                          disabled={updatingId === reg.id}
+                          onChange={(e) => handleStatusChange(reg.id, e.target.value as any)}
+                          className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border focus:outline-none cursor-pointer transition-all ${
+                            isPaid
+                              ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40 shadow-sm'
+                              : isPending
+                              ? 'bg-amber-500/15 text-amber-300 border-amber-500/40'
+                              : 'bg-red-500/15 text-red-400 border-red-500/40'
+                          }`}
+                        >
+                          <option value="paid">✓ Paid (Confirmed)</option>
+                          <option value="pending">⏳ Pending Payment</option>
+                          <option value="failed">✕ Failed / Incomplete</option>
+                        </select>
+                      </div>
+                      <div className="text-[10px] text-zinc-500 font-mono mt-0.5">
+                        {isPaid ? 'Seat Reserved' : isPending ? 'Follow-up Needed' : 'Abandoned'}
+                      </div>
+                    </td>
+
+                    {/* Payment & Order ID */}
+                    <td className="py-3 px-4 font-mono text-[11px]">
+                      {reg.paymentId ? (
+                        <div className="flex items-center gap-1 text-emerald-400">
+                          <CreditCard className="w-3 h-3" />
+                          <span>{reg.paymentId}</span>
+                          <button
+                            onClick={() => copyToClipboard(reg.paymentId || '', reg.paymentId || '')}
+                            title="Copy Payment ID"
+                            className="p-0.5 hover:text-white"
+                          >
+                            <Copy className="w-3 h-3 text-zinc-500 hover:text-zinc-300" />
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="text-zinc-600 text-[10px]">No payment ID yet</span>
+                      )}
+                      {reg.orderId && (
+                        <div className="text-[10px] text-zinc-500 flex items-center gap-1 mt-0.5">
+                          <span>{reg.orderId}</span>
+                          <button
+                            onClick={() => copyToClipboard(reg.orderId || '', reg.orderId || '')}
+                            title="Copy Order ID"
+                            className="p-0.5 hover:text-white"
+                          >
+                            <Copy className="w-2.5 h-2.5 text-zinc-600 hover:text-zinc-300" />
+                          </button>
+                        </div>
+                      )}
+                      {copiedId && (copiedId === reg.paymentId || copiedId === reg.orderId) && (
+                        <div className="text-[9px] text-emerald-400">Copied!</div>
+                      )}
+                    </td>
+
+                    {/* Registered Date */}
+                    <td className="py-3 px-4 text-zinc-400 text-[11px] font-mono">
+                      <div>{reg.registeredAt}</div>
+                      <div className="text-[10px] text-zinc-600">{reg.source || 'Webinar Form'}</div>
+                    </td>
+
+                    {/* Actions */}
+                    <td className="py-3 px-4 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => setSelectedReg(reg)}
+                          className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-750 text-zinc-300 hover:text-white transition-colors"
+                          title="View Attendee Details"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                        </button>
+                        <a
+                          href={`tel:${cleanPhone}`}
+                          className="p-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition-colors"
+                          title="Call Attendee"
+                        >
+                          <Phone className="w-3.5 h-3.5" />
+                        </a>
+                        <button
+                          onClick={() => handleDelete(reg.id)}
+                          className="p-1.5 rounded-lg bg-zinc-800 hover:bg-red-950 text-zinc-400 hover:text-red-400 transition-colors"
+                          title="Delete Registration"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="py-12 text-center text-zinc-500 text-xs">
+                    No webinar registrations found matching your criteria.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Selected Attendee Inspector Modal */}
+      {selectedReg && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-lg rounded-2xl bg-[#18191E] border border-zinc-800 shadow-2xl p-6 space-y-5 animate-in zoom-in-95 duration-150 text-left">
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg font-black text-white">{selectedReg.name}</h3>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    selectedReg.paymentStatus === 'paid'
+                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                      : selectedReg.paymentStatus === 'pending'
+                      ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                      : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                  }`}>
+                    {selectedReg.paymentStatus.toUpperCase()}
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-400 mt-0.5">{selectedReg.email}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="font-mono text-emerald-400 text-xs font-bold">{selectedReg.phone}</span>
+                  <span className="text-[10px] text-zinc-500 font-mono">Registered: {selectedReg.registeredAt}</span>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedReg(null)}
+                className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Event & Payment Details Grid */}
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div className="p-3 rounded-xl bg-black/40 border border-zinc-800">
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Webinar Date &amp; Time</span>
+                <span className="font-bold text-white text-xs block mt-0.5">{selectedReg.webinarDate}</span>
+                <span className="text-[11px] text-amber-400 font-semibold">{selectedReg.webinarTime}</span>
+              </div>
+              <div className="p-3 rounded-xl bg-black/40 border border-zinc-800">
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Registration Fee</span>
+                <span className="font-bold text-emerald-400 text-lg">₹{selectedReg.amount} {selectedReg.currency}</span>
+                <span className="text-[10px] text-zinc-400 block mt-0.5">Status: {selectedReg.paymentStatus}</span>
+              </div>
+            </div>
+
+            {/* IDs Box */}
+            <div className="p-3 rounded-xl bg-black/40 border border-zinc-800 space-y-1.5 text-xs font-mono">
+              <div className="flex items-center justify-between text-zinc-400">
+                <span className="text-[10px] text-zinc-500 uppercase">Razorpay Order ID:</span>
+                <span className="text-white">{selectedReg.orderId || 'None'}</span>
+              </div>
+              <div className="flex items-center justify-between text-zinc-400">
+                <span className="text-[10px] text-zinc-500 uppercase">Payment ID:</span>
+                <span className={selectedReg.paymentId ? 'text-emerald-400' : 'text-zinc-600'}>
+                  {selectedReg.paymentId || 'Pending Payment'}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-zinc-400">
+                <span className="text-[10px] text-zinc-500 uppercase">Funnel Source:</span>
+                <span className="text-zinc-300">{selectedReg.source || 'AI Webinar Page'}</span>
+              </div>
+            </div>
+
+            {/* WhatsApp Script Card */}
+            <div className={`p-4 rounded-xl border space-y-2 text-xs ${
+              selectedReg.paymentStatus === 'paid' 
+                ? 'bg-[#0B1E14] border-emerald-500/30' 
+                : 'bg-amber-950/20 border-amber-500/30'
+            }`}>
+              <div className="flex items-center justify-between text-[10px] font-bold uppercase">
+                <span className={selectedReg.paymentStatus === 'paid' ? 'text-emerald-400' : 'text-amber-400'}>
+                  {selectedReg.paymentStatus === 'paid' ? 'Paid Confirmation WhatsApp Script' : 'Follow-up Reminder WhatsApp Script'}
+                </span>
+                <button
+                  onClick={() => {
+                    const text = selectedReg.paymentStatus === 'paid'
+                      ? `Hi ${selectedReg.name}! 🎉 Welcome to Auromind's AI Automation Workshop on Saturday, October 10th (10:00 AM – 12:00 PM IST). We have confirmed your ₹99 registration. Your Zoom link will be sent 24h prior. See you inside!`
+                      : `Hi ${selectedReg.name}! 👋 This is the Auromind team. We noticed you started registering for our AI Automation Workshop (Oct 10th, 10 AM - 12 PM IST) but the ₹99 payment wasn't completed. Would you like a direct payment link to secure your seat before early-bird closes?`;
+                    navigator.clipboard.writeText(text);
+                    alert('Copied WhatsApp message to clipboard!');
+                  }}
+                  className={`hover:underline font-bold ${selectedReg.paymentStatus === 'paid' ? 'text-emerald-400' : 'text-amber-400'}`}
+                >
+                  Copy Message
+                </button>
+              </div>
+              <p className={`leading-relaxed text-[11px] ${selectedReg.paymentStatus === 'paid' ? 'text-emerald-100' : 'text-amber-100'}`}>
+                {selectedReg.paymentStatus === 'paid'
+                  ? `“Hi ${selectedReg.name}! 🎉 Welcome to Auromind's AI Automation Workshop on Saturday, October 10th (10:00 AM – 12:00 PM IST). We have confirmed your ₹99 registration. Your Zoom link will be sent 24h prior. See you inside!”`
+                  : `“Hi ${selectedReg.name}! 👋 This is the Auromind team. We noticed you started registering for our AI Automation Workshop (Oct 10th, 10 AM - 12 PM IST) but the ₹99 payment wasn't completed. Would you like a direct payment link to secure your seat before early-bird closes?”`
+                }
+              </p>
+            </div>
+
+            {/* Quick Status Toggle */}
+            <div className="flex items-center justify-between p-3 rounded-xl bg-black/40 border border-zinc-800 text-xs">
+              <span className="text-zinc-400 font-semibold">Change Payment Status:</span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => handleStatusChange(selectedReg.id, 'paid')}
+                  className={`px-3 py-1 rounded-lg font-bold text-[11px] transition-all ${
+                    selectedReg.paymentStatus === 'paid'
+                      ? 'bg-emerald-500 text-black'
+                      : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
+                  }`}
+                >
+                  Paid (₹99)
+                </button>
+                <button
+                  onClick={() => handleStatusChange(selectedReg.id, 'pending')}
+                  className={`px-3 py-1 rounded-lg font-bold text-[11px] transition-all ${
+                    selectedReg.paymentStatus === 'pending'
+                      ? 'bg-amber-500 text-black'
+                      : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
+                  }`}
+                >
+                  Pending
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href={`https://wa.me/${selectedReg.phone.replace(/[^\d]/g, '')}?text=${encodeURIComponent(
+                  selectedReg.paymentStatus === 'paid'
+                    ? `Hi ${selectedReg.name}! 🎉 Welcome to Auromind's AI Automation Workshop on Saturday, October 10th (10:00 AM – 12:00 PM IST). We have confirmed your ₹99 registration.`
+                    : `Hi ${selectedReg.name}! 👋 This is Auromind regarding your registration for the AI Automation Workshop on Oct 10th.`
+                )}`}
+                target="_blank"
+                className="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>Open WhatsApp Chat</span>
+              </a>
+              <button
+                onClick={() => setSelectedReg(null)}
+                className="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-750 text-zinc-300 text-xs font-semibold"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
