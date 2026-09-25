@@ -224,7 +224,7 @@ export function LandingFooter() {
         {/* Bottom Legal Copyright & Quick Link Bar */}
         <div className="border-t border-slate-200 pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-center lg:text-left">
-            <span>© 2026 AuromindAI, Inc. All rights reserved.</span>
+            <span>© 2026 AuromindAI Private Limited. All rights reserved.</span>
             <Link href="/privacy" className="hover:text-slate-900 underline transition-colors">
               Privacy Policy
             </Link>

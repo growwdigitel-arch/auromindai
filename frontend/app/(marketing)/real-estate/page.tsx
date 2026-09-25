@@ -1214,7 +1214,7 @@ export default function RealEstatePage() {
             <span className="font-extrabold text-slate-900 text-base">
               Auromind<span className="text-emerald-600">RealEstate</span>
             </span>
-            <span className="text-xs text-zinc-500 ml-2">© 2026 AuromindAI Inc. All rights reserved.</span>
+            <span className="text-xs text-zinc-500 ml-2">© 2026 AuromindAI Private Limited. All rights reserved.</span>
           </div>
 
           <div className="flex items-center gap-6 text-xs font-medium text-zinc-500">

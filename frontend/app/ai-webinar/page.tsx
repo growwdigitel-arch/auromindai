@@ -1030,14 +1030,10 @@ export default function AIWebinarPage() {
               <p className="text-xs sm:text-base font-medium text-zinc-300 leading-relaxed">
                 With over a decade of deep sales experience closing high-value deals and building scalable sales engines, Gnananand breaks down the exact methodologies to turn cold leads into paid clients using 24/7 autonomous AI sales agents—eliminating human delay and lost sales pipeline.
               </p>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-1 sm:pt-2">
+              <div className="grid grid-cols-2 gap-2 sm:gap-4 pt-1 sm:pt-2 max-w-sm">
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
                   <div className="text-lg sm:text-2xl font-black text-amber-400">10+ Yrs</div>
                   <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Sales Experience</div>
-                </div>
-                <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
-                  <div className="text-lg sm:text-2xl font-black text-white">₹50Cr+</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Deals &amp; Pipeline</div>
                 </div>
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
                   <div className="text-lg sm:text-2xl font-black text-amber-400">4.9/5</div>
@@ -1271,7 +1267,10 @@ export default function AIWebinarPage() {
       <footer className="border-t-2 border-zinc-800 bg-[#070709] py-8 sm:py-12 px-3 sm:px-6 lg:px-8 text-center text-xs text-zinc-400">
         <div className="max-w-7xl mx-auto space-y-3 sm:space-y-4">
           <div className="flex items-center justify-center gap-2 font-black text-white text-sm sm:text-base">
-            <span>AuromindAI Enterprise Technologies</span>
+            <div className="w-6 h-6 rounded-lg overflow-hidden bg-zinc-900 border border-emerald-500/40 p-0.5 flex items-center justify-center">
+              <Image src="/logo.png" alt="AuromindAI" width={20} height={20} className="object-contain" />
+            </div>
+            <span>Auromind<span className="text-[#00D06C]">AI</span> Private Limited</span>
           </div>
           <p className="max-w-xl mx-auto text-zinc-400 font-medium text-xs">
             Empowering modern businesses with autonomous AI employees, autonomous agents, and intelligence workflows.
@@ -1286,7 +1285,7 @@ export default function AIWebinarPage() {
             <a href="mailto:contact@auromind.ai" className="hover:text-amber-400 transition-colors">contact@auromind.ai</a>
           </div>
           <div className="text-[10px] sm:text-[11px] text-zinc-500 pt-2 sm:pt-4 font-medium">
-            © 2026 AuromindAI Inc. All rights reserved. Secure Razorpay Checkout.
+            © 2026 AuromindAI Private Limited. All rights reserved. Secure Razorpay Checkout.
           </div>
         </div>
       </footer>

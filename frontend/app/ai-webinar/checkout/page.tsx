@@ -539,7 +539,7 @@ export default function WebinarCheckoutPage() {
 
       {/* Footer */}
       <footer className="w-full bg-white border-t border-zinc-200 py-4 text-center text-xs text-zinc-400">
-        © 2026 AuromindAI Inc. • Powered by Live Razorpay Gateway
+        © 2026 AuromindAI Private Limited • Powered by Live Razorpay Gateway
       </footer>
     </div>
   );

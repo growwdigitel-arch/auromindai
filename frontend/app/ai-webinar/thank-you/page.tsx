@@ -219,7 +219,7 @@ function ThankYouContent() {
 
       {/* Footer */}
       <footer className="w-full bg-white border-t border-zinc-200 py-4 text-center text-xs text-zinc-400">
-        © 2026 AuromindAI Inc. • Confirmation Sent to Your Email
+        © 2026 AuromindAI Private Limited • Confirmation Sent to Your Email
       </footer>
     </div>
   );
