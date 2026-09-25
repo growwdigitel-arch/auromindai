@@ -491,8 +491,8 @@ export default function AIWebinarPage() {
             </div>
           </div>
 
-          {/* Right Column: High-Impact Workshop Card (Image 2 Design) + Quick Form */}
-          <div id="registration-section" className="lg:col-span-5 w-full space-y-5">
+          {/* Right Column: High-Impact Workshop Card (Matching Image 2) */}
+          <div id="registration-section" className="lg:col-span-5 w-full">
             {/* Card Matching User Upload (Image 2) */}
             <div className="relative rounded-3xl p-6 sm:p-7 bg-[#111218] border-2 border-zinc-700 shadow-2xl shadow-amber-500/15 overflow-hidden">
               {/* Speaker Header with Gnananand */}
@@ -504,11 +504,11 @@ export default function AIWebinarPage() {
                   <div className="flex items-center gap-2">
                     <span className="text-base sm:text-lg font-black text-white">Gnananand</span>
                     <span className="text-[10px] bg-amber-500 text-black px-1.5 py-0.5 rounded font-black tracking-wide">
-                      10+ YRS EXP
+                      10+ YRS SALES EXP
                     </span>
                   </div>
                   <div className="text-xs text-amber-400 font-bold">
-                    Lead AI Architect &amp; Automation Mentor
+                    10+ Years Enterprise Sales Veteran &amp; AI Conversion Mentor
                   </div>
                 </div>
               </div>
@@ -537,7 +537,7 @@ export default function AIWebinarPage() {
                 </div>
               </div>
 
-              {/* Green CTA Button Matching Image 2 */}
+              {/* Green CTA Button Matching Image 2 -> Goes to /ai-webinar/checkout */}
               <Link
                 href="/ai-webinar/checkout"
                 className="w-full mt-6 py-4 px-6 rounded-2xl bg-[#00D06C] hover:bg-[#00B960] active:scale-[0.99] text-black font-black text-sm sm:text-base shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
@@ -555,84 +555,6 @@ export default function AIWebinarPage() {
                 <div className="text-zinc-400 text-[11px]">
                   ● Just the clearest 2 hours your business has ever had.
                 </div>
-              </div>
-            </div>
-
-            {/* Quick 3-Field Form (Name, Email, Mobile only) matching User Request */}
-            <div className="rounded-2xl p-5 sm:p-6 bg-[#101015] border border-zinc-800 shadow-xl text-left">
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-                <span className="text-xs font-black uppercase tracking-wider text-amber-400">
-                  Quick Seat Pre-Booking
-                </span>
-                <span className="text-xs font-bold text-white bg-zinc-900 px-2 py-0.5 rounded border border-zinc-700">
-                  ₹99 Pass
-                </span>
-              </div>
-
-              <form onSubmit={handleRegisterAndPay} className="mt-3.5 space-y-3">
-                {/* 1. Full Name */}
-                <div>
-                  <label className="block text-[11px] font-bold text-zinc-300 mb-1">
-                    Full Name <span className="text-amber-400">*</span>
-                  </label>
-                  <input
-                    id="webinar-name-input"
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter full name"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#181822] border border-zinc-700 text-white placeholder-zinc-500 text-xs font-bold focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                {/* 2. Email Address */}
-                <div>
-                  <label className="block text-[11px] font-bold text-zinc-300 mb-1">
-                    Email Address <span className="text-amber-400">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter email address"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#181822] border border-zinc-700 text-white placeholder-zinc-500 text-xs font-bold focus:outline-none focus:border-amber-400"
-                  />
-                </div>
-
-                {/* 3. Mobile Number */}
-                <div>
-                  <label className="block text-[11px] font-bold text-zinc-300 mb-1">
-                    Mobile Number <span className="text-amber-400">*</span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-black text-amber-400">
-                      +91
-                    </span>
-                    <input
-                      type="tel"
-                      required
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="10-digit mobile number"
-                      className="w-full pl-11 pr-3.5 py-2.5 rounded-xl bg-[#181822] border border-zinc-700 text-white placeholder-zinc-500 text-xs font-bold focus:outline-none focus:border-amber-400"
-                    />
-                  </div>
-                </div>
-
-                {/* Pay 99 Button Matching Image 3 */}
-                <button
-                  type="submit"
-                  className="w-full mt-2 py-3 px-4 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-lg shadow-orange-500/20 active:scale-[0.99] transition-all cursor-pointer"
-                >
-                  <span>Continue to Secure Payment (₹99)</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </form>
-
-              <div className="mt-3 text-center text-[10px] text-zinc-500 font-medium">
-                🔒 256-Bit SSL Encrypted Razorpay Checkout • Instant Digital Receipt
               </div>
             </div>
           </div>
@@ -1027,37 +949,37 @@ export default function AIWebinarPage() {
               <div className="w-28 h-28 sm:w-44 sm:h-44 rounded-2xl sm:rounded-3xl overflow-hidden mx-auto bg-zinc-900 border-2 border-amber-500/60 shadow-xl relative">
                 <Image
                   src="/gnananand.jpg"
-                  alt="Gnananand - Lead AI Architect"
+                  alt="Gnananand - 10+ Years Enterprise Sales Veteran & AI Mentor"
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
               </div>
               <div className="mt-3 sm:mt-4">
                 <h3 className="text-xl sm:text-2xl font-black text-white">Gnananand</h3>
                 <p className="text-[11px] sm:text-xs text-amber-400 font-black tracking-wide uppercase mt-0.5">
-                  Senior AI Architect • 10+ Years Industry Experience
+                  10+ Years Enterprise Sales Veteran • AI Conversion Mentor
                 </p>
               </div>
             </div>
 
             <div className="lg:col-span-8 space-y-3 sm:space-y-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-black border border-amber-500/40">
-                MEET YOUR MENTOR &amp; INSTRUCTOR
+                MEET YOUR SALES &amp; REVENUE AUTOMATION MENTOR
               </div>
               <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-white">
-                Learn from Gnananand: 10+ Years Building High-Impact Enterprise Systems
+                Learn from Gnananand: 10+ Years of High-Stakes Sales &amp; Revenue Operations
               </h2>
               <p className="text-xs sm:text-base font-medium text-zinc-300 leading-relaxed">
-                With over a decade of hands-on experience designing and scaling mission-critical architectures, Gnananand guides business owners and tech teams through the exact frameworks used to replace repetitive manual operations with intelligent, production-ready AI agents.
+                With over a decade of deep sales experience closing high-value deals and building scalable sales engines, Gnananand breaks down the exact methodologies to turn cold leads into paid clients using 24/7 autonomous AI sales agents—eliminating human delay and lost sales pipeline.
               </p>
               <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-1 sm:pt-2">
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
                   <div className="text-lg sm:text-2xl font-black text-amber-400">10+ Yrs</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Industry Exp</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Sales Experience</div>
                 </div>
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
-                  <div className="text-lg sm:text-2xl font-black text-white">1,400+</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Leaders Trained</div>
+                  <div className="text-lg sm:text-2xl font-black text-white">₹50Cr+</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Deals &amp; Pipeline</div>
                 </div>
                 <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
                   <div className="text-lg sm:text-2xl font-black text-amber-400">4.9/5</div>
@@ -1071,7 +993,7 @@ export default function AIWebinarPage() {
                   onClick={() => triggerRegistration('instructor_cta')}
                   className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl gold-btn text-xs sm:text-sm uppercase tracking-wider cursor-pointer inline-flex items-center justify-center gap-2"
                 >
-                  <span>Learn from Gnananand for ₹99</span>
+                  <span>Learn Sales Automation from Gnananand for ₹99</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
