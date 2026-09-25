@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TEy9Zb78fdKQjO';
+    const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_TExpVoOTKpnFY8';
     const keySecret = process.env.RAZORPAY_KEY_SECRET || 'i9XhBTSUA71NVrSIJa0yC591';
 
     const amountInPaise = 9900; // Rs 99 = 9900 paise
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
       orderId,
       amount: amountInPaise,
       currency,
-      keyId: keyId || 'rzp_live_TEy9Zb78fdKQjO',
+      keyId: keyId || 'rzp_test_TExpVoOTKpnFY8',
       isLiveRazorpay,
       registrationId: registration.id,
       eventDetails: {

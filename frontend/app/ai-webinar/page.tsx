@@ -155,7 +155,7 @@ export default function AIWebinarPage() {
       }
 
       if (typeof window !== 'undefined' && (window as any).Razorpay) {
-        const activeKey = keyId || 'rzp_live_TEy9Zb78fdKQjO';
+        const activeKey = keyId || 'rzp_test_TExpVoOTKpnFY8';
         const options: any = {
           key: activeKey,
           amount: 9900, // Rs 99 in paise
@@ -292,12 +292,12 @@ export default function AIWebinarPage() {
       <header className="sticky top-0 z-40 w-full bg-[#0A0A0D]/95 backdrop-blur-xl border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl overflow-hidden bg-zinc-900 border-2 border-amber-500/40 p-1 flex items-center justify-center shadow-lg group-hover:border-amber-400 transition-colors shrink-0">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl overflow-hidden bg-zinc-900 border-2 border-emerald-500/50 p-1 flex items-center justify-center shadow-lg group-hover:border-emerald-400 transition-colors shrink-0">
               <Image src="/logo.png" alt="AuromindAI" width={32} height={32} className="object-contain" priority />
             </div>
             <div>
               <div className="font-black text-lg sm:text-2xl tracking-tight text-white flex items-center gap-1">
-                Auromind<span className="gold-gradient-text">AI</span>
+                Auromind<span className="text-[#00D06C] font-black drop-shadow-[0_0_12px_rgba(0,208,108,0.5)]">AI</span>
               </div>
               <div className="text-[9px] sm:text-[10px] font-black tracking-widest text-amber-400 uppercase">
                 AI Automation Workshop

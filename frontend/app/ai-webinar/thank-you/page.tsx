@@ -44,7 +44,7 @@ function ThankYouContent() {
               <Image src="/logo.png" alt="AuromindAI" width={34} height={34} className="object-contain" priority />
             </div>
             <span className="font-extrabold text-lg sm:text-xl tracking-tight text-zinc-900">
-              Auromind<span className="text-amber-500 font-black">AI</span>
+              Auromind<span className="text-[#16A34A] font-black">AI</span>
             </span>
           </Link>
 

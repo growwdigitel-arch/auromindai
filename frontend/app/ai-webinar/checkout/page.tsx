@@ -99,7 +99,7 @@ export default function WebinarCheckoutPage() {
 
       // 3. Launch Razorpay Standard Checkout
       if (typeof window !== 'undefined' && (window as any).Razorpay) {
-        const activeKey = keyId || 'rzp_live_TEy9Zb78fdKQjO';
+        const activeKey = keyId || 'rzp_test_TExpVoOTKpnFY8';
         const options: any = {
           key: activeKey,
           amount: 9900, // Rs 99 in paise
@@ -113,7 +113,7 @@ export default function WebinarCheckoutPage() {
             contact: cleanPhone,
           },
           theme: {
-            color: '#F97316', // Orange matching checkout button
+            color: '#16A34A', // Green matching logo
           },
           handler: async function (response: any) {
             await verifyPayment({
@@ -147,7 +147,7 @@ export default function WebinarCheckoutPage() {
         // Fallback verification if script blocked
         await verifyPayment({
           registrationId,
-          razorpay_payment_id: `pay_live_${Date.now()}`,
+          razorpay_payment_id: `pay_test_${Date.now()}`,
           razorpay_order_id: orderId,
           razorpay_signature: 'sig_verified',
           name: name.trim(),
@@ -198,11 +198,11 @@ export default function WebinarCheckoutPage() {
           <Link href="/ai-webinar" className="flex items-center gap-2 sm:gap-3 group">
             <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:-translate-x-0.5 transition-transform shrink-0" />
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-zinc-950 border border-amber-500/40 p-1 flex items-center justify-center shadow-md shrink-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-zinc-950 border border-emerald-500/40 p-1 flex items-center justify-center shadow-md shrink-0">
                 <Image src="/logo.png" alt="AuromindAI" width={34} height={34} className="object-contain" priority />
               </div>
               <span className="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900">
-                Auromind<span className="text-amber-500 font-black">AI</span>
+                Auromind<span className="text-[#16A34A] font-black">AI</span>
               </span>
             </div>
           </Link>
