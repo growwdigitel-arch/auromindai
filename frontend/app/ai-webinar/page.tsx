@@ -537,13 +537,15 @@ export default function AIWebinarPage() {
                 </div>
               </div>
 
-              {/* Green CTA Button Matching Image 2 -> Goes to /ai-webinar/checkout */}
+              {/* Gold Glowing CTA Button -> Goes to /ai-webinar/checkout */}
               <Link
                 href="/ai-webinar/checkout"
-                className="w-full mt-6 py-4 px-6 rounded-2xl bg-[#00D06C] hover:bg-[#00B960] active:scale-[0.99] text-black font-black text-sm sm:text-base shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all"
+                className="w-full mt-6 py-4 px-5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:via-yellow-300 hover:to-amber-400 active:scale-[0.99] text-black font-black text-sm sm:text-base shadow-[0_0_30px_rgba(245,158,11,0.65)] hover:shadow-[0_0_45px_rgba(245,158,11,0.95)] border border-amber-300 flex items-center justify-center gap-2.5 cursor-pointer transition-all duration-200 group relative overflow-hidden"
               >
-                <span>Show me how to fix – Register for ₹99/-</span>
-                <ArrowRight className="w-4 h-4" />
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+                <Sparkles className="w-5 h-5 text-black shrink-0 animate-pulse" />
+                <span>Pay ₹99 to Unlock Sales Revenue</span>
+                <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
               </Link>
 
               {/* Three Bullet Points Matching Image 2 */}

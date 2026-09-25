@@ -15,6 +15,8 @@ import {
   CheckCircle2, 
   AlertCircle, 
   ArrowLeft,
+  ArrowRight,
+  Sparkles,
   ExternalLink,
   MessageSquare
 } from 'lucide-react';
@@ -231,8 +233,8 @@ export default function WebinarCheckoutPage() {
         </div>
       </header>
 
-      {/* Main Checkout Container */}
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8 sm:py-12">
+      {/* Main Checkout Container (Fit to screen) */}
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-4 sm:py-6 lg:py-8 flex flex-col justify-center">
         {/* Success Modal / Ticket Card if Confirmed */}
         {confirmedTicket ? (
           <div className="max-w-lg mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-zinc-200 shadow-xl text-center space-y-6 animate-in zoom-in-95 duration-200">
@@ -307,15 +309,20 @@ export default function WebinarCheckoutPage() {
             </div>
           </div>
         ) : (
-          /* Image 3 Layout: Two-Card Split Layout */
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          /* Image 3 Layout: Two-Card Split Layout (Fit to Screen) */
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-7 items-start">
             {/* Left Card: Secure Payment Form (7 Cols) */}
-            <div className="md:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-sm">
-              <div className="flex items-center justify-between pb-5 border-b border-zinc-100">
-                <h2 className="text-lg sm:text-xl font-bold text-zinc-900 tracking-tight">
-                  Secure Payment
-                </h2>
-                <div className="flex items-center gap-1.5 text-emerald-600 text-xs font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+            <div className="md:col-span-7 bg-white rounded-2xl p-5 sm:p-7 border border-zinc-200 shadow-md">
+              <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
+                <div>
+                  <h2 className="text-lg sm:text-xl font-black text-zinc-900 tracking-tight">
+                    Secure Payment
+                  </h2>
+                  <p className="text-[11px] text-zinc-500 font-medium mt-0.5">
+                    Enter your details to confirm your ₹99 workshop seat
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5 text-emerald-600 text-[11px] font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>256-Bit SSL</span>
                 </div>
@@ -323,17 +330,17 @@ export default function WebinarCheckoutPage() {
 
               {/* Error Message */}
               {errorMessage && (
-                <div className="mt-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold flex items-center gap-2">
+                <div className="mt-3.5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-red-500 shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
               )}
 
               {/* 3 Form Fields Matching User Request & Image 3 */}
-              <form onSubmit={handlePay99} className="mt-5 space-y-4">
+              <form onSubmit={handlePay99} className="mt-4 space-y-3.5">
                 {/* 1. Full Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-700 mb-1.5">
+                  <label className="block text-xs font-bold text-zinc-700 mb-1">
                     Full Name <span className="text-amber-600">*</span>
                   </label>
                   <div className="relative">
@@ -343,14 +350,14 @@ export default function WebinarCheckoutPage() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none focus:border-[#F97316] focus:ring-2 focus:ring-[#F97316]/20 transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
                     />
                   </div>
                 </div>
 
                 {/* 2. Email Address */}
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-700 mb-1.5">
+                  <label className="block text-xs font-bold text-zinc-700 mb-1">
                     Email Address <span className="text-amber-600">*</span>
                   </label>
                   <div className="relative">
@@ -360,24 +367,24 @@ export default function WebinarCheckoutPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@company.com"
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none focus:border-[#F97316] focus:ring-2 focus:ring-[#F97316]/20 transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
                     />
                   </div>
-                  <span className="text-[11px] text-zinc-500 mt-1 block">
+                  <span className="text-[10px] text-zinc-500 mt-1 block">
                     Your Zoom link &amp; recording pass will be emailed here.
                   </span>
                 </div>
 
                 {/* 3. Mobile Number with Country Code */}
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-700 mb-1.5">
+                  <label className="block text-xs font-bold text-zinc-700 mb-1">
                     Mobile Number <span className="text-amber-600">*</span>
                   </label>
-                  <div className="flex rounded-xl border border-zinc-300 overflow-hidden focus-within:border-[#F97316] focus-within:ring-2 focus-within:ring-[#F97316]/20 transition-all">
+                  <div className="flex rounded-xl border border-zinc-300 overflow-hidden focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 transition-all">
                     <select
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
-                      className="bg-zinc-50 px-3 py-3 text-xs font-bold text-zinc-700 border-r border-zinc-300 focus:outline-none"
+                      className="bg-zinc-50 px-3 py-2.5 text-xs font-bold text-zinc-700 border-r border-zinc-300 focus:outline-none"
                     >
                       <option value="+91">🇮🇳 +91</option>
                       <option value="+1">🇺🇸 +1</option>
@@ -392,33 +399,38 @@ export default function WebinarCheckoutPage() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="98765 43210"
-                      className="w-full px-4 py-3 bg-white text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none"
+                      className="w-full px-3.5 py-2.5 bg-white text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none"
                     />
                   </div>
-                  <span className="text-[11px] text-zinc-500 mt-1 block">
+                  <span className="text-[10px] text-zinc-500 mt-1 block">
                     WhatsApp reminders and calendar invite sent here.
                   </span>
                 </div>
 
-                {/* Pay 99 Button Matching Image 3 */}
+                {/* Gold Glowing Pay 99 Button Matching User Request */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full mt-2 py-3.5 px-6 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white font-black text-base shadow-lg shadow-orange-500/25 active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60"
+                  className="w-full mt-2.5 py-3.5 sm:py-4 px-5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:via-yellow-300 hover:to-amber-400 text-black font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_28px_rgba(245,158,11,0.6)] hover:shadow-[0_0_42px_rgba(245,158,11,0.9)] border border-amber-300 active:scale-[0.99] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 group relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
                   {isSubmitting ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
                       <span>Connecting Razorpay...</span>
                     </>
                   ) : (
-                    <span>Pay 99</span>
+                    <>
+                      <Sparkles className="w-4 h-4 text-black shrink-0 animate-pulse" />
+                      <span className="font-black">Pay ₹99 to Unlock Sales Revenue</span>
+                      <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
+                    </>
                   )}
                 </button>
               </form>
 
               {/* Secure Trust Marks */}
-              <div className="mt-5 pt-4 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-500">
+              <div className="mt-4 pt-3.5 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-500">
                 <span className="flex items-center gap-1 font-medium">
                   <Lock className="w-3.5 h-3.5 text-zinc-400" />
                   Razorpay Verified Checkout
