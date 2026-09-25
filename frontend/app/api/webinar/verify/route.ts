@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       phone
     } = body;
 
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET || 'i9XhBTSUA71NVrSIJa0yC591';
     let isValidSignature = true;
 
     // Verify cryptographic signature if live secret is available

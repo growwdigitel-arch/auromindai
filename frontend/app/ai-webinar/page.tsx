@@ -153,15 +153,27 @@ export default function AIWebinarPage() {
 
       const { orderId, keyId, registrationId, isLiveRazorpay } = data;
 
-      if (typeof window !== 'undefined' && window.Razorpay && isLiveRazorpay) {
-        const options = {
-          key: keyId,
+      // Ensure Razorpay SDK is loaded if not already in window
+      if (typeof window !== 'undefined' && !(window as any).Razorpay) {
+        await new Promise<void>((resolve) => {
+          const script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.async = true;
+          script.onload = () => resolve();
+          script.onerror = () => resolve();
+          document.body.appendChild(script);
+        });
+      }
+
+      if (typeof window !== 'undefined' && (window as any).Razorpay) {
+        const activeKey = keyId || 'rzp_live_TEy9Zb78fdKQjO';
+        const options: any = {
+          key: activeKey,
           amount: 9900, // Rs 99 in paise
           currency: 'INR',
           name: 'AI Automation Workshop',
           description: 'Saturday Oct 10 • 10 AM to 12 PM (2h Live Workshop)',
           image: '/logo.png',
-          order_id: orderId,
           prefill: {
             name: name.trim(),
             email: email.trim(),
@@ -174,7 +186,7 @@ export default function AIWebinarPage() {
             await verifyPayment({
               registrationId,
               razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
+              razorpay_order_id: response.razorpay_order_id || orderId,
               razorpay_signature: response.razorpay_signature,
               name,
               email,
@@ -188,7 +200,11 @@ export default function AIWebinarPage() {
           },
         };
 
-        const rzp = new window.Razorpay(options);
+        if (isLiveRazorpay && orderId) {
+          options.order_id = orderId;
+        }
+
+        const rzp = new (window as any).Razorpay(options);
         rzp.on('payment.failed', function (failRes: any) {
           setErrorMessage(failRes.error?.description || 'Payment was declined. Please try again.');
           setIsSubmitting(false);
