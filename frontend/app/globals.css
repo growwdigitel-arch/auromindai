@@ -56,3 +56,25 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #D1D5DB;
 }
+
+/* Gold Masterclass Utilities */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFF6C2 0%, #FCD34D 30%, #F59E0B 70%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-btn {
+  background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
+  color: #000000;
+  font-weight: 900;
+  box-shadow: 0 4px 24px -2px rgba(245, 158, 11, 0.45);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gold-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px -2px rgba(245, 158, 11, 0.7);
+  filter: brightness(1.08);
+}
+

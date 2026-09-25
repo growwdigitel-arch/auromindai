@@ -42,6 +42,10 @@ export default function LandingPage() {
           <Link href="#architecture" className="hover:text-emerald-600 transition-colors">Architecture</Link>
           <Link href="/ecommerce" className="hover:text-emerald-600 transition-colors">eCommerce AI</Link>
           <Link href="/real-estate" className="hover:text-emerald-600 transition-colors">Real Estate AI</Link>
+          <Link href="/ai-webinar" className="text-amber-600 hover:text-amber-700 font-extrabold transition-colors flex items-center gap-1 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
+            <span>AI Webinar</span>
+            <span className="text-[10px] bg-amber-500 text-white px-1.5 py-0.2 rounded font-black">₹99</span>
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">

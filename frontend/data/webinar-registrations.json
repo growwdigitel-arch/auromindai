@@ -1,0 +1,50 @@
+[
+  {
+    "id": "web-1790347620046",
+    "name": "Rahul Sharma",
+    "email": "rahul@test.com",
+    "phone": "9876543210",
+    "amount": 99,
+    "currency": "INR",
+    "paymentStatus": "paid",
+    "paymentId": "pay_test_123",
+    "orderId": "order_1790347636321",
+    "registeredAt": "2026-09-25 14:47",
+    "webinarDate": "Saturday, October 10, 2026",
+    "webinarTime": "10:00 AM – 12:00 PM IST",
+    "source": "AI Webinar Landing Page",
+    "notes": "Confirmed via Razorpay (pay_test_123)"
+  },
+  {
+    "id": "web-101",
+    "name": "Aditya Verma",
+    "email": "aditya.v@innovatetech.io",
+    "phone": "+91 98450 11223",
+    "amount": 99,
+    "currency": "INR",
+    "paymentStatus": "paid",
+    "paymentId": "pay_mock_101",
+    "orderId": "order_mock_101",
+    "registeredAt": "2026-09-24 14:32",
+    "webinarDate": "Saturday, October 10, 2026",
+    "webinarTime": "10:00 AM - 12:00 PM IST",
+    "source": "Landing Page Hero",
+    "notes": "Founder @ AI Studio"
+  },
+  {
+    "id": "web-102",
+    "name": "Kavita Nair",
+    "email": "kavita.nair@digitalscale.com",
+    "phone": "+91 99801 44556",
+    "amount": 99,
+    "currency": "INR",
+    "paymentStatus": "paid",
+    "paymentId": "pay_mock_102",
+    "orderId": "order_mock_102",
+    "registeredAt": "2026-09-25 09:15",
+    "webinarDate": "Saturday, October 10, 2026",
+    "webinarTime": "10:00 AM - 12:00 PM IST",
+    "source": "Sticky CTA",
+    "notes": "Product Manager"
+  }
+]

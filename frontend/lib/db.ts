@@ -151,6 +151,23 @@ export interface RealEstateLead {
   notes?: string;
 }
 
+export interface WebinarRegistration {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  amount: number;
+  currency: string;
+  paymentStatus: 'paid' | 'pending' | 'failed';
+  paymentId?: string;
+  orderId?: string;
+  registeredAt: string;
+  webinarDate: string;
+  webinarTime: string;
+  source?: string;
+  notes?: string;
+}
+
 export interface PlatformUser {
   id: string;
   name: string;
@@ -397,6 +414,88 @@ export function deleteRealEstateLead(id: string): boolean {
   const filtered = current.filter(l => l.id !== id);
   if (filtered.length === current.length) return false;
   writeJsonFile('real-estate-leads.json', filtered);
+  return true;
+}
+
+// WEBINAR REGISTRATIONS
+const SEED_WEBINAR: WebinarRegistration[] = [
+  {
+    id: 'web-101',
+    name: 'Aditya Verma',
+    email: 'aditya.v@innovatetech.io',
+    phone: '+91 98450 11223',
+    amount: 99,
+    currency: 'INR',
+    paymentStatus: 'paid',
+    paymentId: 'pay_mock_101',
+    orderId: 'order_mock_101',
+    registeredAt: '2026-09-24 14:32',
+    webinarDate: 'Saturday, October 10, 2026',
+    webinarTime: '10:00 AM - 12:00 PM IST',
+    source: 'Landing Page Hero',
+    notes: 'Founder @ AI Studio'
+  },
+  {
+    id: 'web-102',
+    name: 'Kavita Nair',
+    email: 'kavita.nair@digitalscale.com',
+    phone: '+91 99801 44556',
+    amount: 99,
+    currency: 'INR',
+    paymentStatus: 'paid',
+    paymentId: 'pay_mock_102',
+    orderId: 'order_mock_102',
+    registeredAt: '2026-09-25 09:15',
+    webinarDate: 'Saturday, October 10, 2026',
+    webinarTime: '10:00 AM - 12:00 PM IST',
+    source: 'Sticky CTA',
+    notes: 'Product Manager'
+  }
+];
+
+export function getWebinarRegistrations(): WebinarRegistration[] {
+  return readJsonFile<WebinarRegistration[]>('webinar-registrations.json', SEED_WEBINAR);
+}
+
+export function addWebinarRegistration(
+  reg: Omit<WebinarRegistration, 'id' | 'registeredAt'> & Partial<WebinarRegistration>
+): WebinarRegistration {
+  const current = getWebinarRegistrations();
+  const newReg: WebinarRegistration = {
+    id: `web-${Date.now()}`,
+    name: reg.name || 'Webinar Attendee',
+    email: reg.email || '',
+    phone: reg.phone || '',
+    amount: reg.amount || 99,
+    currency: reg.currency || 'INR',
+    paymentStatus: reg.paymentStatus || 'paid',
+    paymentId: reg.paymentId || `pay_${Date.now()}`,
+    orderId: reg.orderId || `order_${Date.now()}`,
+    registeredAt: new Date().toISOString().replace('T', ' ').substring(0, 16),
+    webinarDate: reg.webinarDate || 'Saturday, October 10, 2026',
+    webinarTime: reg.webinarTime || '10:00 AM - 12:00 PM IST',
+    source: reg.source || 'Webinar Landing Page',
+    notes: reg.notes || ''
+  };
+  current.unshift(newReg);
+  writeJsonFile('webinar-registrations.json', current);
+  return newReg;
+}
+
+export function updateWebinarRegistration(id: string, updates: Partial<WebinarRegistration>): WebinarRegistration | null {
+  const current = getWebinarRegistrations();
+  const idx = current.findIndex(w => w.id === id);
+  if (idx === -1) return null;
+  current[idx] = { ...current[idx], ...updates };
+  writeJsonFile('webinar-registrations.json', current);
+  return current[idx];
+}
+
+export function deleteWebinarRegistration(id: string): boolean {
+  const current = getWebinarRegistrations();
+  const filtered = current.filter(w => w.id !== id);
+  if (filtered.length === current.length) return false;
+  writeJsonFile('webinar-registrations.json', filtered);
   return true;
 }
 
