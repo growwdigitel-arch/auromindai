@@ -14,36 +14,33 @@ import {
 } from 'lucide-react';
 
 /* ────────────────────────────────────────────────────────────────────────────
-   COUNTDOWN TIMER HOOK (Targets Saturday, Oct 10th, 10:00 AM IST)
+   EARLY BIRD COUNTDOWN TIMER HOOK (Creates immediate action & urgency)
 ──────────────────────────────────────────────────────────────────────────── */
-function useCountdown(targetDate: Date) {
+function useEarlyBirdCountdown() {
   const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    isExpired: false,
+    hours: 2,
+    minutes: 48,
+    seconds: 19,
   });
 
   useEffect(() => {
-    function calculate() {
-      const difference = +targetDate - +new Date();
-      if (difference <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true });
-        return;
-      }
-      setTimeLeft({
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-        isExpired: false,
-      });
+    function tick() {
+      const now = new Date();
+      // Daily Early-Bird midnight deadline in IST
+      const midnight = new Date();
+      midnight.setHours(23, 59, 59, 999);
+      const diff = Math.max(0, +midnight - +now);
+
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      setTimeLeft({ hours, minutes, seconds });
     }
-    calculate();
-    const interval = setInterval(calculate, 1000);
+    tick();
+    const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, []);
 
   return timeLeft;
 }
@@ -59,9 +56,7 @@ declare global {
 }
 
 export default function AIWebinarPage() {
-  // Target: Saturday, Oct 10th 10:00 AM IST (Year 2026)
-  const webinarTarget = new Date('2026-10-10T10:00:00+05:30');
-  const countdown = useCountdown(webinarTarget);
+  const countdown = useEarlyBirdCountdown();
 
   // Registration Form State
   const [name, setName] = useState('');
@@ -88,7 +83,7 @@ export default function AIWebinarPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Seats Remaining Tracker
-  const [seatsRemaining, setSeatsRemaining] = useState(14);
+  const [seatsRemaining, setSeatsRemaining] = useState(12);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -402,38 +397,74 @@ export default function AIWebinarPage() {
               </div>
             </div>
 
-            {/* Bold Golden Countdown Clock */}
-            <div className="bg-gradient-to-r from-[#181308] via-[#221B0B] to-[#181308] border-2 border-amber-500/40 rounded-2xl p-3.5 sm:p-5 shadow-xl">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+            {/* High-Urgency Early Bird Countdown & Seat Progress */}
+            <div className="bg-gradient-to-r from-[#181308] via-[#241B0B] to-[#181308] border-2 border-amber-500/50 rounded-2xl p-4 sm:p-5 shadow-2xl space-y-3.5">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="text-center sm:text-left">
                   <div className="text-xs font-black uppercase tracking-wider text-amber-400 flex items-center justify-center sm:justify-start gap-1.5">
-                    <Clock className="w-4 h-4 shrink-0" /> Early Bird Spots Closing In:
+                    <Flame className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
+                    <span>Batch 1 Early Bird Offer Closes In:</span>
                   </div>
                   <div className="text-xs font-bold text-zinc-300 mt-0.5">
-                    Only <span className="text-amber-400 font-black">{seatsRemaining} seats remaining</span> at ₹99
+                    Price increases to <span className="line-through text-zinc-500">₹1,999</span> once timer ends
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 sm:gap-3 text-center">
-                  <div className="bg-[#0D0D11] border-2 border-zinc-800 rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 min-w-[46px] sm:min-w-[58px]">
-                    <div className="text-base sm:text-xl font-black text-white font-mono">{countdown.days}</div>
-                    <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-zinc-400 font-bold">Days</div>
+                {/* 3-Unit Digital Clock: Hours, Mins, Secs (No 14-day delay) */}
+                <div className="flex items-center gap-1.5 sm:gap-2.5 text-center">
+                  <div className="bg-[#0D0D11] border-2 border-amber-500/40 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 min-w-[50px] sm:min-w-[62px] shadow-inner">
+                    <div className="text-lg sm:text-2xl font-black text-white font-mono leading-none">
+                      {String(countdown.hours).padStart(2, '0')}
+                    </div>
+                    <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-amber-400/90 font-black mt-1">
+                      Hours
+                    </div>
                   </div>
-                  <span className="text-amber-500 font-black text-sm sm:text-lg">:</span>
-                  <div className="bg-[#0D0D11] border-2 border-zinc-800 rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 min-w-[46px] sm:min-w-[58px]">
-                    <div className="text-base sm:text-xl font-black text-white font-mono">{String(countdown.hours).padStart(2, '0')}</div>
-                    <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-zinc-400 font-bold">Hours</div>
+
+                  <span className="text-amber-400 font-black text-base sm:text-xl">:</span>
+
+                  <div className="bg-[#0D0D11] border-2 border-amber-500/40 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 min-w-[50px] sm:min-w-[62px] shadow-inner">
+                    <div className="text-lg sm:text-2xl font-black text-white font-mono leading-none">
+                      {String(countdown.minutes).padStart(2, '0')}
+                    </div>
+                    <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-amber-400/90 font-black mt-1">
+                      Mins
+                    </div>
                   </div>
-                  <span className="text-amber-500 font-black text-sm sm:text-lg">:</span>
-                  <div className="bg-[#0D0D11] border-2 border-zinc-800 rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 min-w-[46px] sm:min-w-[58px]">
-                    <div className="text-base sm:text-xl font-black text-white font-mono">{String(countdown.minutes).padStart(2, '0')}</div>
-                    <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-zinc-400 font-bold">Mins</div>
+
+                  <span className="text-amber-400 font-black text-base sm:text-xl">:</span>
+
+                  <div className="bg-[#0D0D11] border-2 border-amber-400 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 min-w-[50px] sm:min-w-[62px] shadow-lg shadow-amber-500/20">
+                    <div className="text-lg sm:text-2xl font-black text-amber-400 font-mono leading-none">
+                      {String(countdown.seconds).padStart(2, '0')}
+                    </div>
+                    <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-amber-300 font-black mt-1">
+                      Secs
+                    </div>
                   </div>
-                  <span className="text-amber-500 font-black text-sm sm:text-lg">:</span>
-                  <div className="bg-[#0D0D11] border-2 border-amber-500/60 rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 min-w-[46px] sm:min-w-[58px]">
-                    <div className="text-base sm:text-xl font-black text-amber-400 font-mono">{String(countdown.seconds).padStart(2, '0')}</div>
-                    <div className="text-[8px] sm:text-[9px] uppercase tracking-wider text-amber-400 font-bold">Secs</div>
-                  </div>
+                </div>
+              </div>
+
+              {/* Live Seats Progress Bar & Counter */}
+              <div className="pt-2 border-t border-zinc-800/80 space-y-1.5">
+                <div className="flex items-center justify-between text-xs font-bold">
+                  <span className="text-zinc-300 flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
+                    Seats Claimed: <strong className="text-white">{100 - seatsRemaining} / 100</strong>
+                  </span>
+                  <span className="text-amber-400 font-black">
+                    Only {seatsRemaining} Spots Left at ₹99
+                  </span>
+                </div>
+                <div className="w-full bg-[#101015] rounded-full h-2.5 overflow-hidden border border-zinc-700/80 p-0.5">
+                  <div
+                    className="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-300 rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(245,158,11,0.6)]"
+                    style={{ width: `${((100 - seatsRemaining) / 100) * 100}%` }}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-zinc-400 font-medium pt-0.5">
+                  <span className="text-amber-300 font-bold">📅 Workshop Date: Saturday, October 10th</span>
+                  <span className="text-zinc-300 font-semibold">10:00 AM – 12:00 PM IST</span>
                 </div>
               </div>
             </div>
