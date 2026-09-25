@@ -175,12 +175,39 @@ export default function WebinarCheckoutPage() {
       const finalName = ticket?.attendeeName || name || 'Attendee';
       const finalEmail = ticket?.attendeeEmail || email || '';
       const finalPayId = payload.razorpay_payment_id || `pay_${Date.now()}`;
+      const finalOrderId = payload.razorpay_order_id || `order_${Date.now()}`;
+
+      // Persist to localStorage so Admin Panel (Webinar & Users tabs) immediately displays this attendee
+      try {
+        const stored = localStorage.getItem('auromind_webinar_registrations');
+        const list = stored ? JSON.parse(stored) : [];
+        const newRecord = {
+          id: ticket?.registrationId || payload.registrationId || `web-${Date.now()}`,
+          name: finalName,
+          email: finalEmail,
+          phone: payload.phone || phone || '',
+          amount: 99,
+          currency: 'INR',
+          paymentStatus: 'paid',
+          paymentId: finalPayId,
+          orderId: finalOrderId,
+          registeredAt: new Date().toISOString().replace('T', ' ').substring(0, 16),
+          webinarDate: 'Saturday, October 10, 2026',
+          webinarTime: '10:00 AM – 12:00 PM IST',
+          source: 'AI Webinar Checkout',
+          notes: `Confirmed via Razorpay (${finalPayId})`
+        };
+        // Remove duplicate if exists and add to front
+        const filtered = list.filter((item: any) => item.email?.toLowerCase() !== finalEmail.toLowerCase());
+        filtered.unshift(newRecord);
+        localStorage.setItem('auromind_webinar_registrations', JSON.stringify(filtered));
+      } catch {}
 
       // Redirect immediately to the dedicated Thank You page
       window.location.href = `/ai-webinar/thank-you?name=${encodeURIComponent(finalName)}&email=${encodeURIComponent(finalEmail)}&payment_id=${encodeURIComponent(finalPayId)}`;
     } catch (err) {
       console.error('Verification error:', err);
-      // Redirect to thank-you with payment_id
+      // Fallback redirect to thank-you with payment_id
       window.location.href = `/ai-webinar/thank-you?name=${encodeURIComponent(name || 'Attendee')}&email=${encodeURIComponent(email || '')}&payment_id=${encodeURIComponent(payload.razorpay_payment_id || `pay_${Date.now()}`)}`;
     } finally {
       setIsSubmitting(false);

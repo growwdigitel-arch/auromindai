@@ -749,7 +749,25 @@ function WebinarRegistrationsView({ onRefreshParent }: { onRefreshParent?: () =>
       });
       if (res.ok) {
         const data = await res.json();
-        setRegistrations(data.registrations || []);
+        let apiRegs: WebinarRegistration[] = data.registrations || [];
+
+        // Check if there are local registrations stored in browser
+        try {
+          const stored = localStorage.getItem('auromind_webinar_registrations');
+          if (stored) {
+            const localRegs = JSON.parse(stored);
+            if (Array.isArray(localRegs)) {
+              const existingIds = new Set(apiRegs.map(r => r.id));
+              const existingEmails = new Set(apiRegs.map(r => r.email.toLowerCase()));
+              const missing = localRegs.filter(r => !existingIds.has(r.id) && !existingEmails.has(r.email.toLowerCase()));
+              if (missing.length > 0) {
+                apiRegs = [...missing, ...apiRegs];
+              }
+            }
+          }
+        } catch {}
+
+        setRegistrations(apiRegs);
       }
     } catch (err) {
       console.error('Failed to load webinar registrations:', err);
@@ -1742,15 +1760,48 @@ function UsersSignInView({ onRefreshParent }: { onRefreshParent?: () => void }) 
 
   const fetchUsers = useCallback(() => {
     setLoading(true);
-    fetch('/api/admin/users')
+    fetch('/api/admin/users?t=' + Date.now(), { cache: 'no-store' })
       .then(res => res.json())
-      .then(data => setUsers(data.users || []))
+      .then(data => {
+        let apiUsers: PlatformUser[] = data.users || [];
+        try {
+          const stored = localStorage.getItem('auromind_webinar_registrations');
+          if (stored) {
+            const localRegs = JSON.parse(stored);
+            if (Array.isArray(localRegs)) {
+              const existingEmails = new Set(apiUsers.map(u => u.email.toLowerCase().trim()));
+              for (const r of localRegs) {
+                const rEmail = (r.email || '').toLowerCase().trim();
+                if (rEmail && !existingEmails.has(rEmail)) {
+                  apiUsers.unshift({
+                    id: `usr-${r.id}`,
+                    name: r.name || 'Webinar Attendee',
+                    email: r.email,
+                    role: 'Client',
+                    plan: r.paymentStatus === 'paid' ? 'AI Workshop (Paid ₹99)' : 'AI Workshop (Pending)',
+                    credits: r.paymentStatus === 'paid' ? 25000 : 5000,
+                    status: 'Active',
+                    joined: (r.registeredAt || '').substring(0, 10) || new Date().toISOString().substring(0, 10),
+                    lastLogin: r.paymentStatus === 'paid' ? 'Paid ₹99 Confirmed' : 'Webinar Registered',
+                    chats: 1,
+                    tokens: 1500
+                  });
+                  existingEmails.add(rEmail);
+                }
+              }
+            }
+          }
+        } catch {}
+        setUsers(apiUsers);
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
     fetchUsers();
+    const interval = setInterval(fetchUsers, 6000);
+    return () => clearInterval(interval);
   }, [fetchUsers]);
 
   const filtered = users.filter(u => 

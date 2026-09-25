@@ -1,5 +1,70 @@
 [
   {
+    "id": "usr-1",
+    "name": "Santhosh Ram",
+    "email": "santhoshram444@gmail.com",
+    "role": "Owner",
+    "plan": "Enterprise Pro",
+    "credits": 50000,
+    "status": "Active",
+    "joined": "2026-05-12",
+    "lastLogin": "Just now",
+    "chats": 342,
+    "tokens": 489000
+  },
+  {
+    "id": "usr-web-1790347620046",
+    "name": "Rahul Sharma",
+    "email": "rahul@test.com",
+    "role": "Client",
+    "plan": "AI Workshop (Paid ₹99)",
+    "credits": 25000,
+    "status": "Active",
+    "joined": "2026-09-25",
+    "lastLogin": "Paid ₹99 (pay_test_123)",
+    "chats": 2,
+    "tokens": 2500
+  },
+  {
+    "id": "usr-web-101",
+    "name": "Aditya Verma",
+    "email": "aditya.v@innovatetech.io",
+    "role": "Client",
+    "plan": "AI Workshop (Paid ₹99)",
+    "credits": 25000,
+    "status": "Active",
+    "joined": "2026-09-24",
+    "lastLogin": "Paid ₹99 (pay_mock_101)",
+    "chats": 3,
+    "tokens": 3200
+  },
+  {
+    "id": "usr-web-102",
+    "name": "Kavita Nair",
+    "email": "kavita.nair@digitalscale.com",
+    "role": "Client",
+    "plan": "AI Workshop (Paid ₹99)",
+    "credits": 25000,
+    "status": "Active",
+    "joined": "2026-09-25",
+    "lastLogin": "Paid ₹99 (pay_mock_102)",
+    "chats": 1,
+    "tokens": 1200
+  },
+  {
+    "id": "usr-web-179035120011",
+    "name": "Siddharth Roy",
+    "email": "siddharth@nexuscrm.com",
+    "role": "Client",
+    "plan": "AI Workshop (Pending)",
+    "credits": 5000,
+    "status": "Active",
+    "joined": "2026-09-25",
+    "lastLogin": "Webinar Registered",
+    "chats": 1,
+    "tokens": 800
+  },
+  {
     "id": "usr-2",
     "name": "Jane Doe",
     "email": "jane.doe@clover.io",
@@ -24,19 +89,6 @@
     "lastLogin": "Just now",
     "chats": 1,
     "tokens": 0
-  },
-  {
-    "id": "usr-1",
-    "name": "Santhosh Kumar",
-    "email": "santhosh@groww.digital",
-    "role": "Owner",
-    "plan": "Enterprise Pro",
-    "credits": 25000,
-    "status": "Active",
-    "joined": "2026-05-12",
-    "lastLogin": "Just now",
-    "chats": 342,
-    "tokens": 489000
   },
   {
     "id": "usr-3",

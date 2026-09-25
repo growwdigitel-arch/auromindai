@@ -479,6 +479,9 @@ export function addWebinarRegistration(
   };
   current.unshift(newReg);
   writeJsonFile('webinar-registrations.json', current);
+  try {
+    recordWebinarUser(newReg.name, newReg.email, newReg.phone, newReg.paymentStatus, newReg.paymentId);
+  } catch {}
   return newReg;
 }
 
@@ -488,6 +491,9 @@ export function updateWebinarRegistration(id: string, updates: Partial<WebinarRe
   if (idx === -1) return null;
   current[idx] = { ...current[idx], ...updates };
   writeJsonFile('webinar-registrations.json', current);
+  try {
+    recordWebinarUser(current[idx].name, current[idx].email, current[idx].phone, current[idx].paymentStatus, current[idx].paymentId);
+  } catch {}
   return current[idx];
 }
 
@@ -501,7 +507,87 @@ export function deleteWebinarRegistration(id: string): boolean {
 
 // USERS
 export function getUsers(): PlatformUser[] {
-  return readJsonFile<PlatformUser[]>('users.json', SEED_USERS);
+  const users = readJsonFile<PlatformUser[]>('users.json', SEED_USERS);
+  const webinarRegs = getWebinarRegistrations();
+
+  const existingEmails = new Set(users.map(u => u.email.toLowerCase().trim()));
+  let hasNew = false;
+
+  for (const reg of webinarRegs) {
+    const regEmail = (reg.email || '').toLowerCase().trim();
+    if (regEmail && !existingEmails.has(regEmail)) {
+      users.unshift({
+        id: `usr-${reg.id}`,
+        name: reg.name || 'Webinar Attendee',
+        email: reg.email,
+        role: 'Client',
+        plan: reg.paymentStatus === 'paid' ? 'AI Workshop (Paid ₹99)' : 'AI Workshop (Pending)',
+        credits: reg.paymentStatus === 'paid' ? 25000 : 5000,
+        status: 'Active',
+        joined: (reg.registeredAt || '').substring(0, 10) || new Date().toISOString().substring(0, 10),
+        lastLogin: reg.paymentStatus === 'paid' ? 'Paid ₹99 Confirmed' : 'Webinar Registered',
+        chats: 1,
+        tokens: 1500
+      });
+      existingEmails.add(regEmail);
+      hasNew = true;
+    }
+  }
+
+  if (hasNew) {
+    writeJsonFile('users.json', users);
+  }
+
+  return users;
+}
+
+export function recordWebinarUser(
+  name: string,
+  email: string,
+  phone?: string,
+  paymentStatus: 'paid' | 'pending' | 'failed' = 'paid',
+  paymentId?: string
+): PlatformUser {
+  const current = readJsonFile<PlatformUser[]>('users.json', SEED_USERS);
+  const normalizedEmail = (email || '').toLowerCase().trim();
+  if (!normalizedEmail) return current[0];
+
+  const existingIndex = current.findIndex(u => u.email.toLowerCase().trim() === normalizedEmail);
+
+  if (existingIndex !== -1) {
+    if (paymentStatus === 'paid') {
+      current[existingIndex].plan = 'AI Workshop (Paid ₹99)';
+      current[existingIndex].credits = 25000;
+      current[existingIndex].status = 'Active';
+      current[existingIndex].lastLogin = `Paid ₹99 (${paymentId || 'Razorpay'})`;
+    }
+    if (name && (current[existingIndex].name === 'Platform User' || !current[existingIndex].name)) {
+      current[existingIndex].name = name;
+    }
+    const updated = current[existingIndex];
+    current.splice(existingIndex, 1);
+    current.unshift(updated);
+    writeJsonFile('users.json', current);
+    return updated;
+  } else {
+    const isOwner = normalizedEmail === 'santhoshram444@gmail.com' || normalizedEmail.includes('owner') || normalizedEmail.includes('admin');
+    const newUser: PlatformUser = {
+      id: `usr-web-${Date.now()}`,
+      name: name || 'Webinar Attendee',
+      email: normalizedEmail,
+      role: isOwner ? 'Owner' : 'Client',
+      plan: isOwner ? 'Enterprise Pro' : paymentStatus === 'paid' ? 'AI Workshop (Paid ₹99)' : 'AI Workshop (Pending)',
+      credits: paymentStatus === 'paid' ? 25000 : 5000,
+      status: 'Active',
+      joined: new Date().toISOString().substring(0, 10),
+      lastLogin: paymentStatus === 'paid' ? `Paid ₹99 (${paymentId || 'Razorpay'})` : 'Webinar Registered',
+      chats: 1,
+      tokens: 2500
+    };
+    current.unshift(newUser);
+    writeJsonFile('users.json', current);
+    return newUser;
+  }
 }
 
 export function addUser(user: Omit<PlatformUser, 'id' | 'joined' | 'lastLogin' | 'chats' | 'tokens'> & Partial<PlatformUser>): PlatformUser {
