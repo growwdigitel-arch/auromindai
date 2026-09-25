@@ -47,19 +47,26 @@ function logEmailSent(record: any) {
   }
 }
 
-// Build Nodemailer Transporter
+// Build Nodemailer Transporter with Gmail support
 function getTransporter() {
-  const host = process.env.SMTP_HOST || (process.env.GMAIL_USER ? 'smtp.gmail.com' : undefined);
-  const user = process.env.SMTP_USER || process.env.GMAIL_USER;
-  const pass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD || process.env.GMAIL_APP_PASSWORD;
+  const user = process.env.SMTP_USER || process.env.GMAIL_USER || 'auromindaii@gmail.com';
+  const rawPass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD || process.env.GMAIL_APP_PASSWORD || 'odjvdhmyifptkcce';
+  const pass = rawPass.replace(/\s+/g, '');
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = parseInt(process.env.SMTP_PORT || '465', 10);
-  const secure = port === 465;
 
-  if (host && user && pass) {
+  if (user && pass) {
+    if (user.endsWith('@gmail.com') || host.includes('gmail')) {
+      return nodemailer.createTransport({
+        service: 'gmail',
+        auth: { user, pass }
+      });
+    }
+
     return nodemailer.createTransport({
       host,
       port,
-      secure,
+      secure: port === 465,
       auth: { user, pass },
       tls: {
         rejectUnauthorized: false
@@ -260,7 +267,8 @@ export async function sendWebinarPaymentEmails(data: WebinarPaymentEmailData): P
   // If live SMTP transporter is configured, send actual emails via SMTP
   if (transporter) {
     try {
-      const fromAddress = process.env.SMTP_FROM || process.env.GMAIL_USER || 'AuromindAI <contact@auromind.ai>';
+      const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER || 'auromindaii@gmail.com';
+      const fromAddress = process.env.SMTP_FROM || `"AuromindAI" <${smtpUser}>`;
 
       // Send to Attendee
       await transporter.sendMail({
