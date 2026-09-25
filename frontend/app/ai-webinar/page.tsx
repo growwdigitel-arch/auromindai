@@ -1275,15 +1275,6 @@ export default function AIWebinarPage() {
           <p className="max-w-xl mx-auto text-zinc-400 font-medium text-xs">
             Empowering modern businesses with autonomous AI employees, autonomous agents, and intelligence workflows.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-bold text-zinc-300 pt-1 sm:pt-2">
-            <Link href="/" className="hover:text-amber-400 transition-colors">Home</Link>
-            <span>•</span>
-            <Link href="/ecommerce" className="hover:text-amber-400 transition-colors">eCommerce AI</Link>
-            <span>•</span>
-            <Link href="/real-estate" className="hover:text-amber-400 transition-colors">Real Estate AI</Link>
-            <span>•</span>
-            <a href="mailto:contact@auromind.ai" className="hover:text-amber-400 transition-colors">contact@auromind.ai</a>
-          </div>
           <div className="text-[10px] sm:text-[11px] text-zinc-500 pt-2 sm:pt-4 font-medium">
             © 2026 AuromindAI Private Limited. All rights reserved. Secure Razorpay Checkout.
           </div>
