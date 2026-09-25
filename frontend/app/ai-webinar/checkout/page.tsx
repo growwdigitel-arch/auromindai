@@ -328,6 +328,25 @@ export default function WebinarCheckoutPage() {
                 </div>
               </div>
 
+              {/* Mobile Quick Program Summary Banner */}
+              <div className="md:hidden mb-4 p-3 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/90 flex items-center justify-between shadow-sm">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-11 h-11 rounded-xl overflow-hidden relative shrink-0 border-2 border-amber-500 shadow-sm bg-zinc-900">
+                    <Image src="/gnananand.jpg" alt="Gnananand" fill className="object-cover object-center" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-black text-zinc-900">AI Automation Workshop</div>
+                    <div className="text-[11px] text-zinc-600 font-semibold flex items-center gap-1 mt-0.5">
+                      <span>Sat, Oct 10 • 10:00 AM IST</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-base font-black text-zinc-900 font-mono leading-none">₹99</div>
+                  <div className="text-[9px] font-bold text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded mt-1">95% OFF</div>
+                </div>
+              </div>
+
               {/* Error Message */}
               {errorMessage && (
                 <div className="mt-3.5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold flex items-center gap-2">
@@ -336,55 +355,57 @@ export default function WebinarCheckoutPage() {
                 </div>
               )}
 
-              {/* 3 Form Fields Matching User Request & Image 3 */}
-              <form onSubmit={handlePay99} className="mt-4 space-y-3.5">
+              {/* 3 Form Fields Optimized for Mobile & Desktop Touch UX */}
+              <form onSubmit={handlePay99} className="mt-4 space-y-4">
                 {/* 1. Full Name */}
                 <div>
-                  <label className="block text-xs font-bold text-zinc-700 mb-1">
+                  <label className="block text-xs sm:text-xs font-bold text-zinc-800 mb-1.5">
                     Full Name <span className="text-amber-600">*</span>
                   </label>
                   <div className="relative">
                     <input
                       type="text"
                       required
+                      autoComplete="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
+                      className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-base sm:text-sm font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/15 transition-all shadow-sm"
                     />
                   </div>
                 </div>
 
                 {/* 2. Email Address */}
                 <div>
-                  <label className="block text-xs font-bold text-zinc-700 mb-1">
+                  <label className="block text-xs sm:text-xs font-bold text-zinc-800 mb-1.5">
                     Email Address <span className="text-amber-600">*</span>
                   </label>
                   <div className="relative">
                     <input
                       type="email"
                       required
+                      autoComplete="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@company.com"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
+                      className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 text-base sm:text-sm font-medium focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/15 transition-all shadow-sm"
                     />
                   </div>
-                  <span className="text-[10px] text-zinc-500 mt-1 block">
+                  <span className="text-[11px] text-zinc-500 mt-1 block">
                     Your Zoom link &amp; recording pass will be emailed here.
                   </span>
                 </div>
 
                 {/* 3. Mobile Number with Country Code */}
                 <div>
-                  <label className="block text-xs font-bold text-zinc-700 mb-1">
+                  <label className="block text-xs sm:text-xs font-bold text-zinc-800 mb-1.5">
                     Mobile Number <span className="text-amber-600">*</span>
                   </label>
-                  <div className="flex rounded-xl border border-zinc-300 overflow-hidden focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-500/20 transition-all">
+                  <div className="flex rounded-xl border border-zinc-300 overflow-hidden focus-within:border-amber-500 focus-within:ring-4 focus-within:ring-amber-500/15 transition-all shadow-sm bg-white">
                     <select
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
-                      className="bg-zinc-50 px-3 py-2.5 text-xs font-bold text-zinc-700 border-r border-zinc-300 focus:outline-none"
+                      className="bg-zinc-50 px-3.5 py-3 sm:py-2.5 text-xs sm:text-sm font-bold text-zinc-700 border-r border-zinc-300 focus:outline-none cursor-pointer"
                     >
                       <option value="+91">🇮🇳 +91</option>
                       <option value="+1">🇺🇸 +1</option>
@@ -396,13 +417,14 @@ export default function WebinarCheckoutPage() {
                     <input
                       type="tel"
                       required
+                      autoComplete="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="98765 43210"
-                      className="w-full px-3.5 py-2.5 bg-white text-zinc-900 placeholder-zinc-400 text-sm font-medium focus:outline-none"
+                      className="w-full px-4 py-3 sm:py-2.5 bg-white text-zinc-900 placeholder-zinc-400 text-base sm:text-sm font-medium focus:outline-none"
                     />
                   </div>
-                  <span className="text-[10px] text-zinc-500 mt-1 block">
+                  <span className="text-[11px] text-zinc-500 mt-1 block">
                     WhatsApp reminders and calendar invite sent here.
                   </span>
                 </div>
@@ -411,19 +433,19 @@ export default function WebinarCheckoutPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full mt-2.5 py-3.5 sm:py-4 px-5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:via-yellow-300 hover:to-amber-400 text-black font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_28px_rgba(245,158,11,0.6)] hover:shadow-[0_0_42px_rgba(245,158,11,0.9)] border border-amber-300 active:scale-[0.99] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 group relative overflow-hidden"
+                  className="w-full mt-3 py-4 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:via-yellow-300 hover:to-amber-400 text-black font-black text-base sm:text-base shadow-[0_0_30px_rgba(245,158,11,0.65)] hover:shadow-[0_0_45px_rgba(245,158,11,0.95)] border border-amber-300 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2.5 disabled:opacity-60 group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
                   {isSubmitting ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                      <span>Connecting Razorpay...</span>
+                      <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                      <span className="font-extrabold">Connecting Razorpay...</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-4 h-4 text-black shrink-0 animate-pulse" />
+                      <Sparkles className="w-5 h-5 text-black shrink-0 animate-pulse" />
                       <span className="font-black">Pay ₹99 to Unlock Sales Revenue</span>
-                      <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
                 </button>
