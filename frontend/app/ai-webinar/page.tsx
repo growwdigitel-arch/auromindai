@@ -346,20 +346,30 @@ export default function AIWebinarPage() {
           <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
             <div className="inline-block">
               <span className="text-[10px] sm:text-xs font-black tracking-widest text-amber-400 uppercase bg-amber-500/10 px-2.5 sm:px-3 py-1 rounded-lg border border-amber-500/25">
-                The Practical Implementation Playbook
+                AI Automation Masterclass
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tight text-white leading-[1.1] break-words">
-              AI AUTOMATION <br />
-              <span className="gold-gradient-text drop-shadow-[0_2px_20px_rgba(245,158,11,0.35)]">
-                WORKSHOP
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.2] break-words">
+              Your Business Doesn’t Need More Tools <br />
+              <span className="gold-gradient-text drop-shadow-[0_2px_24px_rgba(245,158,11,0.4)]">
+                It Needs Automation That Actually Works.
               </span>
             </h1>
 
-            <p className="text-sm sm:text-lg text-zinc-300 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
-              Build &amp; deploy autonomous AI employees that eliminate repetitive work, run 24/7 lead qualification, and automate 80% of business operations.
-            </p>
+            {/* High-Impact Copy Card */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#121217]/95 border border-zinc-800 shadow-xl space-y-3 text-left">
+              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+                You’re spending hours on repetitive tasks that AI can handle for you. Leads, follow-ups, marketing, customer support — everything keeps coming back to you.
+              </p>
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                <span>That’s not growth; that’s manual work holding your business back.</span>
+              </div>
+              <p className="text-xs sm:text-sm text-white font-semibold pt-1 border-t border-zinc-800">
+                ✨ In 4 hours, you’ll learn how to identify what to automate, build AI-powered workflows, and put automation to work in your business.
+              </p>
+            </div>
 
             {/* 4 Bold Event Spec Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 pt-1">
