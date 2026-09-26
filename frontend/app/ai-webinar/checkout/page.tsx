@@ -99,7 +99,7 @@ export default function WebinarCheckoutPage() {
 
       // 3. Launch Razorpay Standard Checkout
       if (typeof window !== 'undefined' && (window as any).Razorpay) {
-        const activeKey = keyId || 'rzp_test_TExpVoOTKpnFY8';
+        const activeKey = keyId || 'rzp_live_TEy9Zb78fdKQjO';
         const options: any = {
           key: activeKey,
           amount: 9900, // Rs 99 in paise
