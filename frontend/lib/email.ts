@@ -171,7 +171,7 @@ export async function sendWebinarPaymentEmails(data: WebinarPaymentEmailData): P
                         </tr>
                         <tr>
                           <td style="color: #A1A1AA; font-weight: 600;">Mentor:</td>
-                          <td style="color: #FFFFFF; font-weight: 700;">Gnananand (10+ Years Enterprise Sales Veteran)</td>
+                          <td style="color: #FFFFFF; font-weight: 700;">Gnananand (8+ Years Enterprise Sales Veteran)</td>
                         </tr>
                         <tr>
                           <td style="color: #A1A1AA; font-weight: 600;">Amount Paid:</td>

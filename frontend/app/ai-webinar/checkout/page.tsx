@@ -288,7 +288,7 @@ export default function WebinarCheckoutPage() {
               </div>
               <div className="flex justify-between border-b border-zinc-200 pb-2">
                 <span className="text-zinc-500 font-medium">Workshop Mentor</span>
-                <span className="font-bold text-amber-700">Gnananand (10+ Yrs Sales Exp)</span>
+                <span className="font-bold text-amber-700">Gnananand (8+ Yrs Sales Exp)</span>
               </div>
               <div className="flex justify-between pt-1">
                 <span className="text-zinc-500 font-medium">Amount Paid</span>
@@ -507,7 +507,7 @@ export default function WebinarCheckoutPage() {
                       <User className="w-3.5 h-3.5 text-zinc-400" />
                       Lead Mentor
                     </span>
-                    <span className="font-bold text-amber-700">Gnananand (10+ Yrs Sales Exp)</span>
+                    <span className="font-bold text-amber-700">Gnananand (8+ Yrs Sales Exp)</span>
                   </div>
                 </div>
 
@@ -519,7 +519,7 @@ export default function WebinarCheckoutPage() {
                   <div className="text-xs">
                     <div className="font-black text-zinc-900">Gnananand</div>
                     <div className="text-[11px] text-amber-800 font-medium">
-                      10+ Years Enterprise Sales Veteran &amp; Revenue Mentor
+                      8+ Years Enterprise Sales Veteran &amp; Revenue Mentor
                     </div>
                   </div>
                 </div>

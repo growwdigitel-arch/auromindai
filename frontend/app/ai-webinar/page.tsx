@@ -10,7 +10,8 @@ import {
   Video, Lock, ChevronDown, Check, Flame, MessageSquare,
   ExternalLink, Download, ArrowUpRight, Share2, Layers,
   Terminal, BarChart, Smartphone, Laptop, CheckCircle, Crown,
-  X, Compass, Bell, Shield, Rocket, Target, PlayCircle
+  X, Compass, Bell, Shield, Rocket, Target, PlayCircle, Play,
+  Bot, Mail, Database, XCircle
 } from 'lucide-react';
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -308,8 +309,8 @@ export default function AIWebinarPage() {
           <nav className="hidden lg:flex items-center gap-8 text-sm font-bold text-zinc-300">
             <a href="#curriculum" className="hover:text-amber-400 transition-colors">Curriculum</a>
             <a href="#bonuses" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-              <span>₹12,000 Bonuses</span>
-              <span className="text-[10px] bg-amber-500 text-black px-1.5 py-0.5 rounded font-black">FREE</span>
+              <span>Free WhatsApp API + Bonuses</span>
+              <span className="text-[10px] bg-emerald-500 text-black px-1.5 py-0.5 rounded font-black">FREE</span>
             </a>
             <a href="#who" className="hover:text-amber-400 transition-colors">Who Is It For</a>
             <a href="#instructor" className="hover:text-amber-400 transition-colors">Instructor</a>
@@ -514,11 +515,11 @@ export default function AIWebinarPage() {
                   <div className="flex items-center gap-2">
                     <span className="text-lg sm:text-xl font-black text-white">Gnananand</span>
                     <span className="text-[10px] bg-amber-500 text-black px-2 py-0.5 rounded font-black tracking-wide">
-                      10+ YRS SALES EXP
+                      8+ YRS SALES EXP
                     </span>
                   </div>
                   <div className="text-xs text-amber-400 font-bold mt-0.5">
-                    10+ Years Enterprise Sales Veteran &amp; AI Conversion Mentor
+                    8+ Years Enterprise Sales Veteran &amp; AI Conversion Mentor
                   </div>
                 </div>
               </div>
@@ -752,10 +753,10 @@ export default function AIWebinarPage() {
             SATURDAY, OCT 10 • 10:00 AM TO 12:00 PM IST
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-            2-Hour Hands-On Curriculum
+            What You Will Learn (100% Practical • Zero Tech Jargon)
           </h2>
           <p className="text-sm sm:text-base text-zinc-300 mt-2 sm:mt-3 font-medium">
-            Straight to practical execution. Every segment is designed to give you deployable frameworks immediately.
+            How smart businesses use AI on WhatsApp to reply in 10 seconds, never miss a lead, and close more sales even while everyone sleeps.
           </p>
         </div>
 
@@ -768,7 +769,7 @@ export default function AIWebinarPage() {
                   01
                 </span>
                 <h3 className="text-base sm:text-xl font-black text-white">
-                  Part 1: Modern Autonomous AI &amp; Reasoning Loops
+                  Part 1: The 10-Second Rule — Why Slow Replies Lose Customers (And How AI Fixes It)
                 </h3>
               </div>
               <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-amber-950/80 border border-amber-500/40 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full w-fit">
@@ -776,12 +777,12 @@ export default function AIWebinarPage() {
               </span>
             </div>
             <p className="text-xs sm:text-sm font-medium text-zinc-300 mt-3 leading-relaxed">
-              Understand the shift from basic prompts to Agentic Workflows. Why AI Agents succeed where simple prompts fail, and how memory, tool use, and reasoning loops work under the hood.
+              When an interested customer messages you, waiting even 15 minutes makes them buy from your competitor. Learn how to plug in a simple AI assistant that greets customers within 10 seconds, answers their questions in plain, friendly language, and keeps them from leaving.
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold text-zinc-300">
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">State of LLMs in 2026</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Agent Reasoning Loops</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Function Calling</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Instant 10-Second Replies</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Zero Technical Knowledge Needed</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Stop Losing Customers to Competitors</span>
             </div>
           </div>
 
@@ -793,7 +794,7 @@ export default function AIWebinarPage() {
                   02
                 </span>
                 <h3 className="text-base sm:text-xl font-black text-white">
-                  Part 2: Live Build — Multi-Agent Sales &amp; Support Swarm
+                  Part 2: WhatsApp Automation — Collect Leads &amp; Follow Up Without Getting Banned
                 </h3>
               </div>
               <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-amber-950/80 border border-amber-500/40 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full w-fit">
@@ -801,12 +802,12 @@ export default function AIWebinarPage() {
               </span>
             </div>
             <p className="text-xs sm:text-sm font-medium text-zinc-300 mt-3 leading-relaxed">
-              Watch step-by-step as we construct a live multi-agent swarm in front of your eyes: An Inbound Triage Agent, a Lead Qualifier, a Calendar Booker, and a Knowledge Search Agent connected to live business data.
+              Turn your WhatsApp into your most reliable full-time salesperson. Learn how to safely send bulk announcement messages to your customer list, automatically follow up with people who forgot to reply, and capture buyer names and phone numbers without lifting a finger.
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold text-zinc-300">
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Live Agent Building</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">RAG &amp; Embeddings</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">WhatsApp &amp; CRM Sync</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Official WhatsApp Business Setup</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Safe Bulk Broadcasts (No Banning)</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Automated 24/7 Follow-Ups</span>
             </div>
           </div>
 
@@ -818,7 +819,7 @@ export default function AIWebinarPage() {
                   03
                 </span>
                 <h3 className="text-base sm:text-xl font-black text-white">
-                  Part 3: 4 Enterprise Use Cases Generating ₹10L+
+                  Part 3: Booking Appointments &amp; Closing Sales at 2:00 AM While You Sleep
                 </h3>
               </div>
               <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-amber-950/80 border border-amber-500/40 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full w-fit">
@@ -826,12 +827,12 @@ export default function AIWebinarPage() {
               </span>
             </div>
             <p className="text-xs sm:text-sm font-medium text-zinc-300 mt-3 leading-relaxed">
-              Real teardowns of deployed agent systems across eCommerce, Real Estate, B2B SaaS, and Service Agencies. How these businesses replaced 60+ manual hours per week with zero extra headcount.
+              Watch real business examples in action: A customer sends a message at 2:30 AM while you are fast asleep. The AI assistant answers their queries, shares pricing, checks your calendar, and books a confirmed meeting or payment before you even wake up in the morning.
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold text-zinc-300">
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">eCommerce Order AI</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Real Estate Tour Automation</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">B2B Outbound</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Closes Sales While You Sleep</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Automatic Calendar Booking</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Zero Extra Staff or Payroll</span>
             </div>
           </div>
 
@@ -843,7 +844,7 @@ export default function AIWebinarPage() {
                   04
                 </span>
                 <h3 className="text-base sm:text-xl font-black text-white">
-                  Part 4: Live Q&amp;A, Workflow Teardowns &amp; Vault Handout
+                  Part 4: Live Business Hotseat — Fix Your Leaking Leads + Free ₹12,000 Templates
                 </h3>
               </div>
               <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-amber-950/80 border border-amber-500/40 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full w-fit">
@@ -851,12 +852,12 @@ export default function AIWebinarPage() {
               </span>
             </div>
             <p className="text-xs sm:text-sm font-medium text-zinc-300 mt-3 leading-relaxed">
-              Get your specific business questions answered live. We will teardown attendee workflows, provide direct implementation feedback, and hand out all download links for the ₹12,000 bonus vault.
+              Tell Gnananand what your business sells and where you are losing customers. He will show you the exact automated messages to plug into your WhatsApp to stop losing leads today. Plus, get copy-paste ready-made templates (worth ₹12,000) you can start using immediately.
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold text-zinc-300">
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Live 1-on-1 Teardowns</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Download Vault Access</span>
-              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">VIP Group Admission</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Live Fix for Your Business</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Copy-Paste WhatsApp Messages</span>
+              <span className="bg-[#181822] px-2.5 py-1 rounded-lg border border-zinc-700">Free ₹12,000 Template Vault</span>
             </div>
           </div>
         </div>
@@ -877,29 +878,29 @@ export default function AIWebinarPage() {
       </section>
 
       {/* ────────────────────────────────────────────────────────────────────────
-          7. FREE BONUSES (WORTH ₹12,000+ INCLUDED FOR ₹99) + CTA (RESPONSIVE)
+          7. FREE BONUSES (WORTH ₹15,000+ INCLUDED FOR ₹99) + CTA (RESPONSIVE)
       ──────────────────────────────────────────────────────────────────────── */}
       <section id="bonuses" className="py-12 sm:py-20 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t-2 border-zinc-800 bg-[#0C0C10]">
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 text-xs font-black border border-amber-500/30 mb-3">
-            <Gift className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" /> ₹12,000 VALUE INCLUDED FREE WITH ₹99 TICKET
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-black border border-emerald-500/30 mb-3">
+            <Gift className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" /> ₹15,000+ VALUE INCLUDED FREE WITH ₹99 TICKET
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-            Register Today &amp; Unlock All 4 Bonuses Free
+            Register Today &amp; Unlock Free WhatsApp API + All Bonuses
           </h2>
           <p className="text-sm sm:text-base text-zinc-300 mt-2 sm:mt-3 font-medium">
-            Instant digital access delivered directly to your inbox immediately upon booking.
+            Instant digital access delivered directly to your WhatsApp and inbox immediately upon booking.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Bonus 1 */}
-          <div className="bg-[#13131A] border-2 border-zinc-800 hover:border-amber-500/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all shadow-lg">
-            <div className="text-[10px] sm:text-xs font-black text-amber-400 uppercase tracking-wider mb-1">Bonus #1</div>
-            <div className="text-[10px] sm:text-xs font-bold text-zinc-500 line-through">Value: ₹3,500</div>
-            <h3 className="text-base sm:text-lg font-black text-white mt-1.5 mb-1.5">2026 AI Agent Blueprint</h3>
+          <div className="bg-[#13131A] border-2 border-emerald-500/50 hover:border-emerald-400 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all shadow-lg relative">
+            <div className="text-[10px] sm:text-xs font-black text-emerald-400 uppercase tracking-wider mb-1">Bonus #1 • Most Requested</div>
+            <div className="text-[10px] sm:text-xs font-bold text-zinc-500 line-through">Value: ₹4,999</div>
+            <h3 className="text-base sm:text-lg font-black text-white mt-1.5 mb-1.5">Official WhatsApp Cloud API Setup</h3>
             <p className="text-xs font-medium text-zinc-300 leading-relaxed">
-              Complete architectural diagrams and schema maps showing how to link LLMs, memory stores, and webhooks reliably.
+              Step-by-step access to connect Meta’s official WhatsApp Cloud API directly for free—saving you ₹3,000 to ₹8,000 every single month in third-party tool fees.
             </p>
           </div>
 
@@ -907,29 +908,29 @@ export default function AIWebinarPage() {
           <div className="bg-[#13131A] border-2 border-zinc-800 hover:border-amber-500/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all shadow-lg">
             <div className="text-[10px] sm:text-xs font-black text-amber-400 uppercase tracking-wider mb-1">Bonus #2</div>
             <div className="text-[10px] sm:text-xs font-bold text-zinc-500 line-through">Value: ₹4,000</div>
-            <h3 className="text-base sm:text-lg font-black text-white mt-1.5 mb-1.5">50+ Tested System Prompts</h3>
+            <h3 className="text-base sm:text-lg font-black text-white mt-1.5 mb-1.5">50+ Tested WhatsApp Sales Prompts</h3>
             <p className="text-xs font-medium text-zinc-300 leading-relaxed">
-              Production-tested prompts for customer support, lead qualification, email copywriting, and meeting summarization.
+              Pre-written, non-technical message scripts for fast customer greetings, payment reminders, booking confirmations, and abandoned inquiries.
             </p>
           </div>
 
           {/* Bonus 3 */}
           <div className="bg-[#13131A] border-2 border-zinc-800 hover:border-amber-500/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all shadow-lg">
             <div className="text-[10px] sm:text-xs font-black text-amber-400 uppercase tracking-wider mb-1">Bonus #3</div>
-            <div className="text-[10px] sm:text-xs font-bold text-zinc-500 line-through">Value: ₹2,500</div>
+            <div className="text-[10px] sm:text-xs font-bold text-zinc-500 line-through">Value: ₹3,500</div>
             <h3 className="text-base sm:text-lg font-black text-white mt-1.5 mb-1.5">Full Lifetime HD Recording</h3>
             <p className="text-xs font-medium text-zinc-300 leading-relaxed">
-              Cannot attend live? No problem. Receive lifetime access to the full recording, transcripts, and timestamps within 2 hours.
+              Cannot attend live? No problem. Receive lifetime access to the full recording, transcripts, and easy implementation checklists within 2 hours.
             </p>
           </div>
 
           {/* Bonus 4 */}
           <div className="bg-[#13131A] border-2 border-zinc-800 hover:border-amber-500/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all shadow-lg">
             <div className="text-[10px] sm:text-xs font-black text-amber-400 uppercase tracking-wider mb-1">Bonus #4</div>
-            <div className="text-[10px] sm:text-xs font-bold text-zinc-500 line-through">Value: ₹2,000</div>
+            <div className="text-[10px] sm:text-xs font-bold text-zinc-500 line-through">Value: ₹2,500</div>
             <h3 className="text-base sm:text-lg font-black text-white mt-1.5 mb-1.5">VIP WhatsApp Community</h3>
             <p className="text-xs font-medium text-zinc-300 leading-relaxed">
-              Private community access with 1,200+ founders, builders, and AI leaders to share templates, hire talent, and get help.
+              Private community access with 1,200+ founders and business owners to share proven message templates, get help, and stay ahead.
             </p>
           </div>
         </div>
@@ -941,7 +942,7 @@ export default function AIWebinarPage() {
             className="w-full sm:w-auto px-6 sm:px-9 py-3.5 sm:py-4 rounded-xl gold-btn text-xs sm:text-sm uppercase tracking-wider cursor-pointer inline-flex items-center justify-center gap-2"
           >
             <Crown className="w-4 h-4 fill-black shrink-0" />
-            <span>Claim All 4 Bonuses Free with Your ₹99 Ticket</span>
+            <span>Claim Free WhatsApp API + All Bonuses with Your ₹99 Ticket</span>
             <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
@@ -1017,7 +1018,7 @@ export default function AIWebinarPage() {
               <div className="w-28 h-28 sm:w-44 sm:h-44 rounded-2xl sm:rounded-3xl overflow-hidden mx-auto bg-zinc-900 border-2 border-amber-500/60 shadow-xl relative">
                 <Image
                   src="/gnananand.jpg"
-                  alt="Gnananand - 10+ Years Enterprise Sales Veteran & AI Mentor"
+                  alt="Gnananand - 8+ Years Enterprise Sales Veteran & AI Mentor"
                   fill
                   className="object-cover object-center"
                 />
@@ -1025,7 +1026,7 @@ export default function AIWebinarPage() {
               <div className="mt-3 sm:mt-4">
                 <h3 className="text-xl sm:text-2xl font-black text-white">Gnananand</h3>
                 <p className="text-[11px] sm:text-xs text-amber-400 font-black tracking-wide uppercase mt-0.5">
-                  10+ Years Enterprise Sales Veteran • AI Conversion Mentor
+                  8+ Years Enterprise Sales Veteran • AI Automation Mentor
                 </p>
               </div>
             </div>
@@ -1035,19 +1036,28 @@ export default function AIWebinarPage() {
                 MEET YOUR SALES &amp; REVENUE AUTOMATION MENTOR
               </div>
               <h2 className="text-xl sm:text-3xl lg:text-4xl font-black text-white">
-                Learn from Gnananand: 10+ Years of High-Stakes Sales &amp; Revenue Operations
+                Learn from Gnananand: 8+ Years of High-Stakes Sales &amp; Revenue Operations
               </h2>
               <p className="text-xs sm:text-base font-medium text-zinc-300 leading-relaxed">
-                With over a decade of deep sales experience closing high-value deals and building scalable sales engines, Gnananand breaks down the exact methodologies to turn cold leads into paid clients using 24/7 autonomous AI sales agents—eliminating human delay and lost sales pipeline.
+                With over 8 years of deep enterprise sales experience closing high-value deals and building scalable automation engines, Gnananand breaks down the exact methodologies to turn cold leads into paid clients using 24/7 autonomous AI sales agents—eliminating human delay and lost sales pipeline.
               </p>
-              <div className="grid grid-cols-2 gap-2 sm:gap-4 pt-1 sm:pt-2 max-w-sm">
-                <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
-                  <div className="text-lg sm:text-2xl font-black text-amber-400">10+ Yrs</div>
+              {/* 4 Balanced Credential Cards Filling the Row */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pt-1 sm:pt-2 max-w-2xl">
+                <div className="bg-[#181822] border border-zinc-700/80 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
+                  <div className="text-lg sm:text-2xl font-black text-amber-400">8+ Yrs</div>
                   <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Sales Experience</div>
                 </div>
-                <div className="bg-[#181822] border border-zinc-700 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
-                  <div className="text-lg sm:text-2xl font-black text-amber-400">4.9/5</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Rating</div>
+                <div className="bg-[#181822] border border-zinc-700/80 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
+                  <div className="text-lg sm:text-2xl font-black text-amber-400">4.9/5 ★</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Attendee Rating</div>
+                </div>
+                <div className="bg-[#181822] border border-zinc-700/80 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
+                  <div className="text-lg sm:text-2xl font-black text-amber-400">Zero Code</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">100% Non-Technical</div>
+                </div>
+                <div className="bg-[#181822] border border-zinc-700/80 p-2.5 sm:p-3.5 rounded-xl text-center sm:text-left">
+                  <div className="text-lg sm:text-2xl font-black text-amber-400">Live Q&amp;A</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-zinc-400">Direct Mentor Guidance</div>
                 </div>
               </div>
 

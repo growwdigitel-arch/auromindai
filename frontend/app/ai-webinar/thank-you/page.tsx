@@ -177,7 +177,7 @@ function ThankYouContent() {
               </div>
               <div className="text-xs">
                 <div className="font-black text-zinc-900 text-sm">Gnananand</div>
-                <div className="text-amber-800 font-bold">10+ Years Enterprise Sales Veteran • AI Conversion Mentor</div>
+                <div className="text-amber-800 font-bold">8+ Years Enterprise Sales Veteran • AI Conversion Mentor</div>
               </div>
             </div>
 
