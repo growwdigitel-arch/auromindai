@@ -113,7 +113,8 @@ export default function WebinarCheckoutPage() {
             contact: cleanPhone,
           },
           theme: {
-            color: '#16A34A', // Green matching logo
+            color: '#F59E0B', // Glowing gold matching app buttons
+            backdrop_color: '#070709',
           },
           handler: async function (response: any) {
             await verifyPayment({

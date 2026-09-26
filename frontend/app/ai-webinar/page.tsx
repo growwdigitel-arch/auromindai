@@ -171,6 +171,7 @@ export default function AIWebinarPage() {
           },
           theme: {
             color: '#F59E0B',
+            backdrop_color: '#070709',
           },
           handler: async function (response: any) {
             await verifyPayment({
