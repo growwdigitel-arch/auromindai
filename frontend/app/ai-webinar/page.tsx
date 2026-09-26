@@ -695,11 +695,11 @@ export default function AIWebinarPage() {
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="text-red-400 font-black shrink-0 text-sm sm:text-base">✕</span>
-                <span>Hiring expensive reps for basic lead qualification and support triage</span>
+                <span>Paying full-time staff just to answer repetitive messages and copy data into sheets</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="text-red-400 font-black shrink-0 text-sm sm:text-base">✕</span>
-                <span>Fragile rule-based chatbots that fail when customers ask nuanced questions</span>
+                <span>Old dumb chatbots that get confused and lose customers when they ask normal questions</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="text-red-400 font-black shrink-0 text-sm sm:text-base">✕</span>
@@ -764,7 +764,7 @@ export default function AIWebinarPage() {
             SATURDAY, OCT 10 • 10:00 AM TO 12:00 PM IST
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-            What You Will Learn (100% Practical • Zero Tech Jargon)
+            What You Will Learn (100% Practical • Simple English • No Coding)
           </h2>
           <p className="text-sm sm:text-base text-zinc-300 mt-2 sm:mt-3 font-medium">
             How smart businesses use AI on WhatsApp to reply in 10 seconds, never miss a lead, and close more sales even while everyone sleeps.
@@ -1126,7 +1126,7 @@ export default function AIWebinarPage() {
             <div className="space-y-2.5 sm:space-y-3">
               <div className="flex text-amber-400 text-sm">{'★'.repeat(5)}</div>
               <p className="text-xs sm:text-sm font-medium text-zinc-300 leading-relaxed italic">
-                "Hands down the best 2 hours I've spent this year on AI. No marketing fluff—straight into architecture, system prompts, and tool calling with live database sync."
+                "Hands down the best 2 hours I've spent on AI. We connected our WhatsApp to Google Sheets and our customer reply time dropped from 3 hours to 10 seconds!"
               </p>
             </div>
             <div className="pt-3.5 mt-3.5 border-t border-zinc-800 flex items-center gap-3">
@@ -1144,7 +1144,7 @@ export default function AIWebinarPage() {
             <div className="space-y-2.5 sm:space-y-3">
               <div className="flex text-amber-400 text-sm">{'★'.repeat(5)}</div>
               <p className="text-xs sm:text-sm font-medium text-zinc-300 leading-relaxed italic">
-                "The ₹12,000 prompt vault and blueprint they share at the end is pure gold. We closed a ₹75,000 AI automation retainer with a client using their exact architecture."
+                "The ready-to-use message templates and WhatsApp API setup guide they shared are pure gold. We recovered 14 lost customer leads in our first week alone."
               </p>
             </div>
             <div className="pt-3.5 mt-3.5 border-t border-zinc-800 flex items-center gap-3">
@@ -1230,11 +1230,11 @@ export default function AIWebinarPage() {
             },
             {
               q: 'Do I need a technical coding background to benefit?',
-              a: 'No. The workshop focuses on high-level architecture, visual orchestrations, API webhooks, and production prompt engineering. We explain all concepts in clean, non-technical plain English with real-world demos.',
+              a: 'Absolutely not! Zero coding knowledge is required. We show you simple drag-and-drop tools and ready-to-use message templates. Everything is explained step-by-step in plain, simple English with real live examples.',
             },
             {
               q: 'Why is the price only ₹99 instead of ₹1,999?',
-              a: 'We want to make modern agentic AI accessible to ambitious founders and creators in our ecosystem. We make our revenue when businesses choose to hire AuromindAI for custom enterprise implementations.',
+              a: 'We want every small business owner and founder to experience how automation stops them from losing leads. You get complete access for just ₹99 with zero hidden fees.',
             },
             {
               q: 'How does payment work with Razorpay?',
