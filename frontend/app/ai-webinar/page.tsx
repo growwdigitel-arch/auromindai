@@ -764,7 +764,7 @@ export default function AIWebinarPage() {
             SATURDAY, OCT 10 • 10:00 AM TO 12:00 PM IST
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-            What You Will Learn (100% Practical • Simple English • No Coding)
+            What You Will Learn (100% Practical • No Coding Required)
           </h2>
           <p className="text-sm sm:text-base text-zinc-300 mt-2 sm:mt-3 font-medium">
             How smart businesses use AI on WhatsApp to reply in 10 seconds, never miss a lead, and close more sales even while everyone sleeps.
@@ -1230,7 +1230,7 @@ export default function AIWebinarPage() {
             },
             {
               q: 'Do I need a technical coding background to benefit?',
-              a: 'Absolutely not! Zero coding knowledge is required. We show you simple drag-and-drop tools and ready-to-use message templates. Everything is explained step-by-step in plain, simple English with real live examples.',
+              a: 'Absolutely not! Zero coding knowledge is required. We show you simple drag-and-drop tools and ready-to-use message templates. Everything is explained step-by-step with real live examples.',
             },
             {
               q: 'Why is the price only ₹99 instead of ₹1,999?',
