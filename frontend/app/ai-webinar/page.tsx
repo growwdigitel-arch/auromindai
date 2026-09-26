@@ -631,24 +631,35 @@ export default function AIWebinarPage() {
       </section>
 
       {/* ────────────────────────────────────────────────────────────────────────
-          4. BRAND & ARCHITECTURE TRUST BAR (RESPONSIVE)
+          4. BRAND & PLATFORM TRUST BAR (NON-TECHNICAL & RELATABLE)
       ──────────────────────────────────────────────────────────────────────── */}
       <section className="border-y-2 border-zinc-800 bg-[#0E0E14] py-5 sm:py-6 px-3 sm:px-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
           <div>
             <div className="text-xs font-black uppercase tracking-wider text-amber-400">
-              Modern Autonomous AI Frameworks
+              Connects With The Everyday Apps You Already Use
             </div>
             <div className="text-[11px] sm:text-xs text-zinc-400 font-medium">
-              We teach production-grade multi-agent swarms, not toy ChatGPT prompts
+              Simple, plug-and-play workflows that reply to leads, book calls, and collect payments 24/7
             </div>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-white text-xs sm:text-sm font-black">
-            <span>Claude 3.7 Sonnet</span>
-            <span>OpenAI GPT-4o</span>
-            <span>Google Gemini 2.5</span>
-            <span>LangGraph &amp; Swarms</span>
-            <span>Razorpay API</span>
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-bold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              WhatsApp API
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-pink-950/50 border border-pink-500/40 text-pink-300">
+              Instagram DMs
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200">
+              ChatGPT &amp; AI
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-950/50 border border-blue-500/40 text-blue-300">
+              Google Sheets &amp; CRM
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-950/50 border border-amber-500/40 text-amber-300">
+              UPI &amp; Razorpay
+            </span>
           </div>
         </div>
       </section>
@@ -662,11 +673,11 @@ export default function AIWebinarPage() {
             THE 2026 AI AUTOMATION ADVANTAGE
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-            Single Prompts Are Outdated. <br />
-            <span className="gold-gradient-text">Autonomous Multi-Agent Swarms</span> Win.
+            Typing Single Prompts Is Outdated. <br />
+            <span className="gold-gradient-text">24/7 Automated AI Workflows</span> Win.
           </h2>
           <p className="text-sm sm:text-base text-zinc-300 mt-2 sm:mt-3 font-medium">
-            Typing one-off prompts into a chatbot is slow and manual. Companies winning right now are orchestrating autonomous AI agent swarms that run sales, answer queries, and update databases with zero human lag.
+            Copying and pasting text into ChatGPT all day is slow and manual. Businesses growing fast today set up automated AI workflows that reply to leads on WhatsApp in 10 seconds, book meetings, and follow up 24/7 with zero human delay.
           </p>
         </div>
 
@@ -702,23 +713,23 @@ export default function AIWebinarPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-black text-xs mb-3 sm:mb-4 border border-amber-500/40">
               <Crown className="w-3.5 h-3.5 text-amber-400" /> What You Master in This Workshop (₹99)
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-white mb-3 sm:mb-4">24/7 Autonomous AI Swarms</h3>
+            <h3 className="text-xl sm:text-2xl font-black text-white mb-3 sm:mb-4">24/7 Automated Sales Engine</h3>
             <ul className="space-y-3 text-xs sm:text-sm font-bold text-white">
               <li className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0 mt-0.5" />
-                <span>Autonomous agents that qualify leads, book calendar calls, and close sales</span>
+                <span>AI assistants that reply on WhatsApp in 10s, qualify leads, and close sales</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0 mt-0.5" />
-                <span>Visual orchestration connecting webhooks, WhatsApp, Google Sheets &amp; CRMs</span>
+                <span>Simple zero-code connections between WhatsApp, Google Sheets &amp; your CRM</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0 mt-0.5" />
-                <span>Multi-agent reasoning loops where agents audit each other to kill hallucinations</span>
+                <span>Smart guardrails that ensure customer replies are always polite, accurate &amp; on-brand</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0 mt-0.5" />
-                <span>Downloadable production templates ready to deploy in under 48 hours</span>
+                <span>Ready-made copy-paste templates you can turn on in under 24 hours</span>
               </li>
             </ul>
           </div>
