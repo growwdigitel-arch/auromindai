@@ -50,6 +50,8 @@ function ThankYouContent() {
           'https://connect.facebook.net/en_US/fbevents.js');
           fbq('init', '2290888315031564');
           fbq('track', 'PageView');
+          fbq('track', 'Lead', { value: 99, currency: 'INR', content_name: 'AI Automation Workshop Confirmed Attendee' });
+          fbq('track', 'CompleteRegistration', { value: 99, currency: 'INR', content_name: 'AI Automation Workshop Ticket' });
           fbq('track', 'Purchase', { value: 99, currency: 'INR', content_name: 'AI Automation Workshop Ticket' });
         `}
       </Script>

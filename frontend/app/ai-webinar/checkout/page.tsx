@@ -97,6 +97,15 @@ export default function WebinarCheckoutPage() {
 
       const { orderId, keyId, registrationId, isLiveRazorpay } = data;
 
+      // Track Lead event for Meta Lead campaigns
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead', {
+          content_name: 'AI Automation Workshop Lead',
+          currency: 'INR',
+          value: 99,
+        });
+      }
+
       // 3. Launch Razorpay Standard Checkout
       if (typeof window !== 'undefined' && (window as any).Razorpay) {
         const activeKey = keyId || 'rzp_live_TEy9Zb78fdKQjO';

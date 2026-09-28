@@ -145,6 +145,15 @@ export default function AIWebinarPage() {
 
       const { orderId, keyId, registrationId, isLiveRazorpay } = data;
 
+      // Track Lead event for Meta Lead campaigns
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead', {
+          content_name: 'AI Automation Workshop Lead',
+          currency: 'INR',
+          value: 99,
+        });
+      }
+
       // Ensure Razorpay SDK is loaded if not already in window
       if (typeof window !== 'undefined' && !(window as any).Razorpay) {
         await new Promise<void>((resolve) => {
@@ -241,6 +250,11 @@ export default function AIWebinarPage() {
         setConfirmedTicket(verifyData.ticket);
         setIsModalOpen(false);
         if (typeof window !== 'undefined' && (window as any).fbq) {
+          (window as any).fbq('track', 'CompleteRegistration', {
+            content_name: 'AI Automation Workshop Ticket',
+            value: 99,
+            currency: 'INR',
+          });
           (window as any).fbq('track', 'Purchase', {
             content_name: 'AI Automation Workshop Ticket',
             value: 99,
