@@ -143,6 +143,13 @@ export default function WebinarCheckoutPage() {
           setErrorMessage(failRes.error?.description || 'Payment was declined. Please try another method.');
           setIsSubmitting(false);
         });
+        if (typeof window !== 'undefined' && (window as any).fbq) {
+          (window as any).fbq('track', 'InitiateCheckout', {
+            content_name: 'AI Automation Workshop Ticket',
+            value: 99,
+            currency: 'INR',
+          });
+        }
         rzp.open();
       } else {
         // Fallback verification if script blocked
@@ -219,6 +226,32 @@ export default function WebinarCheckoutPage() {
     <div className="min-h-screen bg-[#F8F9FA] text-zinc-900 font-sans antialiased flex flex-col justify-between">
       {/* Razorpay Script */}
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+
+      {/* Meta Pixel Code */}
+      <Script id="meta-pixel-checkout" strategy="afterInteractive">
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '2290888315031564');
+          fbq('track', 'PageView');
+        `}
+      </Script>
+      <noscript>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          height="1"
+          width="1"
+          style={{ display: 'none' }}
+          src="https://www.facebook.com/tr?id=2290888315031564&ev=PageView&noscript=1"
+          alt=""
+        />
+      </noscript>
 
       {/* Top Header Matching Image 3 with Clearly Visible Logo */}
       <header className="w-full bg-white border-b border-zinc-200 py-3 px-4 sm:px-8 sticky top-0 z-30 shadow-sm">

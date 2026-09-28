@@ -53,6 +53,8 @@ declare global {
   interface Window {
     Razorpay?: any;
     dataLayer?: any[];
+    fbq?: any;
+    _fbq?: any;
   }
 }
 
@@ -200,6 +202,13 @@ export default function AIWebinarPage() {
           setErrorMessage(failRes.error?.description || 'Payment was declined. Please try again.');
           setIsSubmitting(false);
         });
+        if (typeof window !== 'undefined' && (window as any).fbq) {
+          (window as any).fbq('track', 'InitiateCheckout', {
+            content_name: 'AI Automation Workshop Ticket',
+            value: 99,
+            currency: 'INR',
+          });
+        }
         rzp.open();
       } else {
         await verifyPayment({
@@ -231,6 +240,13 @@ export default function AIWebinarPage() {
       if (verifyRes.ok && verifyData.ticket) {
         setConfirmedTicket(verifyData.ticket);
         setIsModalOpen(false);
+        if (typeof window !== 'undefined' && (window as any).fbq) {
+          (window as any).fbq('track', 'Purchase', {
+            content_name: 'AI Automation Workshop Ticket',
+            value: 99,
+            currency: 'INR',
+          });
+        }
       } else {
         throw new Error(verifyData.error || 'Payment verification encountered an issue.');
       }
@@ -245,6 +261,32 @@ export default function AIWebinarPage() {
     <div className="min-h-screen w-full bg-[#0A0A0D] text-white font-sans selection:bg-amber-400 selection:text-black antialiased relative overflow-x-hidden pb-24 sm:pb-16">
       {/* Razorpay Script */}
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+
+      {/* Meta Pixel Code */}
+      <Script id="meta-pixel" strategy="afterInteractive">
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '2290888315031564');
+          fbq('track', 'PageView');
+        `}
+      </Script>
+      <noscript>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          height="1"
+          width="1"
+          style={{ display: 'none' }}
+          src="https://www.facebook.com/tr?id=2290888315031564&ev=PageView&noscript=1"
+          alt=""
+        />
+      </noscript>
 
       {/* Ambient Gold Glows */}
       <div className="fixed inset-0 pointer-events-none z-0">

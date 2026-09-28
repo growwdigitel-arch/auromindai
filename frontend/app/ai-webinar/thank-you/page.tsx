@@ -3,6 +3,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Script from 'next/script';
 import { useSearchParams } from 'next/navigation';
 import { 
   CheckCircle2, 
@@ -36,6 +37,33 @@ function ThankYouContent() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-zinc-900 font-sans antialiased flex flex-col justify-between overflow-x-hidden">
+      {/* Meta Pixel Code */}
+      <Script id="meta-pixel-thankyou" strategy="afterInteractive">
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '2290888315031564');
+          fbq('track', 'PageView');
+          fbq('track', 'Purchase', { value: 99, currency: 'INR', content_name: 'AI Automation Workshop Ticket' });
+        `}
+      </Script>
+      <noscript>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          height="1"
+          width="1"
+          style={{ display: 'none' }}
+          src="https://www.facebook.com/tr?id=2290888315031564&ev=PageView&noscript=1"
+          alt=""
+        />
+      </noscript>
+
       {/* Header with Visible Logo */}
       <header className="w-full bg-white border-b border-zinc-200 py-3.5 px-4 sm:px-8 sticky top-0 z-30 shadow-sm">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
