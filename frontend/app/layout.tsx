@@ -175,7 +175,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="overflow-x-hidden max-w-full" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/logo.png" sizes="any" />
         <link rel="shortcut icon" href="/logo.png" />
@@ -206,7 +206,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-background text-foreground antialiased selection:bg-accent-light selection:text-secondary overflow-x-hidden max-w-full w-full" suppressHydrationWarning>
+      <body className="bg-background text-foreground antialiased selection:bg-accent-light selection:text-secondary" suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>

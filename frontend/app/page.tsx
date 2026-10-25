@@ -16,7 +16,7 @@ import { SiteFooter } from '@/components/landing/SiteFooter';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden w-full max-w-full">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 w-full">
       {/* 1. Brand Navbar */}
       <SiteHeader activePage="home" />
 

@@ -33,6 +33,17 @@ interface SiteHeaderProps {
 export function SiteHeader({ activePage = 'home' }: SiteHeaderProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [desktopIndustriesOpen, setDesktopIndustriesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Monitor scroll for subtle shadow elevation
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Lock background scroll when mobile drawer is open
   useEffect(() => {
@@ -116,7 +127,11 @@ export function SiteHeader({ activePage = 'home' }: SiteHeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-100 transition-all">
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-100 transition-all duration-200 ${
+          scrolled ? 'shadow-sm bg-white/98' : 'shadow-none'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           {/* Brand Logo */}
@@ -286,6 +301,9 @@ export function SiteHeader({ activePage = 'home' }: SiteHeaderProps) {
           </div>
         </div>
       </header>
+
+      {/* Persistent spacer to preserve document flow without any jump */}
+      <div className="h-20 w-full shrink-0" aria-hidden="true" />
 
       {/* =========================================================================
           SLIDE-OVER MOBILE DRAWER (Comes smoothly from the side)
