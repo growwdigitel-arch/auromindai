@@ -28,12 +28,12 @@ export function LandingFooter() {
       { label: 'Comparison Matrix', href: '/#comparison' },
     ],
     Solutions: [
+      { label: 'Healthcare & Clinical Intake', href: '/healthcare' },
       { label: 'eCommerce Sales AI', href: '/ecommerce' },
+      { label: 'Fintech & Risk AI', href: '/fintech' },
       { label: 'Real Estate Sales AI', href: '/real-estate' },
-      { label: 'Healthcare & Clinical Intake', href: '/#industries' },
-      { label: 'Giving AI & Philanthropy', href: '/#industries' },
-      { label: 'Custom AI Software Systems', href: '/#industries' },
-      { label: 'Mobile Applications', href: '/#industries' },
+      { label: 'Logistics & Supply Chain', href: '/logistics' },
+      { label: 'Legal & Compliance AI', href: '/legal' },
     ],
     'Security & Encryption': [
       { label: 'Data Encryption Standards', href: '/security', badge: 'AES-256' },

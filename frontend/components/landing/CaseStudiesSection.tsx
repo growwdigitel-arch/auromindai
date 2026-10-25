@@ -45,8 +45,8 @@ export function CaseStudiesSection() {
         { label: 'Compliance', value: '100%', sub: 'HIPAA-conscious' }
       ],
       icon: HeartPulse,
-      href: '/#industries',
-      linkText: 'View Healthcare AI Overview'
+      href: '/healthcare',
+      linkText: 'Explore Healthcare AI Solution'
     }
   ];
 

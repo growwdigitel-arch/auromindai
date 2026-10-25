@@ -20,6 +20,23 @@ import {
 export function IndustriesShowcase() {
   const industries = [
     {
+      id: 'healthcare',
+      title: 'Healthcare',
+      badge: 'HIPAA-Conscious AI',
+      icon: HeartPulse,
+      color: 'from-cyan-500/10 to-blue-500/10 text-cyan-600 border-cyan-200',
+      description: 'Streamline patient intake, appointment scheduling, and post-consultation follow-ups with medical-grade precision and privacy.',
+      features: [
+        '24/7 automated patient booking & rescheduling',
+        'Intelligent symptom pre-intake & triaging',
+        'Post-op medication & recovery check-ins',
+        'Secure patient record management'
+      ],
+      metric: '85% Less Desk Workload',
+      href: '/healthcare',
+      ctaText: 'Explore Healthcare AI'
+    },
+    {
       id: 'ecommerce',
       title: 'eCommerce',
       badge: 'High-Converting Sales',
@@ -37,38 +54,21 @@ export function IndustriesShowcase() {
       ctaText: 'Explore eCommerce Solution'
     },
     {
-      id: 'healthcare',
-      title: 'Healthcare',
-      badge: 'HIPAA-Conscious AI',
-      icon: HeartPulse,
-      color: 'from-cyan-500/10 to-blue-500/10 text-cyan-600 border-cyan-200',
-      description: 'Streamline patient intake, appointment scheduling, and post-consultation follow-ups with medical-grade precision and privacy.',
+      id: 'fintech',
+      title: 'Fintech & Banking',
+      badge: 'Sub-300ms Fraud AI',
+      icon: Smartphone,
+      color: 'from-amber-500/10 to-orange-500/10 text-amber-600 border-amber-200',
+      description: 'Zero-touch KYC onboarding, real-time transaction anomaly detection, and automated AML compliance checks.',
       features: [
-        '24/7 automated patient booking & rescheduling',
-        'Intelligent symptom pre-intake & triaging',
-        'Post-op medication & recovery check-ins',
-        'Secure patient record management'
+        'Instant document parsing & biometric KYC',
+        'Sub-second payment fraud scoring',
+        'Automated credit underwriting telemetry',
+        'SOC 2 & PCI-DSS banking-grade security'
       ],
-      metric: '85% Less Desk Workload',
-      href: '/login',
-      ctaText: 'Explore Healthcare AI'
-    },
-    {
-      id: 'giving',
-      title: 'Giving AI',
-      badge: 'Philanthropy & Non-Profits',
-      icon: HeartHandshake,
-      color: 'from-rose-500/10 to-pink-500/10 text-rose-600 border-rose-200',
-      description: 'Amplify non-profit impact with AI donor stewardship, automated recurring gift nurture campaigns, and grant proposal generation.',
-      features: [
-        'Personalized donor engagement & stewardship',
-        'Automated pledge & recurring gift sequences',
-        'Grant writing & impact reporting synthesis',
-        'Multi-channel donor outreach (Email, SMS, Web)'
-      ],
-      metric: '2.4x Donor Retention',
-      href: '/login',
-      ctaText: 'Explore Giving AI'
+      metric: '< 300ms Latency',
+      href: '/fintech',
+      ctaText: 'Explore Fintech AI'
     },
     {
       id: 'realestate',
@@ -88,38 +88,38 @@ export function IndustriesShowcase() {
       ctaText: 'Explore Real Estate AI'
     },
     {
-      id: 'software',
-      title: 'AI Software',
-      badge: 'Enterprise Engineering',
-      icon: Code2,
+      id: 'logistics',
+      title: 'Logistics & Supply Chain',
+      badge: 'Fleet & Cargo Optimization',
+      icon: Clock,
       color: 'from-indigo-500/10 to-purple-500/10 text-indigo-600 border-indigo-200',
-      description: 'Custom AI software architecture, private fine-tuned LLMs, autonomous backend services, and RAG knowledge systems.',
+      description: 'Automate dynamic load allocation, zero-touch BOL & customs documentation, and predictive freight disruption alerts.',
       features: [
-        'Custom enterprise LLM fine-tuning & deployments',
-        'Autonomous API & microservice engineering',
-        'RAG document search & knowledge graphs',
-        'High-concurrency cloud infrastructure'
+        'Autonomous multi-stop dispatch & routing',
+        'Instant OCR for BOL & shipping manifests',
+        'Proactive delay & port congestion warnings',
+        '24/7 automated WhatsApp driver tracking'
       ],
-      metric: '99.9% Uptime SLA',
-      href: '/login',
-      ctaText: 'Explore AI Software'
+      metric: 'Zero Deadhead Miles',
+      href: '/logistics',
+      ctaText: 'Explore Logistics AI'
     },
     {
-      id: 'mobile',
-      title: 'Mobile Applications',
-      badge: 'iOS & Android AI',
-      icon: Smartphone,
-      color: 'from-amber-500/10 to-orange-500/10 text-amber-600 border-amber-200',
-      description: 'Native iOS and Android mobile apps infused with conversational AI, on-device neural models, and real-time push automation.',
+      id: 'legal',
+      title: 'Legal & Compliance',
+      badge: 'Private Clause Redlining',
+      icon: ShieldCheck,
+      color: 'from-purple-500/10 to-pink-500/10 text-purple-600 border-purple-200',
+      description: 'Deterministic clause redlining, continuous regulatory compliance auditing, and confidential intake assistant.',
       features: [
-        'Native Swift, Kotlin & React Native AI apps',
-        'Voice-enabled conversational copilot',
-        'Offline on-device inference optimization',
-        'Push notification intelligence engine'
+        'Automated MSA & NDA contract redlining',
+        'Regulatory audit trail for HIPAA/GDPR/SOC-2',
+        'Semantic case precedent search with citations',
+        'Zero Data Retention (ZDR) guarantee'
       ],
-      metric: '60 FPS Native UI',
-      href: '/login',
-      ctaText: 'Explore Mobile Apps'
+      metric: '10x Review Speed',
+      href: '/legal',
+      ctaText: 'Explore Legal AI'
     }
   ];
 
